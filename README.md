@@ -33,16 +33,13 @@ You can find more information and documentation on our [![SCCP Manager Wiki](htt
 ## Prerequisites
 Make sure you have the following installed on your system:
 - gui:
-  - freepbx >= 13.0.192
+  - FreePBX 17
+- Asterisk 22
+- PHP 8.2 (PHPx.x-zip must be installed, e.g. on Debian: `apt-get install php8.2-zip`)
 - a working version of [chan-sccp](https://github.com/chan-sccp/chan-sccp)
-- PHPx.x-zip has to be installed (where x.x is the installed version of PHP).
-  For example, on Debian, using PHP7.3
-```
-apt-get install PHP7.3-zip
-```
 
 ### Requirements
-- chan-sccp module 4.3.4 (or later) channel driver for Asterisk: [See our WIKI](https://github.com/chan-sccp/chan-sccp/wiki/Building-and-Installation-Guide)
+- chan-sccp module 4.3.4 (or later) channel driver for Asterisk 22: [See our WIKI](https://github.com/chan-sccp/chan-sccp/wiki/Building-and-Installation-Guide)
   - sccp_manager expects these configure flags to be set during compilation:
     ```./configure  --enable-conference --enable-advanced-functions --enable-distributed-devicestate --enable-video```
 
@@ -70,18 +67,23 @@ How to install sccp_manager
 3. Click Upload Modules.
 4. Enter one of the following urls:
 
-Stable - Version 14.3.
+Stable - Version 17.0.1.1 (recommended).
 
-This is the latest version of sccp_manager and has many bug fixes. It is targetted for FreePbx 16 and as such requires PHP > 7.3. It works fine with FreePbx 15 as long as you can upgrade PHP (this cannot be done if you use commercial modules). There are changes to the database structure, and so this cannot be easily reverted to prior versions without using a backup, which the installer will create. If you are using a VM,  it is recommended to take a snapshot before upgrading.
-Upgrades via FreePbx module admin are enabled in this release, but do not work because of a FreePbx issue (a patch has been posted). To workaround this, if you see that an upgrade is available, you can download it via the command line console which is unaffected by this issue
+For FreePBX 17, Asterisk 22, PHP 8.2. This is the latest stable version of sccp_manager. The installer will create a backup before upgrading; if you use a VM, a snapshot is also recommended.
+Upgrades via FreePBX Module Admin GUI may not work because of a known FreePBX issue; use the command line instead:
 ```
 fwconsole ma upgrade sccp_manager
 ```
 ```
-https://github.com/chan-sccp/sccp_manager/archive/refs/tags/14.3.0.13.zip
+https://github.com/chan-sccp/sccp_manager/archive/refs/tags/v17.0.1.1.zip
 ```
 
-Stable (For PHP < 7 only)
+Older stable (FreePBX 16, PHP 7.3+)
+```
+https://github.com/chan-sccp/sccp_manager/archive/refs/tags/v14.5.0.4.zip
+```
+
+Legacy (PHP &lt; 7)
 ```
 https://github.com/chan-sccp/sccp_manager/archive/refs/tags/v14.2.0.11.zip
 ```
@@ -104,7 +106,7 @@ https://github.com/chan-sccp/sccp_manager/archive/refs/heads/develop.zip
 
 ### Module update to latest state
 
-If you installed any version >14.3.0.13, the module can be updated to the latest version via FreePBX. The GUI version FreePBX -> Admin -> Module Admin currently has a reported bug, but the upgrade can be made via the command line using
+If you installed any version >= 14.3.0.13, the module can be updated to the latest version via FreePBX (including 17.0.1.1). The GUI version FreePBX -> Admin -> Module Admin currently has a reported bug, but the upgrade can be made via the command line using
 ```
 fwconsole ma upgrade sccp_manager
 ```
