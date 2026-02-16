@@ -76,7 +76,7 @@ global $amp_conf;
                         <input type="text" class="form-control" id="new_model" name="new_model" value="79XX">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_model-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="new_model-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -86,7 +86,7 @@ global $amp_conf;
                         <input type="text" class="form-control" id="new_vendor" name="new_vendor" value="CISCO">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_vendor-help" class="help-block fpbx-help-block">Use "CISCO" for the Skinny Client Control Protocol and "CISCO-SIP" for the CISCO Sip Protocol</span>
+                        <span id="new_vendor-help" class="help-block fpbx-help-block"><?php echo _("Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -101,7 +101,7 @@ global $amp_conf;
                         </select>
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_dns-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="new_dns-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -111,7 +111,7 @@ global $amp_conf;
                         <input type="number" min="1" min="96" class="form-control" id="new_buttons" name="new_buttons" value="1">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_buttons-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="new_buttons-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -121,7 +121,7 @@ global $amp_conf;
                         <input type="text" class="form-control" id="new_loadimage" name="new_loadimage" value="">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_loadimage-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="new_loadimage-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -131,7 +131,7 @@ global $amp_conf;
                         <input type="text" class="form-control" id="new_loadinformationid" name="new_loadinformationid" value="">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_loadinformationid-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="new_loadinformationid-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -141,7 +141,7 @@ global $amp_conf;
                         <input type="text" class="form-control" id="new_nametemplate" name="new_nametemplate" value="">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="new_nametemplate-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="new_nametemplate-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
             </div>
             <div class="modal-footer">
@@ -211,7 +211,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <input type="text" class="form-control" id="editd_model" name="editd_model" value="79XX" disabled>
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_model-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="editd_model-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -221,7 +221,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <input type="text" class="form-control" id="editd_vendor" name="editd_vendor" value="CISCO">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_vendor-help" class="help-block fpbx-help-block">Use "CISCO" for the Skinny Client Control Protocol and "CISCO-SIP" for the CISCO Sip Protocol</span>
+                        <span id="editd_vendor-help" class="help-block fpbx-help-block"><?php echo _("Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -236,7 +236,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         </select>
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_dns-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="editd_dns-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -246,7 +246,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <input type="number" min="1" min="96" class="form-control" id="editd_buttons" name="editd_buttons" value="1">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_buttons-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="editd_buttons-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -256,7 +256,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <select class="form-control" id="editd_loadimage" name="editd_loadimage"><option value="">—</option></select>
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_loadimage-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="editd_loadimage-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -266,7 +266,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <input type="text" class="form-control" id="editd_loadinformationid" name="editd_loadinformationid" value="">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_loadinformationid-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="editd_loadinformationid-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
 
                 <div class="element-container"><div class="row"> <div class="form-group"><div class="col-md-3">
@@ -276,7 +276,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <input type="text" class="form-control" id="editd_nametemplate" name="editd_nametemplate" value="">
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
-                        <span id="editd_nametemplate-help" class="help-block fpbx-help-block">Help.</span>
+                        <span id="editd_nametemplate-help" class="help-block fpbx-help-block"><?php echo _("Help."); ?></span>
                 </div></div></div>
             </div>
             <div class="modal-footer">

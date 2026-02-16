@@ -1009,3 +1009,19 @@ msgstr ""
 #: views/server.model:
 msgid "When IP phones lose contact with primary, secondary, and tertiary Asterisk Nodes (CM's), they must establish a connection to a local SRST router to sustain the call-processing capability necessary to place and receive calls. The IP phone retains the IP address of the local SRST router as a default router in the Network Configuration area of the Settings menu. The Settings menu supports a maximum of five default router entries; however, the cnf.xml accommodates a maximum of three entries. When a secondary Asterisk Node is not available on the network, the local SRST Router's IP address is retained as the standby connection for Asterisk Node during normal operation."
 msgstr ""
+
+#: views/advserver.model.php views/getFileModal.html
+msgid "Help."
+msgstr ""
+
+#: views/advserver.keyset.php
+msgid "help."
+msgstr ""
+
+#: views/advserver.model.php
+msgid "Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"
+msgstr ""
+
+#: views/advserver.keyset.php
+msgid "Max length 15 letters or numbers without spaces"
+msgstr ""

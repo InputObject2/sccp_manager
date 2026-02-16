@@ -428,7 +428,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Message Lamp On Call"
-msgstr "Message Lamp On Call"
+msgstr "Индикатор сообщений при вызове"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Device advanced config"
@@ -530,15 +530,15 @@ msgstr "Часовой пояс задаётся в FreePBX; изменить м
 
 #: views/sccpgeneral.xml:
 msgid "Date Format: Time zone"
-msgstr "Date Format: Часовой пояс"
+msgstr "Формат даты: часовой пояс"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP URL Service config"
-msgstr "Настройка Внеших URL сервисов"
+msgstr "Настройка внешних URL сервисов"
 
 #: views/sccpgeneral.xml:
 msgid "Phone Service URL"
-msgstr "Service Menu URL"
+msgstr "URL сервисного меню телефона"
 
 #: views/sccpgeneral.xml:
 msgid "Phone authentication URLe"
@@ -1711,6 +1711,22 @@ msgstr "Экспериментальная функция: роуминг пол
 
 msgid "If this is set to yes, Sccp_manager will try to get data files from dkgroot/Provision (languages, ring tones, firmware etc). This is enabled at your own risk - Sccp_Manager cannot vouch for the security or accuracy of these files, and this option is included to assist in getting up to speed as rapidly as possible."
 msgstr "При «Да» Sccp_manager будет загружать файлы данных из dkgroot/Provision (языки, рингтоны, прошивки и т.д.). Использование на свой риск — Sccp_Manager не гарантирует безопасность и корректность этих файлов; опция предназначена для быстрой первоначальной настройки."
+
+#: views/advserver.model.php, views/getFileModal.html
+msgid "Help."
+msgstr "Справка."
+
+#: views/advserver.keyset.php
+msgid "help."
+msgstr "Справка."
+
+#: views/advserver.model.php
+msgid "Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"
+msgstr "Укажите \"CISCO\" для протокола SCCP (Skinny) или \"CISCO-SIP\" для Cisco SIP."
+
+#: views/advserver.keyset.php
+msgid "Max length 15 letters or numbers without spaces"
+msgstr "Не более 15 латинских букв или цифр без пробелов."
 
 #~ msgid "Buttons "
 #~ msgstr "Кнопки "
