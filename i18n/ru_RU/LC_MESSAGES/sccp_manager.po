@@ -27,55 +27,55 @@ msgstr ""
 
 #: module.xml
 msgid "SCCP Connectivity"
-msgstr "Сервер SCCP"
+msgstr "SCCP Connectivity"
 
 #: module.xml
 msgid "Server Config"
-msgstr "Настройка SCCP сервера"
+msgstr "Server Config"
 
 #: module.xml
 msgid "System Parameters"
-msgstr "Настройка Модулей"
+msgstr "System Parameters"
 
 #: module.xml
 msgid "Phones Manager"
-msgstr "Настройка аб. устройств"
+msgstr "Phones Manager"
 
 #: Sccp_manager.class
 msgid "General SCCP Settings"
-msgstr "Настройки Сервера SCCP"
+msgstr "General SCCP Settings"
 
 #: Sccp_manager.class
 msgid "SCCP Device"
-msgstr "Настройки для Cisco Phone"
+msgstr "SCCP Device"
 
 #: Sccp_manager.class
 msgid "SCCP Time"
-msgstr "Информация о Сервере NTP"
+msgstr "SCCP Time"
 
 #: Sccp_manager.class
 msgid "SCCP Codec"
-msgstr "Кодеки по умолчанию"
+msgstr "SCCP Codec"
 
 #: Sccp_manager.class
 msgid "SCCP Device Keyset"
-msgstr "Конфигурация KeySet"
+msgstr "SCCP Device Keyset"
 
 #: Sccp_manager.class
 msgid "SCCP Model information"
-msgstr "Поддерживаемые сервером устройства"
+msgstr "SCCP Model information"
 
 #: Sccp_manager.class
 msgid "Device configuration"
-msgstr "Абонентское устройство"
+msgstr "Device configuration"
 
 #: Sccp_manager.class
 msgid "Device Buttons"
-msgstr "Настройка кнопок"
+msgstr "Device Buttons"
 
 #: Sccp_manager.class
 msgid "Device SCCP Codec"
-msgstr "Кодеки на устройстве"
+msgstr "Device SCCP Codec"
 
 #: Sccp_manager.class
 msgid "SCCP Extension"
@@ -87,47 +87,47 @@ msgstr "SCCP Оборудование"
 
 #: views/Buttons
 msgid "On"
-msgstr "Вкл"
+msgstr "On"
 
 #: views/Buttons
 msgid "Off"
-msgstr "Выкл"
+msgstr "Off"
 
 #: views/Buttons
 msgid "Yes"
-msgstr "Да"
+msgstr "Yes"
 
 #: views/Buttons
 msgid "No"
-msgstr "Нет"
+msgstr "No"
 
 #: views/Buttons
 msgid "Wink"
-msgstr "Подмигивать"
+msgstr "Wink"
 
 #: views/Buttons
 msgid "Flash"
-msgstr "Вспыхивать"
+msgstr "Flash"
 
 #: views/Buttons
 msgid "Blink"
-msgstr "Мерцать"
+msgstr "Blink"
 
 #: views/Buttons
 msgid "Enabled"
-msgstr "Включено"
+msgstr "Enabled"
 
 #: views/Buttons
 msgid "Disabled"
-msgstr "Выключено"
+msgstr "Disabled"
 
 #: views/sccpgeneral.xml
 msgid "SCCP Server config"
-msgstr "SCCP Сервер"
+msgstr "SCCP Server config"
 
 #: views/sccpgeneral.xml
 msgid "SCCP Server Name"
-msgstr "Имя SCCP Сервера"
+msgstr "SCCP Server Name"
 
 #: views/sccpgeneral.xml
 msgid "Servername: This is the type of server - usually, it will be Asterisk."
@@ -135,7 +135,7 @@ msgstr "Servername: это Имя сервера - обычно это буде�
 
 #: views/sccpgeneral.xml
 msgid "Bind Address : [ Port ]"
-msgstr "Слушать SCCP на адресе: [ Порту ]"
+msgstr "Bind Address : [ Port ]"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -148,7 +148,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "External Ip"
-msgstr "Внешний адрес"
+msgstr "External Ip"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -156,12 +156,16 @@ msgid ""
 "a separatehost behind it. IP Address that we're going to notify in RTP media "
 "stream as the pbx source address."
 msgstr ""
-"Внешний IP файрвола, если PBX за ним. Этот адрес передаётся в RTP media как "
-"адрес источника PBX."
+"Внешний IP файрвола, если PBX за ним. Этот адрес передаётся в RTP как адрес "
+"источника PBX."
+
+#: conf/sccpgeneral.xml.v433 (externip full help)
+msgid "External IP Address of the firewall, required in case the PBX is running on a separate host behind it. IP Address that we're going to notify in RTP media stream as the pbx source address. Resolve Hostname (if dynamic) that we're going to resolve when setting up the RTP media stream (only active if externip=0.0.0.0 and host is natted.)"
+msgstr "Внешний IP файрвола (если PBX за ним). Адрес, который передаётся в RTP как источник PBX. Имя хоста (при динамическом IP) для подстановки при настройке RTP (используется при externip=0.0.0.0 и NAT)."
 
 #: views/sccpgeneral.xml:
 msgid "SCCP SERVER Keepalive"
-msgstr "Время ожидения Keepalive"
+msgstr "SCCP SERVER Keepalive"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -173,15 +177,15 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "SCCP DEBUG"
-msgstr "Режим отладки"
+msgstr "SCCP DEBUG"
 
 #: views/sccpgeneral.xml:
 msgid "Debug: Enable debugging level in SCCP module."
-msgstr "Урровень детализации в Логе отладки модуля SCCP."
+msgstr "Уровень детализации в логе отладки модуля SCCP."
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Networks"
-msgstr "Настройка сетевых параметров сервера SCCP"
+msgstr "SCCP Networks"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -196,11 +200,11 @@ msgstr "Список допустимых для регистрации подс
 
 #: views/sccpgeneral.xml:
 msgid "Deny Networks / Mask"
-msgstr "Запрещенные Подсети"
+msgstr "Deny Networks / Mask"
 
 #: views/sccpgeneral.xml:
 msgid "Add Deny network"
-msgstr "Еще Deny Net"
+msgstr "Add Deny network"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -212,11 +216,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Local Networks / Mask"
-msgstr "Локальные сети / Маска"
+msgstr "Local Networks / Mask"
 
 #: views/sccpgeneral.xml:
 msgid "Add local networks"
-msgstr "Добавить локальную сеть"
+msgstr "Add local networks"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -227,7 +231,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Language"
-msgstr "SCCP Настройка языков"
+msgstr "SCCP Language"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP System Language"
@@ -268,7 +272,7 @@ msgstr "SCCP настройка абонентских устройств"
 
 #: views/sccpgeneral.xml:
 msgid "First Digit Timeout"
-msgstr "Время ожидания набора"
+msgstr "First Digit Timeout"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -293,7 +297,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Autoanswer Ring Time"
-msgstr "Время автоответа"
+msgstr "Autoanswer Ring Time"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -359,15 +363,15 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Echo Cancel"
-msgstr "Эхо компенсация"
+msgstr "Echo Cancel"
 
 #: views/sccpgeneral.xml:
 msgid "Echo Cancel: Echo Cancellation (On or Off)."
-msgstr "Включение отключеня эхокомпенсации."
+msgstr "Включение и отключение эхокомпенсации."
 
 #: views/sccpgeneral.xml:
 msgid "Silence Suppression"
-msgstr "Подавление тишины"
+msgstr "Silence Suppression"
 
 #: views/sccpgeneral.xml:
 msgid "Silence Suppression: Slience Suppression on the phone."
@@ -428,28 +432,28 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Message Lamp On Call"
-msgstr "Индикатор сообщений при вызове"
+msgstr "Message Lamp On Call"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Device advanced config"
-msgstr "Параметры настойки для Очень умных"
+msgstr "SCCP Device advanced config"
 
 #: views/sccpgeneral.xml:
 #, fuzzy
 #| msgid "Directed Pickup"
 msgid "Direct RTP"
-msgstr "Directed Pickup"
+msgstr "Direct RTP"
 
 #: views/sccpgeneral.xml:
 #, fuzzy
 #| msgid "This option allow devices to do direct RTP sessions (default Off)"
 msgid ""
 "This option set global allow devices to do direct RTP sessions (default Off)"
-msgstr "Разрешение передача сигналов сигнализации между устройстваи."
+msgstr "Разрешение прямой передачи медиа (RTP) между устройствами."
 
 #: views/sccpgeneral.xml:
 msgid "Early RTP"
-msgstr "Ранний RTP (раннее открытие медиа-потока)"
+msgstr "Early RTP"
 
 #: views/sccpgeneral.xml:
 #, fuzzy
@@ -465,15 +469,15 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Global Enable/Disable Softkeys"
-msgstr "Порграмные кнопки на телефонах"
+msgstr "Global Enable/Disable Softkeys"
 
 #: views/sccpgeneral.xml:
 msgid "Call Forward"
-msgstr "Кнопка Первод звонка"
+msgstr "Call Forward"
 
 #: views/sccpgeneral.xml:
 msgid "Call Forward busy"
-msgstr "Кнопка Первод звонка если занят"
+msgstr "Call Forward busy"
 
 #: views/sccpgeneral.xml:
 msgid "Activate the callforward busy softkeys. Default is On"
@@ -485,7 +489,7 @@ msgstr "SCCP Сервер Времени"
 
 #: views/sccpgeneral.xml:
 msgid "NTP Server Enabled"
-msgstr "Разрешаем NTP"
+msgstr "NTP Server Enabled"
 
 #: views/sccpgeneral.xml:
 msgid "Enabling NTP settings in device configuration."
@@ -493,23 +497,23 @@ msgstr "Включение параметров NTP в конфигурации 
 
 #: views/sccpgeneral.xml:
 msgid "NTP Server name (ip)"
-msgstr "Адрес Сервера NTP (IP)"
+msgstr "NTP Server name (ip)"
 
 #: views/sccpgeneral.xml:
 msgid "NTP Server name or IP"
-msgstr "Адрес Сервера NTP"
+msgstr "NTP Server name or IP"
 
 #: views/sccpgeneral.xml:
 msgid "Configure NTP Server protocol time synchronization"
-msgstr "Настойка протокола синхронизации времени"
+msgstr "Настройка протокола синхронизации времени"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Time Service config"
-msgstr "SCCP Настройка Сервера Времени"
+msgstr "SCCP Time Service config"
 
 #: views/sccpgeneral.xml:
 msgid "Display Day Format"
-msgstr "Формат времени на устройствах"
+msgstr "Display Day Format"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -522,7 +526,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Time Zone"
-msgstr "Часовой пояс"
+msgstr "Time Zone"
 
 #: conf/sccpgeneral.xml.v433 (help for ntp_timezone)
 msgid "System Time zone - this is set by FreePBX and can be changed in Settings : Advanced Settings"
@@ -530,15 +534,15 @@ msgstr "Часовой пояс задаётся в FreePBX; изменить м
 
 #: views/sccpgeneral.xml:
 msgid "Date Format: Time zone"
-msgstr "Формат даты: часовой пояс"
+msgstr "Date Format: Time zone"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP URL Service config"
-msgstr "Настройка внешних URL сервисов"
+msgstr "SCCP URL Service config"
 
 #: views/sccpgeneral.xml:
 msgid "Phone Service URL"
-msgstr "URL сервисного меню телефона"
+msgstr "Phone Service URL"
 
 #: views/sccpgeneral.xml:
 msgid "Phone authentication URLe"
@@ -592,11 +596,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Phone proxyServer URL"
-msgstr "Настройка proxy для телефона"
+msgstr "Phone proxyServer URL"
 
 #: views/sccpgeneral.xml:
 msgid "Phone Idle Timeout"
-msgstr "Время бездействия"
+msgstr "Phone Idle Timeout"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP QoS config"
@@ -639,7 +643,7 @@ msgstr "SCCP Конфигурация Линий"
 
 #: views/sccpgeneral.xml:
 msgid "Hotline"
-msgstr "Горячая линия"
+msgstr "Hotline"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -651,11 +655,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Hotline extension"
-msgstr "Номер горячей линии"
+msgstr "Hotline extension"
 
 #: views/sccpgeneral.xml:
 msgid "Hotline Label"
-msgstr "Как обозвать Горячую линию"
+msgstr "Hotline Label"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -667,7 +671,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Hotline Context"
-msgstr "Контекст для Hotline"
+msgstr "Hotline Context"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -681,7 +685,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "HELP SCCP HotLine"
-msgstr "Небольшая Помощь по HotLine"
+msgstr "HELP SCCP HotLine"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -724,7 +728,7 @@ msgstr "Для новых телефонов"
 
 #: views/sccpgeneral.xml:
 msgid "To only be able to call the helpdesk to get their phone set up"
-msgstr "Специальный номерочек для своих и для врагов"
+msgstr "Специальный номер для вызова службы настройки телефонов."
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -736,7 +740,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Allow ="
-msgstr "Разрешить ="
+msgstr "Allow ="
 
 #: views/sccpgeneral.xml:
 msgid "Specify a list of your networks, for example: 192.168.1.0"
@@ -744,7 +748,7 @@ msgstr "Укажите список ваших сетей, например: 192
 
 #: views/sccpgeneral.xml:
 msgid "System Context"
-msgstr "Системный контекст"
+msgstr "System Context"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -757,7 +761,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Dynamically registration Context"
-msgstr "Контекст динамической регистрации SCCP устройств"
+msgstr "Dynamically registration Context"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -776,7 +780,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Music On Hold Class"
-msgstr "Музыка в Ожидании"
+msgstr "Music On Hold Class"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -789,7 +793,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Autoselect Line"
-msgstr "Выбор линии при поднятии трубки"
+msgstr "Autoselect Line"
 
 #: views/sccpgeneral.xml:
 msgid "Enables and disables auto line selection."
@@ -797,7 +801,7 @@ msgstr "Включает и отключает автоматический вы
 
 #: views/sccpgeneral.xml:
 msgid "Meetme Conference"
-msgstr "Конференция Meetme"
+msgstr "Meetme Conference"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -812,7 +816,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Meetme Options"
-msgstr "Опции для Meetme"
+msgstr "Meetme Options"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -829,7 +833,7 @@ msgstr "Auto Call Select"
 
 #: views/sccpgeneral.xml:
 msgid "Background Image"
-msgstr "Рисунок Фона"
+msgstr "Background Image"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -852,11 +856,11 @@ msgstr "TFTP SERVER Path"
 
 #: views/sccpgeneral.xml:
 msgid "Path to tftp home directory"
-msgstr "Путь к  tftp"
+msgstr "Path to tftp home directory"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP SERVER MySQL Device Table Name"
-msgstr "Имя таблицы устройств (MySQL)"
+msgstr "SCCP SERVER MySQL Device Table Name"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -878,7 +882,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "SCCP SERVER MySQL Line Table Name"
-msgstr "Имя таблицы линий (MySQL)"
+msgstr "SCCP SERVER MySQL Line Table Name"
 
 #: views/sccpgeneral.xml:
 msgid "linetable"
@@ -901,7 +905,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Create tftp empty language dir"
-msgstr "Создание языковых каталогов tftp"
+msgstr "Create tftp empty language dir"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -913,11 +917,11 @@ msgstr ""
 #: views/sccpgeneral.xml: <!-- Form add/ edit device -->
 #, fuzzy
 msgid "General Device configuration"
-msgstr "Абонентское устройство"
+msgstr "General Device configuration"
 
 #: views/sccpgeneral.xml:
 msgid "Device ID.[XXXXXXXXXXXX]=MAC"
-msgstr "Устройство ID : [XXXXXXXXXXXX]=MAC"
+msgstr "Device ID.[XXXXXXXXXXXX]=MAC"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -931,11 +935,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Type"
-msgstr "Тип"
+msgstr "Type"
 
 #: views/sccpgeneral.xml:
 msgid "Type (phone model)"
-msgstr "Тип (модель телефона)"
+msgstr "Type (phone model)"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -969,7 +973,7 @@ msgstr "Модели не загружены. Добавьте модели в S
 
 #: views/sccpgeneral.xml:
 msgid "Addon"
-msgstr "Модуль расширения"
+msgstr "Addon"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -982,11 +986,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Device Label"
-msgstr "Название Устройства"
+msgstr "Device Label"
 
 #: views/sccpgeneral.xml:
 msgid "Device ID"
-msgstr "Идентификатор устройства ID"
+msgstr "Device ID"
 
 #: views/sccpgeneral.xml:
 msgid "The information in the upper right corner of the device screen"
@@ -994,15 +998,15 @@ msgstr "Информация в правом верхнем углу экран�
 
 #: views/sccpgeneral.xml:
 msgid "Soft Keyset"
-msgstr "Програмные Кнопки"
+msgstr "Soft Keyset"
 
 #: views/sccpgeneral.xml:
 msgid "System default softkey"
-msgstr "Настройка пронрамных кнопок"
+msgstr "System default softkey"
 
 #: views/sccpgeneral.xml:
 msgid "Time Zone offset"
-msgstr "Часовой пояс"
+msgstr "Time Zone offset"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1015,7 +1019,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Ringtone"
-msgstr "Мелодия звонка"
+msgstr "Ringtone"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1035,23 +1039,23 @@ msgstr ""
 
 #: views/sccpgeneral.xml: views/form.buttons: -----------------------------
 msgid "Buttons Configuration"
-msgstr "Настройка Кнопок"
+msgstr "Buttons Configuration"
 
 #: views/sccpgeneral.xml:
 msgid "Device MAC."
-msgstr "Прямое подключение."
+msgstr "Device MAC."
 
 #: views/sccpgeneral.xml:
 msgid "Device Properies"
-msgstr "Прямое подключение"
+msgstr "Device Properies"
 
 #: views/sccpgeneral.xml:
 msgid "Transfer allowed"
-msgstr "Трансфер доступен"
+msgstr "Transfer allowed"
 
 #: views/sccpgeneral.xml:
 msgid "Callforward softkeys"
-msgstr "Кнопка Первод"
+msgstr "Callforward softkeys"
 
 #: views/sccpgeneral.xml:
 msgid "Activate the callforward softkeys. Default is On"
@@ -1059,11 +1063,11 @@ msgstr "Активирует программные клавиши перево�
 
 #: views/sccpgeneral.xml:
 msgid "Callforward busy softkeys"
-msgstr "Кнопка Первод если занят"
+msgstr "Callforward busy softkeys"
 
 #: views/sccpgeneral.xml:
 msgid "Redial from Menu"
-msgstr "Режим кнопки Повтор"
+msgstr "Redial from Menu"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1079,7 +1083,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "DND Button on Device"
-msgstr "Не беспокоить для телефона"
+msgstr "DND Button on Device"
 
 #: views/sccpgeneral.xml:
 msgid "Do Not Disturb. Default is Off"
@@ -1104,7 +1108,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Pickup Mode Answer"
-msgstr "Режим ответв"
+msgstr "Pickup Mode Answer"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1118,7 +1122,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Pickup Context"
-msgstr "Контекст перехвата"
+msgstr "Pickup Context"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1131,19 +1135,19 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Device Conference Function"
-msgstr "Настройка конференций"
+msgstr "Device Conference Function"
 
 #: views/sccpgeneral.xml:
 msgid "Enabled Conference function"
-msgstr "Конференция разрешена"
+msgstr "Enabled Conference function"
 
 #: views/sccpgeneral.xml:
 msgid "Allow the use of conference"
-msgstr "Ему можно пользоваться конференциями"
+msgstr "Разрешает использование конференций на устройстве."
 
 #: views/sccpgeneral.xml:
 msgid "Playback General Announcements"
-msgstr "Общие анонс конференции"
+msgstr "Playback General Announcements"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1153,7 +1157,7 @@ msgstr "Общие анонсы воспроизведения (например
 
 #: views/sccpgeneral.xml:
 msgid "Playback Personal Announcements"
-msgstr "Воспроизведение личных сообщений"
+msgstr "Playback Personal Announcements"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1167,7 +1171,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Mute on start"
-msgstr "Микрофон ВЫКЛ. при подключении"
+msgstr "Mute on start"
 
 #: views/sccpgeneral.xml:
 msgid "Mute new participants from the start"
@@ -1175,7 +1179,7 @@ msgstr "Отключить микрофон у новых участников �
 
 #: views/sccpgeneral.xml: <!-- Form add/ edit device -->
 msgid "Show conference list"
-msgstr "Отображаем список конференций"
+msgstr "Show conference list"
 
 #: views/sccpgeneral.xml:
 msgid "Automatically show conference list to the moderator"
@@ -1194,38 +1198,38 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Device Network Function"
-msgstr "Сетевые настройки"
+msgstr "Device Network Function"
 
 #: views/sccpgeneral.xml:
 #, fuzzy
 msgid "Allow Networks / Mask"
-msgstr "Разешенные Подсети"
+msgstr "Allow Networks / Mask"
 
 #: views/sccpgeneral.xml:
 msgid ""
 "IP deny: IP Address deny netmask. Should always be at least "
 "'0.0.0.0/0.0.0.0'."
-msgstr "То что не разрешено - зарещено поставь '0.0.0.0/0.0.0.0'."
+msgstr "То, что не разрешено — запрещено. Для разрешения всего укажите '0.0.0.0/0.0.0.0'."
 
 #: views/sccpgeneral.xml:
 msgid "NAT Device"
-msgstr "Устройство за NATом"
+msgstr "NAT Device"
 
 #: views/sccpgeneral.xml:
 msgid "Device NAT support (default Off)"
-msgstr "Влкючение поддержки NAT на устройствах"
+msgstr "Включение поддержки NAT на устройствах"
 
 #: views/sccpgeneral.xml:
 msgid "Directrtp Device"
-msgstr "Прямое подключение"
+msgstr "Directrtp Device"
 
 #: views/sccpgeneral.xml:
 msgid "This option allow devices to do direct RTP sessions (default Off)"
-msgstr "Разрешение передача сигналов сигнализации между устройстваи."
+msgstr "Разрешение прямой передачи медиа (RTP) между устройствами."
 
 #: views/sccpgeneral.xml:
 msgid "Early Rtp Device"
-msgstr "Ранний RTP на устройстве (раннее открытие медиа)"
+msgstr "Early Rtp Device"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -1240,7 +1244,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Buttons"
-msgstr "Кнопки"
+msgstr "Buttons"
 
 #: views/sccpgeneral.xml:
 #, fuzzy
@@ -1285,35 +1289,35 @@ msgid ""
 "toggled (How to use devicestate)hold = To be implementedtransfer = To be "
 "implementedmultiblink = To be implementedmobility = To be "
 "implementedconference = To be implemented"
-msgstr "Помощь придет"
+msgstr "Раздел в разработке."
 
 #: views/server.model:
 msgid "Add model"
-msgstr "Добавить Модель"
+msgstr "Add model"
 
 #: views/server.model:
 msgid "Show Enabled"
-msgstr "Показать Включеные"
+msgstr "Show Enabled"
 
 #: views/server.model:
 msgid "Expansion Module"
-msgstr "Модули Расширения"
+msgstr "Expansion Module"
 
 #: views/server.model:
 msgid "Show All"
-msgstr "Показать Все"
+msgstr "Show All"
 
 #: views/server.model:
 msgid "Device Model"
-msgstr "Модель устройства"
+msgstr "Device Model"
 
 #: views/server.model:
 msgid "Vendor"
-msgstr "Производитель"
+msgstr "Vendor"
 
 #: views/server.model:
 msgid "Loadimage"
-msgstr "Микропрограмма"
+msgstr "Loadimage"
 
 #: views/server.model:
 msgid "Loadinformation ID"
@@ -1321,23 +1325,23 @@ msgstr "Cisco код модели"
 
 #: views/server.model:
 msgid "Model template"
-msgstr "Шаблон настроек .xml_XXX_template"
+msgstr "Model template"
 
 #: views/server.model:
 msgid "Modal title"
-msgstr "Описание"
+msgstr "Modal title"
 
 #: views/server.model:
 msgid "Vendor name"
-msgstr "Производитель"
+msgstr "Vendor name"
 
 #: views/server.model:
 msgid "Model Line Buttons"
-msgstr "Количество кнопок"
+msgstr "Model Line Buttons"
 
 #: views/server.model:
 msgid "Load Image"
-msgstr "Микропрограмма"
+msgstr "Load Image"
 
 #: views/server.model:
 msgid "Load Information ID"
@@ -1345,43 +1349,43 @@ msgstr "Cisco код модели"
 
 #: views/server.model:
 msgid "Model template XML"
-msgstr "Шаблон настроек .xml_XXX_template"
+msgstr "Model template XML"
 
 #: views/server.model:
 msgid "Close"
-msgstr "Закрыть"
+msgstr "Close"
 
 #: views/server.model:
 msgid "Add New model without Enabled"
-msgstr "Добавить шаблон как неактивный"
+msgstr "Add New model without Enabled"
 
 #: views/server.model:
 msgid "Device is enabled"
-msgstr "Устройство включено"
+msgstr "Device is enabled"
 
 #: views/server.model: ----------------------------
 msgid "Device Descriptions"
-msgstr "Описание"
+msgstr "Device Descriptions"
 
 #: views/server.model:
 msgid "Device type"
-msgstr "Модель"
+msgstr "Device type"
 
 #: views/server.model:
 msgid "Actions"
-msgstr "Действие"
+msgstr "Actions"
 
 #: views/server.model:
 msgid "Status"
-msgstr "Статус"
+msgstr "Status"
 
 #: views/server.model:
 msgid "SCCP Phone SRST"
-msgstr "Настройка SRST"
+msgstr "SCCP Phone SRST"
 
 #: views/server.model:
 msgid "HELP SRST"
-msgstr "Помощь по SRST"
+msgstr "HELP SRST"
 
 #: views/server.model:
 msgid ""
@@ -1433,7 +1437,7 @@ msgstr ""
 
 #: views/form.dptemplate.php
 msgid "Dial Plan Help"
-msgstr "Справка по плану набора"
+msgstr "Dial Plan Help"
 
 #: views/form.dptemplate.php
 msgid "Specifies a pattern to match dialed digits against. Note: TEMPLATE must be in uppercase."
@@ -1441,11 +1445,11 @@ msgstr "Шаблон для сопоставления набираемых ци
 
 #: views/form.dptemplate.php
 msgid "Rules:"
-msgstr "Правила:"
+msgstr "Rules:"
 
 #: views/form.dptemplate.php
 msgid "match:"
-msgstr "шаблон:"
+msgstr "match:"
 
 #: views/form.dptemplate.php
 msgid "Pattern to match, consists of one or more elements"
@@ -1453,19 +1457,19 @@ msgstr "Шаблон сопоставления из одного или нес�
 
 #: views/form.dptemplate.php
 msgid "Match digit"
-msgstr "Сопоставить цифру"
+msgstr "Match digit"
 
 #: views/form.dptemplate.php
 msgid "Match one digit, # or *"
-msgstr "Сопоставить одну цифру, # или *"
+msgstr "Match one digit, # or *"
 
 #: views/form.dptemplate.php
 msgid "Match zero or more digits, # or *"
-msgstr "Сопоставить ноль и более цифр, # или *"
+msgstr "Match zero or more digits, # or *"
 
 #: views/form.dptemplate.php
 msgid "Match a literal *"
-msgstr "Сопоставить символ * буквально"
+msgstr "Match a literal *"
 
 #: views/form.dptemplate.php
 msgid "Play secondary dial-tone specified by tone"
@@ -1473,7 +1477,7 @@ msgstr "Воспроизвести вторичный тон набора, за�
 
 #: views/form.dptemplate.php
 msgid "timeout:"
-msgstr "таймаут:"
+msgstr "timeout:"
 
 #: views/form.dptemplate.php
 msgid "Number of seconds to wait for more digits if this pattern matches"
@@ -1481,7 +1485,7 @@ msgstr "Число секунд ожидания дополнительных ц
 
 #: views/form.dptemplate.php
 msgid "line:"
-msgstr "линия:"
+msgstr "line:"
 
 #: views/form.dptemplate.php
 msgid "Only apply template to the specified line (optional)"
@@ -1489,7 +1493,7 @@ msgstr "Применять шаблон только к указанной ли�
 
 #: views/form.dptemplate.php
 msgid "rewrite:"
-msgstr "замена:"
+msgstr "rewrite:"
 
 #: views/form.dptemplate.php
 msgid "Rewrite the matched digits before dialing, consists of one or more elements (optional)"
@@ -1497,11 +1501,11 @@ msgstr "Замена совпавших цифр перед набором, од
 
 #: views/form.dptemplate.php
 msgid "Replace with digit"
-msgstr "Заменить на цифру"
+msgstr "Replace with digit"
 
 #: views/form.dptemplate.php
 msgid "The entire match"
-msgstr "Вся совпавшая строка"
+msgstr "The entire match"
 
 #: views/form.dptemplate.php
 msgid "Replace with group of digits matched, grouping is done by consecutive literal digit or . elements"
@@ -1509,7 +1513,7 @@ msgstr "Заменить группой совпавших цифр; групп�
 
 #: views/form.dptemplate.php
 msgid "A literal %"
-msgstr "Символ % буквально"
+msgstr "A literal %"
 
 #: views/form.dptemplate.php
 msgid "Each . is replaced by the digit that was matched by the corresponding . in the pattern"
@@ -1517,7 +1521,7 @@ msgstr "Каждая . заменяется цифрой, совпавшей с 
 
 #: views/form.dptemplate.php
 msgid "tone:"
-msgstr "тон:"
+msgstr "tone:"
 
 #: views/form.dptemplate.php
 msgid "Secondary dial-tone to play when a , is matched, up to 3 can be specified (optional)"
@@ -1525,7 +1529,7 @@ msgstr "Вторичный тон набора при совпадении ,; м
 
 #: views/server.codec.php
 msgid "Helpful information"
-msgstr "Полезная информация"
+msgstr "Helpful information"
 
 #: views/server.codec.php
 msgid ""
@@ -1566,19 +1570,19 @@ msgstr " Чтобы сменить режим, добавьте или убер�
 
 #: views/form.adddevice.php (device warning)
 msgid "Firmware"
-msgstr "Прошивка"
+msgstr "Firmware"
 
 msgid "Template"
-msgstr "Шаблон"
+msgstr "Template"
 
 msgid "Device firmware not found"
-msgstr "Прошивка устройства не найдена"
+msgstr "Device firmware not found"
 
 msgid "Missing device configuration template"
-msgstr "Отсутствует шаблон конфигурации устройства"
+msgstr "Missing device configuration template"
 
 msgid "The following are missing or not configured. The device may not register correctly until these are resolved."
-msgstr "Перечисленное отсутствует или не настроено. Устройство может не зарегистрироваться, пока это не исправлено."
+msgstr "The following are missing or not configured. The device may not register correctly until these are resolved."
 
 #: views/server.setting.php
 msgid "Warning: Any changes to the server configuration can cause all phones to restart."
@@ -1727,6 +1731,30 @@ msgstr "Укажите \"CISCO\" для протокола SCCP (Skinny) или 
 #: views/advserver.keyset.php
 msgid "Max length 15 letters or numbers without spaces"
 msgstr "Не более 15 латинских букв или цифр без пробелов."
+
+#: views/advserver.model.php views/getFileModal.html
+msgid "Device model identifier (e.g. 79XX, 7965)."
+msgstr "Идентификатор модели устройства (напр. 79XX, 7965)."
+
+#: views/advserver.model.php
+msgid "Phone without sidecars, with one/two sidecars, or sidecar only."
+msgstr "Телефон без боковых панелей, с одной/двумя панелями или только боковая панель."
+
+#: views/advserver.model.php
+msgid "Number of line buttons on the phone."
+msgstr "Количество линейных кнопок на телефоне."
+
+#: views/advserver.model.php
+msgid "Firmware load image filename."
+msgstr "Имя файла прошивки (load image)."
+
+#: views/advserver.model.php
+msgid "Load information ID for firmware (Cisco format)."
+msgstr "Идентификатор load information для прошивки (формат Cisco)."
+
+#: views/advserver.model.php
+msgid "XML template name for this model."
+msgstr "Имя XML-шаблона для данной модели."
 
 #~ msgid "Buttons "
 #~ msgstr "Кнопки "

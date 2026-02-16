@@ -1025,3 +1025,31 @@ msgstr ""
 #: views/advserver.keyset.php
 msgid "Max length 15 letters or numbers without spaces"
 msgstr ""
+
+#: views/advserver.model.php views/getFileModal.html
+msgid "Device model identifier (e.g. 79XX, 7965)."
+msgstr ""
+
+#: views/advserver.model.php
+msgid "Phone without sidecars, with one/two sidecars, or sidecar only."
+msgstr ""
+
+#: views/advserver.model.php
+msgid "Number of line buttons on the phone."
+msgstr ""
+
+#: views/advserver.model.php
+msgid "Firmware load image filename."
+msgstr ""
+
+#: views/advserver.model.php
+msgid "Load information ID for firmware (Cisco format)."
+msgstr ""
+
+#: views/advserver.model.php
+msgid "XML template name for this model."
+msgstr ""
+
+#: conf/sccpgeneral.xml.v433 (externip)
+msgid "External IP Address of the firewall, required in case the PBX is running on a separate host behind it. IP Address that we're going to notify in RTP media stream as the pbx source address. Resolve Hostname (if dynamic) that we're going to resolve when setting up the RTP media stream (only active if externip=0.0.0.0 and host is natted.)"
+msgstr ""
