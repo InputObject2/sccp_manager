@@ -79,11 +79,11 @@ msgstr "Device SCCP Codec"
 
 #: Sccp_manager.class
 msgid "SCCP Extension"
-msgstr "SCCP Абоненты"
+msgstr "SCCP Extension"
 
 #: Sccp_manager.class
 msgid "SCCP Phone"
-msgstr "SCCP Оборудование"
+msgstr "SCCP Phone"
 
 #: views/Buttons
 msgid "On"
@@ -235,7 +235,7 @@ msgstr "SCCP Language"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP System Language"
-msgstr "SCCP язык системы"
+msgstr "SCCP System Language"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -248,7 +248,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Network Device Language"
-msgstr "SCCP локализация региона"
+msgstr "SCCP Network Device Language"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -258,7 +258,7 @@ msgstr "Настройка региональных параметров диа�
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Phone Device Language"
-msgstr "SCCP язык меню телефона"
+msgstr "SCCP Phone Device Language"
 
 #: views/sccpgeneral.xml:
 msgid ""
@@ -268,7 +268,7 @@ msgstr "Настройки языка индикации и меню на або
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Device config"
-msgstr "SCCP настройка абонентских устройств"
+msgstr "SCCP Device config"
 
 #: views/sccpgeneral.xml:
 msgid "First Digit Timeout"
@@ -485,7 +485,7 @@ msgstr "Программные клавиши управления звонка�
 
 #: views/sccpgeneral.xml:
 msgid "SCCP NTP Service config"
-msgstr "SCCP Сервер Времени"
+msgstr "SCCP NTP Service config"
 
 #: views/sccpgeneral.xml:
 msgid "NTP Server Enabled"
@@ -604,7 +604,7 @@ msgstr "Phone Idle Timeout"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP QoS config"
-msgstr "SCCP QoS настройка качества обслуживания"
+msgstr "SCCP QoS config"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP ToS / CoS"
@@ -639,7 +639,7 @@ msgstr "Не менять без необходимости."
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Line config"
-msgstr "SCCP Конфигурация Линий"
+msgstr "SCCP Line config"
 
 #: views/sccpgeneral.xml:
 msgid "Hotline"
@@ -700,11 +700,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "The hotline function can be used in :"
-msgstr "Функция \"hotline\" может быть полезна :"
+msgstr "The hotline function can be used in :"
 
 #: views/sccpgeneral.xml:
 msgid "First time configuration"
-msgstr "Развертывание новой системы"
+msgstr "First time configuration"
 
 #: views/sccpgeneral.xml:
 msgid "This will make it easier to register new devices and assign numbers"
@@ -714,7 +714,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "At a door"
-msgstr "На входе"
+msgstr "At a door"
 
 #: views/sccpgeneral.xml:
 msgid "Where you want people to be able to only call one number"
@@ -724,7 +724,7 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "For unprovisioned phones"
-msgstr "Для новых телефонов"
+msgstr "For unprovisioned phones"
 
 #: views/sccpgeneral.xml:
 msgid "To only be able to call the helpdesk to get their phone set up"
@@ -848,11 +848,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "SCCP Server Path config"
-msgstr "SCCP Настройка Путей и таблиц Сервера"
+msgstr "SCCP Server Path config"
 
 #: views/sccpgeneral.xml:
 msgid "SCCP TFTP SERVER Path"
-msgstr "TFTP SERVER Path"
+msgstr "SCCP TFTP SERVER Path"
 
 #: views/sccpgeneral.xml:
 msgid "Path to tftp home directory"
@@ -969,7 +969,7 @@ msgstr "Модель телефона: 7911, 7940, 7960 и т.д. Только �
 
 #: sccpManClasses/formcreate.class.php (empty Type dropdown)
 msgid "No models loaded. Add models in SCCP Advance Server → Models."
-msgstr "Модели не загружены. Добавьте модели в SCCP → Доп. сервер → Модели."
+msgstr "No models loaded. Add models in SCCP Advance Server → Models."
 
 #: views/sccpgeneral.xml:
 msgid "Addon"
@@ -1529,7 +1529,7 @@ msgstr "Вторичный тон набора при совпадении ,; м
 
 #: views/server.codec.php
 msgid "Helpful information"
-msgstr "Helpful information"
+msgstr "Полезная информация"
 
 #: views/server.codec.php
 msgid ""
@@ -1594,34 +1594,34 @@ msgstr "Внимание: любые изменения настроек уст�
 
 #: views/form.buttons.php
 msgid "Help"
-msgstr "Справка"
+msgstr "Help"
 
 msgid "Name"
-msgstr "Имя"
+msgstr "Name"
 
 msgid "Phone"
-msgstr "Номер"
+msgstr "Phone"
 
 msgid "hints"
-msgstr "подсказки"
+msgstr "hints"
 
 msgid "Display Label"
-msgstr "Подпись на кнопке"
+msgstr "Display Label"
 
 msgid "code"
-msgstr "код"
+msgstr "code"
 
 msgid "ButtonLabel,Options"
-msgstr "ПодписьКнопки,Параметры"
+msgstr "ButtonLabel,Options"
 
 msgid "RetrieveSingle"
-msgstr "Повторный вызов"
+msgstr "RetrieveSingle"
 
 msgid "DEF LINE"
-msgstr "ЛИНИЯ ПО УМОЛЧ."
+msgstr "DEF LINE"
 
 msgid "Default"
-msgstr "По умолчанию"
+msgstr "Default"
 
 #: views/form.buttons.php (buttons help)
 msgid "buttons come in the following flavours: <br>\n                    <ul>\n                    <li>empty: Empty button (no options)</li>\n                    <li>line: Registers the line with identifier specified as [name]</li>\n                    <li>silent:   buttons equal 'Line' with out ring</li>\n                    <li>monitor:  buttons mode speeddial + show status</li>\n                    <li>speeddial: Adds a speeddial with label [name] and [option1] as number Optionally, [option2] can be used to specify a hint by extension@context as usual.</li>\n                    <li>service (not implemented): Adds a service url Feature buttons have an on/off status represented on the device with a tick-box and can be used to set the device in a particular state. Currently Possible [option1],[option2] combinations:</li>\n                    <ul>\n                    <li>privacy,callpresent = Make a private call, number is suppressed</li><li>privacy,hint = Make a private call, hint is suppressed</li><li>cfwdall,number = Forward all calls </li><li>cfwbusy,number = Forward on busy</li><li>\n                    cfwnoaswer,number = Forward on no-answer (not implemented yet)<br> DND,busy = Do-not-disturb, return Busy signal to Caller <br> DND,silent = Do-not-disturb, return nothing to caller <br>\n                    monitor = Record Calls using AutoMon (asterisk 1.6.x only)</li><li>devstate,custom_devstate = Device State Feature Button (asterisk 1.6.1 and up). custom_devstate is the name of the custom devicestate to be toggled (How to use devicestate)\n                    hold = To be implemented</li><li>transfer = To be implemented</li><li>multiblink = To be implemented</li><li>mobility = To be implemented</li><li>conference = To be implemented</li>\n                    </ui></ui>"
@@ -1629,100 +1629,108 @@ msgstr "Типы кнопок:<br><ul><li>empty: Пустая кнопка (бе
 
 #: views/server.codec.php
 msgid "Disallow"
-msgstr "Запретить"
+msgstr "Disallow"
 
 msgid "Recomended default: all"
-msgstr "Рекомендуется по умолчанию: all"
+msgstr "Recomended default: all"
 
 msgid "Default : all. If you wish to change (Not Recommended) please enter a semicolon separated list for example: alaw;ulaw;..."
 msgstr "По умолчанию: all. Чтобы изменить (не рекомендуется), укажите список через точку с запятой, например: alaw;ulaw;..."
 
 msgid "SCCP Audio Codecs "
-msgstr "Аудио-кодеки SCCP "
+msgstr "SCCP Audio Codecs "
 
 msgid "Allow"
-msgstr "Разрешить"
+msgstr "Allow"
 
 msgid "SCCP Video Codecs "
-msgstr "Видео-кодеки SCCP "
+msgstr "SCCP Video Codecs "
 
 #: views/server.info.php
 msgid "Sccp Manager Warning"
-msgstr "Предупреждение Sccp Manager"
+msgstr "Sccp Manager Warning"
 
 msgid "There are Warning in the SCCP Module:"
-msgstr "В модуле SCCP есть предупреждения:"
+msgstr "There are Warning in the SCCP Module:"
 
 msgid "Check these problems before continuing to work."
-msgstr "Устраните эти проблемы перед продолжением работы."
+msgstr "Check these problems before continuing to work."
 
 msgid "Diagnostic information about SCCP Manager errors"
-msgstr "Диагностика ошибок SCCP Manager"
+msgstr "Diagnostic information about SCCP Manager errors"
 
 msgid "There is an error in the module:"
-msgstr "В модуле обнаружена ошибка:"
+msgstr "There is an error in the module:"
 
 msgid "Correct these problems before continuing to work."
-msgstr "Исправьте эти проблемы перед продолжением работы."
+msgstr "Correct these problems before continuing to work."
 
 msgid "Open 'SCCP Connectivity' -> Server Config' to change global settings"
-msgstr "Откройте «Сервер SCCP» → «Настройка сервера» для изменения глобальных настроек"
+msgstr "Open \"SCCP Server\" → \"Server Config\" to change global settings."
 
 msgid "Sccp Manager"
 msgstr "Sccp Manager"
 
 msgid "Info"
-msgstr "Информация"
+msgstr "Info"
 
 msgid "Module"
-msgstr "Модуль"
+msgstr "Module"
 
 msgid "Version"
-msgstr "Версия"
+msgstr "Version"
 
 msgid "BackUp Config"
-msgstr "Резервная копия настроек"
+msgstr "BackUp Config"
 
 #: views/server.setting.php
 msgid "Add Keyset"
-msgstr "Добавить Keyset"
+msgstr "Add Keyset"
 
 msgid "Device"
-msgstr "Устройство"
+msgstr "Device"
 
 msgid "Save"
-msgstr "Сохранить"
+msgstr "Save"
 
 #: views/hardware (Device SIP Phone, Add Device Phone, Delete)
 msgid "Device SIP Phone"
-msgstr "Устройство SIP-телефон"
+msgstr "Device SIP Phone"
 
 msgid "Add Device Phone"
-msgstr "Добавить SIP-устройство"
+msgstr "Add Device Phone"
 
 msgid "Delete"
-msgstr "Удалить"
+msgstr "Delete"
 
 #: conf/sccpgeneral.xml.v433 (Provision / User Roaming)
 msgid "Get data files from Provision"
-msgstr "Загружать файлы данных из Provision"
+msgstr "Get data files from Provision"
 
 msgid "User Roaming"
-msgstr "Роуминг пользователей"
+msgstr "User Roaming"
 
 msgid "Experimental Function Roaming Users"
-msgstr "Экспериментальная функция: роуминг пользователей"
+msgstr "Experimental Function Roaming Users"
 
 msgid "If this is set to yes, Sccp_manager will try to get data files from dkgroot/Provision (languages, ring tones, firmware etc). This is enabled at your own risk - Sccp_Manager cannot vouch for the security or accuracy of these files, and this option is included to assist in getting up to speed as rapidly as possible."
 msgstr "При «Да» Sccp_manager будет загружать файлы данных из dkgroot/Provision (языки, рингтоны, прошивки и т.д.). Использование на свой риск — Sccp_Manager не гарантирует безопасность и корректность этих файлов; опция предназначена для быстрой первоначальной настройки."
 
 #: views/advserver.model.php, views/getFileModal.html
 msgid "Help."
-msgstr "Справка."
+msgstr "Краткое описание назначения параметра (модель, производитель, прошивка, шаблон и т.д.)."
 
 #: views/advserver.keyset.php
 msgid "help."
-msgstr "Справка."
+msgstr "Набор программных кнопок (софтключей) для этого состояния линии: какие кнопки показывать на экране телефона в режиме ожидания, разговора, удержания, входящего/исходящего вызова и т.д. Выберите кнопки из левого списка и перенесите в правый."
+
+#: conf/sccpgeneral.xml.v433 (placeholder help)
+msgid "Help!"
+msgstr "Подробное описание параметра подставляется из справки модуля при наличии настроек."
+
+#: views/formShowSysDefs.php, Sccp.class.php (fallback when help missing)
+msgid "Help is not available."
+msgstr "Для этого параметра подсказка в модуле не настроена. О назначении поля см. документацию или описание раздела."
 
 #: views/advserver.model.php
 msgid "Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"
