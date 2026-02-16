@@ -449,7 +449,7 @@ msgstr "Разрешение передача сигналов сигнализ�
 
 #: views/sccpgeneral.xml:
 msgid "Early RTP"
-msgstr ""
+msgstr "Ранний RTP (раннее открытие медиа-потока)"
 
 #: views/sccpgeneral.xml:
 #, fuzzy
@@ -523,6 +523,10 @@ msgstr ""
 #: views/sccpgeneral.xml:
 msgid "Time Zone"
 msgstr "Часовой пояс"
+
+#: conf/sccpgeneral.xml.v433 (help for ntp_timezone)
+msgid "System Time zone - this is set by FreePBX and can be changed in Settings : Advanced Settings"
+msgstr "Часовой пояс задаётся в FreePBX; изменить можно в Настройки → Дополнительные настройки."
 
 #: views/sccpgeneral.xml:
 msgid "Date Format: Time zone"
@@ -732,11 +736,11 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Allow ="
-msgstr ""
+msgstr "Разрешить ="
 
 #: views/sccpgeneral.xml:
 msgid "Specify a list of your networks, for example: 192.168.1.0"
-msgstr ""
+msgstr "Укажите список ваших сетей, например: 192.168.1.0"
 
 #: views/sccpgeneral.xml:
 msgid "System Context"
@@ -1221,7 +1225,7 @@ msgstr "Разрешение передача сигналов сигнализ�
 
 #: views/sccpgeneral.xml:
 msgid "Early Rtp Device"
-msgstr ""
+msgstr "Ранний RTP на устройстве (раннее открытие медиа)"
 
 #: views/sccpgeneral.xml:
 msgid ""

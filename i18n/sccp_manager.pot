@@ -414,6 +414,10 @@ msgstr ""
 msgid "Time Zone"
 msgstr ""
 
+#: conf/sccpgeneral.xml.v433 (help for ntp_timezone)
+msgid "System Time zone - this is set by FreePBX and can be changed in Settings : Advanced Settings"
+msgstr ""
+
 #: views/sccpgeneral.xml:
 msgid "Date Format: Time zone"
 msgstr ""
