@@ -413,16 +413,60 @@ class formcreate
                     echo '<span class="sccp-value-display">' . self::h(self::formatValueDisplay($res_v)) . '</span>';
                     ?>
                     </div>
-                    <div class="col-md-4">
+                    <?php
+                    $res_v_radio = $res_v;
+                    if ($usingSysDefaults) {
+                        $res_v_radio = $sccp_defaults[$res_n]['systemdefault'] ?? '';
+                    }
+                    $i = 0;
+                    $opt_hide = '';
+                    if (!empty($child->option_hide)) {
+                        $opt_hide = ' class="sccp_button_hide" data-vhide="'.$child->option_hide.'" data-clhide="'.$child->option_hide['class'].'" ';
+                    }
+                    if (!empty($child->option_show)) {
+                        if (empty($opt_hide)) {
+                            $opt_hide = ' class="sccp_button_hide" ';
+                        }
+                        $opt_hide .= ' data-vshow="'.$child->option_show.'" data-clshow="'.(string)($child->option_show['class'] ?? '').'" ';
+                    }
+                    ?>
+                    <div class="col-md-4 radioset" data-hide="on">
+
+                      <?php
+                        foreach ($child->xpath('button') as $value) {
+                            $opt_disabled = '';
+                            if (in_array($value, $disabledButtons)) {
+                                $opt_disabled = 'disabled';
+                            }
+                            $val_check = strtolower((string)(isset($value['value']) ? $value['value'] : $value));
+                            if ($val_check == strtolower($res_v_radio)) {
+                                $val_check = "checked";
+                            } else {
+                                if ($val_check == '' || $val_check == 'none') {
+                                    if (strtolower($res_v_radio) == 'none' || $res_v_radio == '') {
+                                        $val_check = "checked";
+                                    } else {
+                                        $val_check = "";
+                                    }
+                                } else {
+                                    $val_check = "";
+                                }
+                            }
+                            $optVal = (string)(isset($value['value']) ? $value['value'] : $value);
+                            echo "<input type=\"radio\" name=\"" . self::h($res_id) . "\" id=\"" . self::h($res_id . '_' . $i) . "\" value=\"" . self::h($optVal) . "\" {$val_check} {$opt_hide} {$opt_disabled}>";
+                            echo "<label for=\"" . self::h($res_id . '_' . $i) . "\">" . self::h(self::formatValueDisplay((string)$value)) . "</label>";
+                            $i++;
+                        }
+                        ?>
+                    </div>
+                    <div class="col-md-2">
                       <span class="radioset">
                         <input type="checkbox"
                             <?php
                             echo " data-for={$res_id} data-type=radio id=usedefault_{$res_id} ";
                             if ($usingSysDefaults) {
-                                // Setting a site specific value
                                 echo " class=sccp-edit :checked ";
                             } else {
-                                // reverting to chan-sccp default values
                                 echo " data-default=" . ($sccp_defaults[$res_n]['systemdefault'] ?? '') . " class=sccp-restore ";
                             }
                             ?>
@@ -437,60 +481,9 @@ class formcreate
                     </div>
                 </div>
             </div>
-        <!-- Edit row always visible so option buttons (Auto/Off/On, etc.) are usable without toggling checkbox -->
-            <div class="row" id="edit_<?php echo $res_id; ?>">
-                <div class="form-group <?php echo $res_id; ?>">
-                    <div class="col-md-3">
-                        <i><?php echo _("Choose new value") . " — " . $res_n . ":"; ?></i>
-                    </div>
-                    <!-- Finish include of defaults button -->
                     <?php
-                    // Close the conditional include of the defaults button opened at line ~385
                     }
                     ?>
-
-                    <div class="col-md-9 radioset " data-hide="on">
-
-                      <?php
-                        $i = 0;
-                        $opt_hide = '';
-
-                        if ($usingSysDefaults) {
-                            $res_v = $sccp_defaults[$res_n]['systemdefault'] ?? '';
-                        }
-                        if (!empty($child->option_hide)) {
-                            $opt_hide = ' class="sccp_button_hide" data-vhide="'.$child->option_hide.'" data-clhide="'.$child->option_hide['class'].'" ';
-                        }
-                        if (!empty($child->option_show)) {
-                            if (empty($opt_hide)) {
-                                $opt_hide =' class="sccp_button_hide" ';
-                            }
-                            $opt_hide .= ' data-vshow="'.$child->option_show.'" data-clshow="'.(string)($child->option_show['class'] ?? '').'" ';
-                        }
-                        foreach ($child->xpath('button') as $value) {
-                            $opt_disabled = '';
-                            if (in_array($value, $disabledButtons )) {
-                                $opt_disabled = 'disabled';
-                            }
-                            $val_check = strtolower((string)(isset($value['value']) ? $value['value'] : $value));
-                            if ($val_check == strtolower($res_v)) {
-                                $val_check = "checked";
-                            } else {
-                                if ($val_check == '' || $val_check == 'none' ) {
-                                   if (strtolower($res_v) == 'none' || $res_v == '' )  {
-                                      $val_check = "checked";
-                                   } else {$val_check = "";}
-                                } else {$val_check = "";}
-                            }
-                            $optVal = (string)(isset($value['value']) ? $value['value'] : $value);
-                            echo "<input type=\"radio\" name=\"" . self::h($res_id) . "\" id=\"" . self::h($res_id . '_' . $i) . "\" value=\"" . self::h($optVal) . "\" {$val_check} {$opt_hide} {$opt_disabled}>";
-                            echo "<label for=\"" . self::h($res_id . '_' . $i) . "\">" . self::h(self::formatValueDisplay((string)$value)) . "</label>";
-                            $i++;
-                        }
-                        ?>
-                        </div>
-                    </div>
-                </div>
             <div class="row"><div class="col-md-12">
                     <span id="<?php echo $res_id;?>-help" class="help-block fpbx-help-block"><?php echo _($child->help);?></span>
             </div></div>
