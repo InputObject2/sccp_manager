@@ -70,3 +70,23 @@ and open the template in the editor.
 .ext-list th {
     border-color: #93B8B8 !important;
 }
+
+/* Highlight current/selected values in config forms */
+.sccp-value-display {
+    display: inline-block;
+    padding: 4px 10px;
+    margin: 0 2px;
+    border: 1px solid #93B8B8;
+    border-radius: 4px;
+    background-color: #e8f4f4;
+    font-weight: 500;
+}
+
+/* Selected option in radio/button groups (SCCP Config Mode, Support SIP device, etc.) */
+.radioset input[type=radio]:checked + label,
+.radioset label.active {
+    border: 1px solid #93B8B8 !important;
+    border-radius: 4px;
+    background-color: #e8f4f4 !important;
+    font-weight: 500;
+}

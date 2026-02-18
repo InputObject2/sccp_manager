@@ -28,6 +28,20 @@ class formcreate
         return (string)$v;
     }
 
+    /** Unify display style for config values: Title Case for known keywords (off/on/none/yes/no etc.). */
+    private static function formatValueDisplay($s) {
+        $s = trim(self::safeStr($s));
+        if ($s === '') {
+            return $s;
+        }
+        $lower = strtolower($s);
+        $known = ['off', 'on', 'none', 'yes', 'no', 'auto', 'enabled', 'disabled', 'advanced', 'simple', 'core', 'sccp', 'device', 'all'];
+        if (in_array($lower, $known, true)) {
+            return ucfirst($lower);
+        }
+        return $s;
+    }
+
     /** @var string */
     public $buttonDefLabel = 'chan-sccp';
     /** @var string */
@@ -102,12 +116,14 @@ class formcreate
             if ($i > 0) {
                 echo self::safeStr($child->nameseparator);
             }
-            // Output current value
+            // Output current value (wrapped for highlight, unified display style)
+            echo '<span class="sccp-value-display">';
             if ($fval_data === '') {
                 echo self::h($res_n) . " has not been set";
             } else {
-                echo self::h($fval_data);
+                echo self::h(self::formatValueDisplay($fval_data));
             }
+            echo '</span>';
             $i++;
         }
         if (!empty($sccp_defaults[$shortId]['systemdefault'] ?? '')) {
@@ -437,8 +453,8 @@ class formcreate
 
                     //-- Start include of defaults button --
                     echo "<div class='col-md-3'>";
-                    // Output current value
-                    echo $res_v;
+                    // Output current value (wrapped for highlight, unified display style)
+                    echo '<span class="sccp-value-display">' . self::h(self::formatValueDisplay($res_v)) . '</span>';
                     ?>
                     </div>
                     <div class="col-md-4">
@@ -512,7 +528,7 @@ class formcreate
                             }
                             $optVal = (string)(isset($value['value']) ? $value['value'] : $value);
                             echo "<input type=\"radio\" name=\"" . self::h($res_id) . "\" id=\"" . self::h($res_id . '_' . $i) . "\" value=\"" . self::h($optVal) . "\" {$val_check} {$opt_hide} {$opt_disabled}>";
-                            echo "<label for=\"" . self::h($res_id . '_' . $i) . "\">" . self::h($value) . "</label>";
+                            echo "<label for=\"" . self::h($res_id . '_' . $i) . "\">" . self::h(self::formatValueDisplay((string)$value)) . "</label>";
                             $i++;
                         }
                         ?>
