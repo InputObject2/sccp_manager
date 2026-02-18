@@ -87,9 +87,10 @@ and open the template in the editor.
     max-width: none;
 }
 
-/* Right-aligned column for 'Use chan-sccp defaults' / 'Customise' buttons - same offset from right edge */
+/* Right-aligned column for 'Use chan-sccp defaults' buttons - same offset from right edge, not flush to border */
 .element-container .form-group > .sccp-default-col {
     margin-left: auto;
+    margin-right: 8px;
     flex: 0 0 auto;
     display: flex;
     justify-content: flex-end;
