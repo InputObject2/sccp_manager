@@ -780,16 +780,15 @@ msgstr ""
 
 #: views/sccpgeneral.xml:
 msgid "Music On Hold Class"
-msgstr "Music On Hold Class"
+msgstr "Класс музыки при удержании"
 
 #: views/sccpgeneral.xml:
 msgid ""
 "Music Class: Available MOH Classes. These are the MOH classes listed in your "
 "current server."
 msgstr ""
-"Класс MOH с сервера. Список доступных MOH classes."
-"Класс музыки: доступные классы MOH. Это классы MOH, см. кофигурацияю MOH "
-"Asterisk."
+"Класс музыки при удержании, доступный на этом сервере."
+"Список формируется из настроек Music On Hold (MOH) в конфигурации Asterisk."
 
 #: views/sccpgeneral.xml:
 msgid "Autoselect Line"

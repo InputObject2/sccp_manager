@@ -90,11 +90,12 @@ and open the template in the editor.
 /* Right-aligned column for 'Use chan-sccp defaults' buttons - same offset from right edge, not flush to border */
 .element-container .form-group > .sccp-default-col {
     margin-left: auto;
-    margin-right: 8px;
+    margin-right: 16px;
     flex: 0 0 auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding-right: 8px;
 }
 
 /* All field labels same darkness and weight (avoid theme/radioset differences) */

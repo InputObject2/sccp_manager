@@ -427,6 +427,7 @@ class formcreate
                     // Decide when to show the "Use chan-sccp defaults" checkbox for IS fields.
                     // In addition to real chan-sccp defaults, force it for specific settings requested by the user.
                     $forceDefaultCheckboxIS = array(
+                        'tftp_rewrite',           // TFTP SERVER remapping support (ISC wrapper)
                         'createlangdir',          // Create tftp empty language dir
                         'getExternalData',        // Get data files from Provision
                         'system_rouminguser',     // User Roaming
@@ -450,6 +451,13 @@ class formcreate
                     // treat the current effective value as the "default" to revert to.
                     if (!$hasSystemDefaultIS && in_array($res_n, $forceDefaultCheckboxIS, true)) {
                         $sysDefaultIS = $res_v;
+                    }
+
+                    // Special-case: for phonepersonalization we want a visible default even if
+                    // neither XML nor chan-sccp provided one (older XML versions). Use "0" (Disabled).
+                    if ($res_n === 'phonepersonalization' && $res_v === '' && $sysDefaultIS === '') {
+                        $res_v = '0';
+                        $sysDefaultIS = '0';
                     }
 
                     // When using system default, show it so the user sees the effective value (e.g. Yes/No)
