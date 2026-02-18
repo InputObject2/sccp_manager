@@ -211,20 +211,23 @@ textarea.form-control::placeholder {
     margin: 0;
 }
 
-/* IED rows: aligned inputs, first column same width */
+/* IED rows: one line, buttons to the right of data */
 .sccp-ied-row {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 6px 8px;
+}
+.sccp-ied-row .sccp-ied-btns {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 .sccp-ied-row input.form-control {
     box-sizing: border-box;
 }
 .sccp-ied-row input.form-control:first-of-type {
-    min-width: 16em;
+    min-width: 12em;
 }
-/* Port field (Device Connect): optional fixed width; other IED use 2nd field for mask */
 .sccp-ied-row input.form-control:nth-of-type(2) {
     min-width: 5em;
 }
