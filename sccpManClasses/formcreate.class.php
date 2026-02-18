@@ -322,7 +322,7 @@ class formcreate
                             $i=1;
                             foreach ($res_value as $addrArr) {
                                 ?>
-                                <div class = "<?php echo $res_id;?> form-group form-inline" data-nextid=<?php echo $i;?> id= <?php echo $res_id . $i;?>>
+                                <div class="sccp-ied-row <?php echo $res_id;?> form-group form-inline" data-nextid=<?php echo $i;?> id= <?php echo $res_id . $i;?>>
                                 <?php
                                 foreach ($child->xpath('input') as $value) {
                                     $field_id = (string)$value['field'];

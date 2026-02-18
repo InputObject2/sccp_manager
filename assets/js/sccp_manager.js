@@ -947,7 +947,7 @@ $(document).on('click', ".input-js-add" , function () {
     var last = $("." + pcls).last(),
         ourid = last.data('nextid'),
         nextid = ourid + 1,
-        html = "<div class = '" + pcls + "' id ='" + pname + nextid + "' form-group form-inline' data-nextid=" + nextid + ">";
+        html = "<div class='sccp-ied-row " + pcls + " form-group form-inline' id='" + pname + nextid + "' data-nextid=" + nextid + ">";
     for (var key in jdata) {
         html_opt = '';
         for (var skey in jdata[key]['options']) {
