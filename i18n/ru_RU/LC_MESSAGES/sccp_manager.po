@@ -1778,6 +1778,10 @@ msgstr "URL прокси-сервера, используемого телефо
 msgid "Seconds before the phone shows the idle screen (image/URL). Set 0 to disable."
 msgstr "Секунды до показа экрана ожидания (картинка/URL). 0 — отключить."
 
+#: conf/sccpgeneral.xml.v433 - Video Capability
+msgid "Enable or disable support for video streams on this device (if the phone model supports video)."
+msgstr "Включить или отключить поддержку видеопотоков на этом устройстве (если модель телефона поддерживает видео)."
+
 #: views/advserver.model.php
 msgid "Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"
 msgstr "Укажите \"CISCO\" для протокола SCCP (Skinny) или \"CISCO-SIP\" для Cisco SIP."
