@@ -1590,7 +1590,7 @@ msgstr "Внимание: любые изменения настроек сер�
 
 #: views/server.device.php
 msgid "Warning: Any changes to the device configuration can cause all phones to restart. It is important to read the information in the hotline section below before using this capability."
-msgstr "Внимание: любые изменения настроек устройств могут привести к перезагрузке всех телефонов. Перед использованием рекомендуется прочитать информацию в блоке справки ниже."
+msgstr "Внимание: любые изменения настроек устройств могут привести к перезагрузке всех телефонов.<br>Перед использованием рекомендуется прочитать информацию в блоке справки ниже."
 
 #: views/form.buttons.php
 msgid "Help"

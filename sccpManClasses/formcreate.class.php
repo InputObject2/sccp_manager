@@ -112,7 +112,8 @@ class formcreate
                 echo self::safeStr($child->nameseparator);
             }
             // Output current value (wrapped for highlight, unified display style)
-            echo '<span class="sccp-value-display">';
+            $emptyClass = ($fval_data === '') ? ' sccp-value-empty' : '';
+            echo '<span class="sccp-value-display' . $emptyClass . '">';
             if ($fval_data === '') {
                 echo self::h($res_n) . " has not been set";
             } else {

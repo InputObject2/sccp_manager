@@ -74,12 +74,19 @@ and open the template in the editor.
 /* Highlight current/selected values in config forms */
 .sccp-value-display {
     display: inline-block;
+    min-width: 22em;
     padding: 4px 10px;
     margin: 0 2px;
     border: 1px solid #93B8B8;
     border-radius: 4px;
     background-color: #e8f4f4;
     font-weight: 500;
+}
+
+/* Optional / not set: pale so they don’t look mandatory */
+.sccp-value-display.sccp-value-empty {
+    color: #888 !important;
+    font-weight: 400;
 }
 
 /* Selected option in radio/button groups (SCCP Config Mode, Support SIP device, etc.) */
@@ -115,11 +122,14 @@ and open the template in the editor.
     vertical-align: middle;
     cursor: pointer;
 }
+/* "Customise" / "Use chan-sccp defaults": button-like background */
 .radioset input[type=checkbox] + label {
     vertical-align: middle;
-    padding: 2px 6px;
-    border: none;
-    background: transparent;
+    padding: 4px 10px;
+    margin: 0 2px;
+    border: 1px solid #93B8B8;
+    border-radius: 4px;
+    background-color: #e8f4f4;
 }
 
 /* Active text inputs: ensure readable text on white background (TFTP path, Provision path, etc.) */
