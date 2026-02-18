@@ -315,7 +315,8 @@ class formcreate
 
                                 if (!empty($child->add_pluss)) {
                                     echo '<span class="sccp-ied-btns">';
-                                    if (is_array($res_value) && $i <= count($res_value)) {
+                                    // Only show "-" when there is more than one row
+                                    if (is_array($res_value) && count($res_value) > 1 && $i <= count($res_value)) {
                                         echo '<button type="button" class="btn btn-danger btn-lg input-js-remove" id="'.$res_id.$i.'-btn-del" data-id="'.$res_id.$i.'"><i class="fa fa-minus"></i></button>';
                                     }
                                     // only add plus button to the last row

@@ -722,7 +722,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="2000" pattern="^([0-9]){3,5}$"/>
                 <class></class>
             </input>
-            <addbutton>Add Server</addbutton>
+            <add_pluss>+</add_pluss>
             <help>Help.</help>
         </item>
         <item type="IED-disabled" id="3" seq="20">
@@ -738,7 +738,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="2000" pattern="^[0-9]{3,5}$"/>
                 <class></class>
             </input>
-            <addbutton>Add Server</addbutton>
+            <add_pluss>+</add_pluss>
             <help>Help.</help>
         </item>
     </page_group>

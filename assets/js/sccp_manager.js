@@ -953,6 +953,28 @@ $(document).on('click', ".input-js-remove" , function () {
     }
 
     $row.remove();
+
+    // If we are down to one row, hide "-" and keep "+" on that row
+    if ($("." + pcls).length === 1) {
+        var $only = $("." + pcls).last();
+        $only.find('.input-js-remove').remove();
+        if (savedJson == null || savedMax == null) {
+            var $onlyAdd = $only.find('.input-js-add');
+            savedJson = $onlyAdd.length ? $onlyAdd.data('json') : savedJson;
+            savedMax = $onlyAdd.length ? $onlyAdd.data('max') : savedMax;
+        }
+        if (savedJson != null && savedMax != null && !$only.find('.input-js-add').length) {
+            var nextidOnly = $only.data('nextid') || 1;
+            var $btnsOnly = $only.find('.sccp-ied-btns');
+            if ($btnsOnly.length) {
+                $btnsOnly.append(
+                    "<button type='button' class='btn btn-primary btn-lg input-js-add' id='" + pcls + nextidOnly + "-btn-add' data-id='" + pcls + "' data-row='" + nextidOnly + "' data-for='" + pcls + "' data-max='" + savedMax + "' data-json='" + savedJson + "'><i class='fa fa-plus'></i></button>"
+                );
+            }
+        }
+        return;
+    }
+
     if (savedJson != null && savedMax != null) {
         var $last = $("." + pcls).last();
         if ($last.length && !$last.find('.input-js-add').length) {
@@ -1005,8 +1027,17 @@ $(document).on('click', ".input-js-add" , function () {
     html += "</div>\n";
 
     last.after(html);
-
-    $('#' + pname + prow + '-btn-add').remove();
+    // If previously only one row existed, ensure it has a "-" button now
+    if (pcount === 1) {
+        var $btnsPrev = last.find('.sccp-ied-btns');
+        if ($btnsPrev.length && !last.find('.input-js-remove').length) {
+            $btnsPrev.prepend(
+                "<button type='button' class='btn btn-danger btn-lg input-js-remove' id='" + pname + ourid + "-btn-remove' data-id='" + pname + ourid + "' data-for='" + pname + "'><i class='fa fa-minus'></i></button>"
+            );
+        }
+    }
+    // plus only on the last row
+    last.find('.input-js-add').remove();
 });
 
 function del_dynamic_table(pe, pclass, vdefault)
