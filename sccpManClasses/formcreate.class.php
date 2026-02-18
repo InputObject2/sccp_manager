@@ -322,12 +322,12 @@ class formcreate
                                     // only add plus button to the last row
                                     if (is_array($res_value) && $i == count($res_value)) {
                                         echo '<button type="button" class="btn btn-primary btn-lg input-js-add" id="'.$res_id.$i.'-btn-add" data-id="'.$res_id.'" data-row="'.$i.'" data-for="'.$res_id.'" data-max="'.$max_row.'"data-json="'.bin2hex(json_encode($opt_at)).'"><i class="fa fa-plus"></i></button>';
-                                        // Render Internal toggle (if present) next to +/- on the first row
-                                        if ($i === 1 && $internalButtonHtml !== '') {
-                                            echo $internalButtonHtml;
-                                        }
                                     }
                                     echo '</span>';
+                                    // Render Internal toggle (if present) to the right of +/- on the first row
+                                    if ($i === 1 && $internalButtonHtml !== '') {
+                                        echo '<span class="sccp-ied-internal">'.$internalButtonHtml.'</span>';
+                                    }
                                 }
                                 echo '</div>';
                                 $i++;

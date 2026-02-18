@@ -228,6 +228,13 @@ textarea.form-control::placeholder {
     margin-left: 1rem;
     flex-shrink: 0;
 }
+
+/* "Internal" toggle for network rows: sit to the right of +/- with small gap */
+.sccp-ied-internal {
+    display: inline-block;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
 .sccp-ied-row input.form-control {
     box-sizing: border-box;
     width: 12em;
