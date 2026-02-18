@@ -74,7 +74,8 @@ and open the template in the editor.
 /* Highlight current/selected values in config forms */
 .sccp-value-display {
     display: inline-block;
-    min-width: 22em;
+    min-width: 6em;
+    max-width: 14em;
     padding: 4px 10px;
     margin: 0 2px;
     border: 1px solid #93B8B8;
@@ -143,4 +144,34 @@ textarea.form-control {
 input.form-control::placeholder,
 textarea.form-control::placeholder {
     color: #6c757d;
+}
+
+/* SCCP Device URL page only: value/input on full remaining width of the row */
+#frm_url .element-container .row .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+#frm_url .form-group > .col-md-3:first-child {
+    flex: 0 0 auto;
+}
+#frm_url .form-group > .col-md-3:nth-child(2) {
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: none;
+}
+#frm_url .sccp-value-display {
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+#frm_url .row[id^="edit_"] .col-md-9 {
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: none;
+}
+#frm_url .row[id^="edit_"] .col-md-9 input.form-control {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
 }
