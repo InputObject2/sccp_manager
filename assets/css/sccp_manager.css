@@ -90,3 +90,47 @@ and open the template in the editor.
     background-color: #e8f4f4 !important;
     font-weight: 500;
 }
+
+/* All radioset labels readable (Yes/No, Customise, Use chan-sccp defaults) */
+.radioset label {
+    color: #333 !important;
+    cursor: pointer;
+}
+
+/* Unselected radio option: visible text on light background */
+.radioset input[type=radio] + label {
+    color: #333 !important;
+    padding: 4px 10px;
+    margin: 0 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+
+/* Checkbox "Customise" / "Use chan-sccp defaults": clear checkbox + label, not just an oval */
+.radioset input[type=checkbox] {
+    width: 1em;
+    height: 1em;
+    margin: 0 6px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.radioset input[type=checkbox] + label {
+    vertical-align: middle;
+    padding: 2px 6px;
+    border: none;
+    background: transparent;
+}
+
+/* Active text inputs: ensure readable text on white background (TFTP path, Provision path, etc.) */
+input.form-control[type="text"],
+input.form-control[type="number"],
+input.form-control[type="date"],
+textarea.form-control {
+    color: #333 !important;
+    background-color: #fff !important;
+}
+input.form-control::placeholder,
+textarea.form-control::placeholder {
+    color: #6c757d;
+}

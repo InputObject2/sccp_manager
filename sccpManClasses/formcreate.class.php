@@ -90,13 +90,8 @@ class formcreate
                         <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
                         <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
                     </div>
+                    <div class="col-md-3">
         <?php
-                    if (!empty($sccp_defaults[$shortId]['systemdefault'] ?? '')) {
-                        // There is a system default, so add button to customise or reset
-                        //-- Start include of defaults button --
-                        echo "<div class=col-md-3>";
-                    }
-
         // Can have multiple inputs for a field which are displayed with a separator
         $i = 0;
         foreach ($child->xpath('input') as $value) {
@@ -126,10 +121,11 @@ class formcreate
             echo '</span>';
             $i++;
         }
-        if (!empty($sccp_defaults[$shortId]['systemdefault'] ?? '')) {
-
         ?>
                     </div>
+        <?php
+                    if (!empty($sccp_defaults[$shortId]['systemdefault'] ?? '')) {
+        ?>
                     <div class="col-md-4">
                       <span class="radioset">
                         <input type="checkbox"
@@ -153,6 +149,9 @@ class formcreate
 
                       </span>
                     </div>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
             <div class="row" id="edit_<?php echo $res_id; ?>" style="display: none">
@@ -160,11 +159,7 @@ class formcreate
                     <div class="col-md-3">
                         <i><?php echo sprintf(_("Enter new %s value for %s"), $this->buttonHelpLabel, $shortId); ?></i>
                     </div>
-
-                    <!-- Finish include of defaults button -->
                     <?php
-                    // Close the conditional include of the defaults button opened at line ~47
-                  }
                     ?>
 
                     <div class="col-md-9">
