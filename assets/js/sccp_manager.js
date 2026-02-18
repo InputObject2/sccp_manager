@@ -955,13 +955,14 @@ $(document).on('click', ".input-js-add" , function () {
         }
         html += "<input type='text' name='" + pname + "[" + nextid + "][" + key + "]' class " + html_opt + "> " + jdata[key]['nameseparator'] + " ";
     }
-    // add remove button
+    // add remove and plus buttons in one column (- above +)
+    html += "<span class='sccp-ied-btns'>";
     html += "<button type='button' class='btn btn-danger btn-lg input-js-remove' id='" + pname + nextid + "-btn-remove' data-id='" + pname + nextid + "' data-for='" + pname + "'>";
-    html += "<i class='fa fa-minus pull-right'></i></button>";
-    // add plus button
+    html += "<i class='fa fa-minus'></i></button>";
     html += "<button type='button' class='btn btn-primary btn-lg input-js-add' id='" + pname + nextid + "-btn-add' data-id='" + pname + "'";
     html += " data-row='" + nextid + "' data-for='" + pname + "' data-max='" + pmax + "' data-json='" + $(this).data('json') + "' >";
-    html += "<i class='fa fa-plus pull-right'></i></button>";
+    html += "<i class='fa fa-plus'></i></button>";
+    html += "</span>";
     html += "</div>\n";
 
     last.after(html);

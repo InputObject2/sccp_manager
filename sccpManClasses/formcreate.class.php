@@ -357,13 +357,15 @@ class formcreate
                                 }
 
                                 if (!empty($child->add_pluss)) {
+                                    echo '<span class="sccp-ied-btns">';
                                     if (is_array($res_value) && $i <= count($res_value)) {
-                                        echo '<button type="button" class="btn btn-danger btn-lg input-js-remove" id="'.$res_id.$i.'-btn-del" data-id="'.$res_id.$i.'"><i class="fa fa-minus pull-right"></i></button>';
+                                        echo '<button type="button" class="btn btn-danger btn-lg input-js-remove" id="'.$res_id.$i.'-btn-del" data-id="'.$res_id.$i.'"><i class="fa fa-minus"></i></button>';
                                     }
                                     // only add plus button to the last row
                                     if (is_array($res_value) && $i == count($res_value)) {
-                                        echo '<button type="button" class="btn btn-primary btn-lg input-js-add" id="'.$res_id.$i.'-btn-add" data-id="'.$res_id.'" data-row="'.$i.'" data-for="'.$res_id.'" data-max="'.$max_row.'"data-json="'.bin2hex(json_encode($opt_at)).'"><i class="fa fa-plus pull-right"></i></button>';
+                                        echo '<button type="button" class="btn btn-primary btn-lg input-js-add" id="'.$res_id.$i.'-btn-add" data-id="'.$res_id.'" data-row="'.$i.'" data-for="'.$res_id.'" data-max="'.$max_row.'"data-json="'.bin2hex(json_encode($opt_at)).'"><i class="fa fa-plus"></i></button>';
                                     }
+                                    echo '</span>';
                                 }
                                 echo '</div>';
                                 $i++;

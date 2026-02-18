@@ -71,11 +71,26 @@ and open the template in the editor.
     border-color: #93B8B8 !important;
 }
 
+/* Value column grows so long text (e.g. "externhost has not been set") stays on one line */
+.element-container .row .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.element-container .form-group > .col-md-3:first-child {
+    flex: 0 0 auto;
+}
+.element-container .form-group > .col-md-3:nth-child(2) {
+    flex: 1 1 0%;
+    min-width: 0;
+    max-width: none;
+}
+
 /* Highlight current/selected values in config forms */
 .sccp-value-display {
     display: inline-block;
     min-width: 6em;
-    max-width: 14em;
+    max-width: 100%;
     padding: 4px 10px;
     margin: 0 2px;
     border: 1px solid #93B8B8;
@@ -174,4 +189,17 @@ textarea.form-control::placeholder {
     width: 100%;
     max-width: none;
     box-sizing: border-box;
+}
+
+/* IED add/remove: one column, minus above plus */
+.sccp-ied-btns {
+    display: inline-flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 2px;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+.sccp-ied-btns .btn {
+    margin: 0;
 }
