@@ -499,7 +499,7 @@ class formcreate
                         $opt_hide .= ' data-vshow="'.$child->option_show.'" data-clshow="'.(string)($child->option_show['class'] ?? '').'" ';
                     }
                     ?>
-                    <div class="col-md-9 radioset" data-hide="on">
+                    <div class="col-md-6 radioset" data-hide="on">
                       <?php
                         foreach ($child->xpath('button') as $value) {
                             $opt_disabled = in_array($value, $disabledButtons) ? 'disabled' : '';
