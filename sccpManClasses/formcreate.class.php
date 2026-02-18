@@ -141,7 +141,21 @@ class formcreate
         ?>
                     </div>
         <?php
-                    if (!empty($sccp_defaults[$shortId]['systemdefault'] ?? '')) {
+                    // Show "Use chan-sccp defaults" checkbox when there is a real chan-sccp default
+                    // or when this field is in the explicit allow-list requested by the user.
+                    $forceDefaultCheckboxIE = array(
+                        'tftp_path',              // SCCP TFTP SERVER Path
+                        'tftp_rewrite_path',      // Provision SERVER Path
+                        'transfer_tone',          // Transfer Tone
+                        'regcontext',             // Dynamically registration Context
+                        'directed_pickup_context',// Directed pickup context
+                        'pickupgroup',            // Default pickup group
+                    );
+                    $hasSystemDefaultIE = !empty($sccp_defaults[$shortId]['systemdefault'] ?? '');
+                    $needDefaultCheckboxIE = $hasSystemDefaultIE || in_array($shortId, $forceDefaultCheckboxIE, true);
+                    if ($needDefaultCheckboxIE) {
+                        // Default to the chan-sccp systemdefault when available, otherwise fall back to current input value
+                        $checkboxDefaultIE = $sccp_defaults[$res_n]['systemdefault'] ?? ($input_val ?? '');
         ?>
                     <div class="col-md-4 sccp-default-col">
                       <span class="radioset">
@@ -152,15 +166,16 @@ class formcreate
                                 // Setting a site specific value
                                 echo "class=sccp-edit :checked ";
                             } else {
-                                // reverting to chan-sccp default values
-                                echo "class=sccp-restore data-default=" . ($sccp_defaults[$res_n]['systemdefault'] ?? '') . " ";
+                                // reverting to chan-sccp default values (or the current value when no explicit systemdefault exists)
+                                echo "class=sccp-restore data-default=" . self::h($checkboxDefaultIE) . " ";
                             }
                             ?>
                         >
                         <label
                             <?php
                             echo "for=usedefault_{$res_id} >";
-                            echo ($usingSysDefaults) ? _("Customise") : sprintf(_("Use %s defaults"), $this->buttonDefLabel);
+                            // Always label as "Use chan-sccp defaults" for quick restore
+                            echo sprintf(_("Use %s defaults"), $this->buttonDefLabel);
                             ?>
                         </label>
 
@@ -408,15 +423,42 @@ class formcreate
                             $res_v = (string)$fval['data'];
                         }
                     }
-                    if (($sccp_defaults[$res_n]['systemdefault'] ?? '') != $res_v) {
+
+                    // Decide when to show the "Use chan-sccp defaults" checkbox for IS fields.
+                    // In addition to real chan-sccp defaults, force it for specific settings requested by the user.
+                    $forceDefaultCheckboxIS = array(
+                        'createlangdir',          // Create tftp empty language dir
+                        'getExternalData',        // Get data files from Provision
+                        'system_rouminguser',     // User Roaming
+                        'displayconfig',          // SCCP Config Mode
+                        'siptftp',                // Support SIP device
+                        'autoselectline_enabled', // Autoselect Line
+                        'autocall_select',        // Auto Call Select
+                        'backgroundImageAccess',  // Allow change Background Image
+                        'callLogBlfEnabled',      // Allow BLF in Phone Directory
+                        'phonepersonalization',   // Allow push background from server
+                    );
+                    $sysDefaultIS = $sccp_defaults[$res_n]['systemdefault'] ?? '';
+                    $hasSystemDefaultIS = ($sysDefaultIS !== '');
+                    $needDefaultCheckboxIS = $hasSystemDefaultIS || in_array($res_n, $forceDefaultCheckboxIS, true);
+
+                    if ($hasSystemDefaultIS && $sysDefaultIS != $res_v) {
                         $usingSysDefaults = false;
                     }
-                    // When using system default, show it so the user sees the effective value (e.g. Yes/No)
-                    if ($res_v === '' && !empty($sccp_defaults[$res_n]['systemdefault'] ?? '')) {
-                        $res_v = (string)$sccp_defaults[$res_n]['systemdefault'];
+
+                    // When we are forcing the checkbox but have no explicit systemdefault,
+                    // treat the current effective value as the "default" to revert to.
+                    if (!$hasSystemDefaultIS && in_array($res_n, $forceDefaultCheckboxIS, true)) {
+                        $sysDefaultIS = $res_v;
                     }
-                    if (!empty($sccp_defaults[$res_n]['systemdefault'] ?? '')) {
-                    // There is a system default, so add button to customise or reset
+
+                    // When using system default, show it so the user sees the effective value (e.g. Yes/No)
+                    if ($res_v === '' && $sysDefaultIS !== '') {
+                        $res_v = (string)$sysDefaultIS;
+                    }
+
+                    if ($needDefaultCheckboxIS) {
+                    // There is a system default (real or synthetic), so add button to reset
                     // the closing } is after the code to include the button at line ~438
 
                     //-- Start include of defaults button --
@@ -428,7 +470,7 @@ class formcreate
                     <?php
                     $res_v_radio = $res_v;
                     if ($usingSysDefaults) {
-                        $res_v_radio = $sccp_defaults[$res_n]['systemdefault'] ?? '';
+                        $res_v_radio = $sysDefaultIS;
                     }
                     $i = 0;
                     $opt_hide = '';
@@ -475,18 +517,20 @@ class formcreate
                       <span class="radioset">
                         <input type="checkbox"
                             <?php
+                            $dataDefaultIS = ($sysDefaultIS !== '') ? $sysDefaultIS : $res_v;
                             echo " data-for={$res_id} data-type=radio id=usedefault_{$res_id} ";
                             if ($usingSysDefaults) {
                                 echo " class=sccp-edit :checked ";
                             } else {
-                                echo " data-default=" . ($sccp_defaults[$res_n]['systemdefault'] ?? '') . " class=sccp-restore ";
+                                echo " data-default=" . self::h($dataDefaultIS) . " class=sccp-restore ";
                             }
                             ?>
                         >
                         <label
                             <?php
-                            echo ' for="usedefault_' . $res_id . '" title="' . self::h($usingSysDefaults ? _("Click to choose a value (e.g. Yes/No)") : _("Revert to chan-sccp default")) . '">';
-                            echo ($usingSysDefaults) ? _("Customise") : sprintf(_("Use %s defaults"), $this->buttonDefLabel);
+                            echo ' for="usedefault_' . $res_id . '" title="' . self::h(_("Revert to chan-sccp default")) . '">';
+                            // Always label as "Use chan-sccp defaults" for quick restore
+                            echo sprintf(_("Use %s defaults"), $this->buttonDefLabel);
                             ?>
                         </label>
                       </span>
