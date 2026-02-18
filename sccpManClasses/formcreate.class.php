@@ -437,8 +437,8 @@ class formcreate
                     </div>
                 </div>
             </div>
-        <!--    <div class="row" id="edit_<?php echo $res_id; ?>" style="display: none"> -->
-            <div class="row" id="edit_<?php echo $res_id; ?>" style="display: none">
+        <!-- Edit row always visible so option buttons (Auto/Off/On, etc.) are usable without toggling checkbox -->
+            <div class="row" id="edit_<?php echo $res_id; ?>">
                 <div class="form-group <?php echo $res_id; ?>">
                     <div class="col-md-3">
                         <i><?php echo _("Choose new value") . " — " . $res_n . ":"; ?></i>

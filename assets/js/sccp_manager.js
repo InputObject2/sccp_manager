@@ -1291,13 +1291,12 @@ $(".sccp-restore").click(function() {
         }
       } else {
           console.log('restore/unchecked');
-          if (edit_el) edit_el.style.display = 'none';
+          if (edit_el && $(this).data("type") !== 'radio') edit_el.style.display = 'none';
           if ($(this).data("type") === 'radio') {
               input.forEach(
                  function(radioElement) {
-                    //Revert to original value as have unchecked customise.
+                    radioElement.removeAttribute('disabled');
                     radioElement.checked = radioElement.defaultChecked;
-                    radioElement.name.value = radioElement.name.defaultValue;
                  }
               );
           } else if ($(this).data("type") === 'text') {
@@ -1332,7 +1331,7 @@ $(".sccp-edit").click(function() {
       }
   	} else {
         console.log('edit/unchecked');
-        if (edit_el) edit_el.style.display = 'none';
+        if (edit_el && $(this).data("type") !== 'radio') edit_el.style.display = 'none';
         if ($(this).data("type") === 'radio') {
             input.forEach(
                function(radioElement) {
