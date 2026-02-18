@@ -152,7 +152,7 @@ and open the template in the editor. Base Version before all crash :-)
             <default>sccpgeneral</default>
             <button value="sccpgeneral">Advanced</button>
             <button value="sccpsimple">Simple</button>
-            <help>Help!</help>
+            <help>Advanced shows all parameters in the SCCP settings form; Simple shows a reduced set for basic setup.</help>
         </item>
         <item type="IS" id="7" seq="98">
             <name>siptftp</name>
@@ -160,7 +160,7 @@ and open the template in the editor. Base Version before all crash :-)
             <default>off</default>
             <button value="off">Disabled</button>
             <button value="on">Enabled</button>
-            <help>Help!</help>
+            <help>Enable support for SIP-based Cisco phones. When enabled, SIP devices can be managed and provisioned alongside SCCP phones in this module.</help>
         </item>
     </page_group>
 
@@ -368,7 +368,7 @@ and open the template in the editor. Base Version before all crash :-)
             <button value="Received Calls">Received Calls</button>
             <button value="Missed Calls">Missed Calls</button>
             <button value="Ignore">Ignore</button>
-            <help></help>
+            <help>Which call list to show in the phone directory: Placed, Received, or Missed Calls. Ignore disables history updates when the call is answered on another device.</help>
         </item>
         <item type="IS" id="14">
             <name>mwilamp</name>
@@ -753,7 +753,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <value></value>
                 <options placeholder="http://x.x.x.x/cisco_menu/service.php"></options>
             </input>
-            <help></help>
+            <help>URL for the phone services menu (CiscoIPPhoneMenu). Used for custom service links on the device.</help>
         </item>
         <item type="IE" id="1" seq="10">
             <label>Phone Secure Service URL</label>
@@ -763,7 +763,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <value></value>
                 <options placeholder="https://x.x.x.x:port/cisco_menu/service.php"></options>
             </input>
-            <help></help>
+            <help>HTTPS URL for the phone services menu. Secure variant of Phone Service URL.</help>
         </item>
         <item type="IE" id="2" seq="10">
             <label>Phone authentication URL</label>
@@ -783,7 +783,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <default></default>
                 <value></value>
             </input>
-            <help></help>
+            <help>HTTPS URL for device authentication. Same purpose as Phone authentication URL over secure connection.</help>
         </item>
         <item type="IE" id="4" seq="10">
             <label>Phone information URL</label>
@@ -792,7 +792,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="http://x.x.x.x/cisco_menu/information.php"></options>
                 <default></default>
             </input>
-            <help></help>
+            <help>URL for custom information menu (CiscoIPPhoneMenu) shown on the phone.</help>
         </item>
         <item type="IE" id="4" seq="10">
             <label>Phone Secure information URL</label>
@@ -801,7 +801,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="https://x.x.x.x/cisco_menu/information.php"></options>
                 <default></default>
             </input>
-            <help></help>
+            <help>HTTPS URL for custom information menu. Secure variant of Phone information URL.</help>
         </item>
         <item type="IE" id="5" seq="10">
             <label>Phone messages URL</label>
@@ -810,7 +810,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="http://x.x.x.x:port/cisco_menu/messages.php"></options>
                 <default></default>
             </input>
-            <help></help>
+            <help>URL for the messages/voicemail menu (CiscoIPPhoneMenu) on the device.</help>
         </item>
         <item type="IE" id="5" seq="10">
             <label>Phone Secure messages URL</label>
@@ -819,7 +819,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="https://x.x.x.x:port/cisco_menu/messages.php"></options>
                 <default></default>
             </input>
-            <help></help>
+            <help>HTTPS URL for the messages menu. Secure variant of Phone messages URL.</help>
         </item>
         <item type="IE" id="6" seq="10">
             <label>Phone directory service URL</label>
@@ -837,7 +837,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <options placeholder="https://x.x.x.x/cisco_menu/directories.php"></options>
                 <default></default>
             </input>
-            <help></help>
+            <help>HTTPS URL for directory/phonebook menu. Secure variant of Phone directory service URL.</help>
         </item>
         <item type="IE" id="3" seq="10">
             <label>Phone Idle information URL</label>
@@ -857,7 +857,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <default></default>
                 <value></value>
             </input>
-            <help></help>
+            <help>HTTPS URL for idle-screen content (CiscoIPPhoneImage). Requires non-zero Phone Idle Timeout.</help>
         </item>
 
         <item type="IE" id="7" seq="10">
@@ -868,7 +868,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <default></default>
                 <value></value>
             </input>
-            <help></help>
+            <help>URL for proxy server used by the phone for external requests.</help>
         </item>
 
         <item type="IE" id="8" seq="10">
@@ -880,7 +880,7 @@ and open the template in the editor. Base Version before all crash :-)
                 <type>number</type>
                 <options min="0" max="3600"></options>
             </input>
-            <help></help>
+            <help>Seconds before the phone shows the idle screen (image/URL). Set 0 to disable.</help>
         </item>
     </page_group>
 
@@ -1118,7 +1118,7 @@ and open the template in the editor. Base Version before all crash :-)
             <default>off</default>
             <button value="on">Enabled</button>
             <button value="off">Disabled</button>
-            <help></help>
+            <help>When enabled, the phone automatically selects the active line or incoming call for answer without manual line selection.</help>
         </item>
         <item type="IS" id="11" seq="98">
             <name>backgroundImageAccess</name>

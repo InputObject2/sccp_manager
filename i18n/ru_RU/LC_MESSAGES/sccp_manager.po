@@ -1731,6 +1731,53 @@ msgstr "Подробное описание параметра подставл�
 msgid "Help is not available."
 msgstr "Для этого параметра подсказка в модуле не настроена. О назначении поля см. документацию или описание раздела."
 
+#: conf/sccpgeneral.xml.v433 - SCCP Config Mode, Support SIP, Call history, Auto Call Select
+msgid "Advanced shows all parameters in the SCCP settings form; Simple shows a reduced set for basic setup."
+msgstr "Режим Advanced: все параметры SCCP; Simple: сокращённый набор для базовой настройки."
+
+msgid "Enable support for SIP-based Cisco phones. When enabled, SIP devices can be managed and provisioned alongside SCCP phones in this module."
+msgstr "Включить поддержку Cisco-телефонов по SIP. В этом случае SIP-устройства настраиваются и прописываются в модуле наравне с SCCP."
+
+msgid "Which call list to show in the phone directory: Placed, Received, or Missed Calls. Ignore disables history updates when the call is answered on another device."
+msgstr "Какой список вызовов показывать в телефонной книге: исходящие, входящие или пропущенные. Ignore — не обновлять историю, если вызов принят на другом устройстве."
+
+msgid "When enabled, the phone automatically selects the active line or incoming call for answer without manual line selection."
+msgstr "При включении телефон сам выбирает активную линию или входящий вызов для ответа, без ручного выбора линии."
+
+#: conf/sccpgeneral.xml.v433 - SCCP URL Service config
+msgid "URL for the phone services menu (CiscoIPPhoneMenu). Used for custom service links on the device."
+msgstr "URL меню сервисов телефона (CiscoIPPhoneMenu) для пользовательских ссылок на устройстве."
+
+msgid "HTTPS URL for the phone services menu. Secure variant of Phone Service URL."
+msgstr "HTTPS-URL меню сервисов. Защищённый вариант Phone Service URL."
+
+msgid "HTTPS URL for device authentication. Same purpose as Phone authentication URL over secure connection."
+msgstr "HTTPS-URL аутентификации устройства. То же назначение, что и Phone authentication URL, по защищённому соединению."
+
+msgid "URL for custom information menu (CiscoIPPhoneMenu) shown on the phone."
+msgstr "URL пользовательского информационного меню (CiscoIPPhoneMenu) на телефоне."
+
+msgid "HTTPS URL for custom information menu. Secure variant of Phone information URL."
+msgstr "HTTPS-URL информационного меню. Защищённый вариант Phone information URL."
+
+msgid "URL for the messages/voicemail menu (CiscoIPPhoneMenu) on the device."
+msgstr "URL меню сообщений/голосовой почты (CiscoIPPhoneMenu) на устройстве."
+
+msgid "HTTPS URL for the messages menu. Secure variant of Phone messages URL."
+msgstr "HTTPS-URL меню сообщений. Защищённый вариант Phone messages URL."
+
+msgid "HTTPS URL for directory/phonebook menu. Secure variant of Phone directory service URL."
+msgstr "HTTPS-URL меню справочника/телефонной книги. Защищённый вариант Phone directory service URL."
+
+msgid "HTTPS URL for idle-screen content (CiscoIPPhoneImage). Requires non-zero Phone Idle Timeout."
+msgstr "HTTPS-URL контента экрана ожидания (CiscoIPPhoneImage). Нужен ненулевой Phone Idle Timeout."
+
+msgid "URL for proxy server used by the phone for external requests."
+msgstr "URL прокси-сервера, используемого телефоном для внешних запросов."
+
+msgid "Seconds before the phone shows the idle screen (image/URL). Set 0 to disable."
+msgstr "Секунды до показа экрана ожидания (картинка/URL). 0 — отключить."
+
 #: views/advserver.model.php
 msgid "Use \"CISCO\" for the Skinny Client Control Protocol and \"CISCO-SIP\" for the CISCO Sip Protocol"
 msgstr "Укажите \"CISCO\" для протокола SCCP (Skinny) или \"CISCO-SIP\" для Cisco SIP."
