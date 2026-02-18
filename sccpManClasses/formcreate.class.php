@@ -178,6 +178,7 @@ class formcreate
         $child->meta_help = self::safeStr($child->meta_help ?? '');
         $res_input = '';
         $res_value = '';
+        $internalButtonHtml = '';
         $opt_at = array();
         $res_n = self::safeStr($child->name ?? '');
 
@@ -224,7 +225,7 @@ class formcreate
                             <div class="col-md-9">
                             <?php
                             if (!empty($child->cbutton)) {
-                                echo '<div class="form-group form-inline">';
+                                // Build "Internal" toggle once; render it later next to +/- buttons
                                 foreach ($child->xpath('cbutton') as $value) {
                                     $res_n = $res_id.'[0]['.$value['field'].']';
                                     // res_vf sets the state of the checkbox internal. This is always
@@ -265,11 +266,10 @@ class formcreate
                                         $opt_class .= " ".(string)$value->class;
                                     }
 
-                                    echo '<span class="'.$opt_class.'"'.$opt_hide.'><button type="button" class="btn '.(($res_vf) ? 'active':"").'" data-color="primary">';
-                                    echo '<i class="state-icon '. (($res_vf)?'glyphicon glyphicon-check"':'glyphicon glyphicon-uncheck'). '"></i> ';
-                                    echo $value.'</button><input type="checkbox" name="'. $res_n.'" class="hidden" '. (($res_vf)?'checked="checked"':'') .'/></span>';
+                                    $internalButtonHtml .= '<span class="'.$opt_class.'"'.$opt_hide.'><button type="button" class="btn '.(($res_vf) ? 'active':"").'" data-color="primary">';
+                                    $internalButtonHtml .= '<i class="state-icon '. (($res_vf)?'glyphicon glyphicon-check"':'glyphicon glyphicon-uncheck'). '"></i> ';
+                                    $internalButtonHtml .= self::h((string)$value).'</button><input type="checkbox" name="'. self::h($res_n).'" class="hidden" '. (($res_vf)?'checked="checked"':'') .'/></span>';
                                 }
-                                echo '</div>';
                             }
                             $opt_class = "col-sm-7 ".$res_id."-gr";
                             if (!empty($child->class)) {
@@ -322,6 +322,10 @@ class formcreate
                                     // only add plus button to the last row
                                     if (is_array($res_value) && $i == count($res_value)) {
                                         echo '<button type="button" class="btn btn-primary btn-lg input-js-add" id="'.$res_id.$i.'-btn-add" data-id="'.$res_id.'" data-row="'.$i.'" data-for="'.$res_id.'" data-max="'.$max_row.'"data-json="'.bin2hex(json_encode($opt_at)).'"><i class="fa fa-plus"></i></button>';
+                                        // Render Internal toggle (if present) next to +/- on the first row
+                                        if ($i === 1 && $internalButtonHtml !== '') {
+                                            echo $internalButtonHtml;
+                                        }
                                     }
                                     echo '</span>';
                                 }
