@@ -35,6 +35,13 @@ class formcreate
             return $s;
         }
         $lower = strtolower($s);
+        // Common numeric booleans
+        if ($lower === '1') {
+            return 'Enabled';
+        }
+        if ($lower === '0') {
+            return 'Disabled';
+        }
         $known = ['off', 'on', 'none', 'yes', 'no', 'auto', 'enabled', 'disabled', 'advanced', 'simple', 'core', 'sccp', 'device', 'all'];
         if (in_array($lower, $known, true)) {
             return ucfirst($lower);

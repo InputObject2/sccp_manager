@@ -87,10 +87,13 @@ and open the template in the editor.
     max-width: none;
 }
 
-/* Right-aligned column for 'Use chan-sccp defaults' / 'Customise' buttons */
+/* Right-aligned column for 'Use chan-sccp defaults' / 'Customise' buttons - same offset from right edge */
 .element-container .form-group > .sccp-default-col {
     margin-left: auto;
     flex: 0 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 /* All field labels same darkness and weight (avoid theme/radioset differences) */
