@@ -107,18 +107,28 @@ class formcreate
             }
             $value->type = self::safeStr($value->type ?? '') ?: 'text';
             $value->class = self::safeStr($value->class ?? '') ?: 'form-control';
+            // Display value for input: saved value or system default when empty
+            $input_val = $fval_data !== '' ? $fval_data : (self::safeStr($sccp_defaults[$res_n]['systemdefault'] ?? '') ?: self::safeStr($value->default ?? ''));
             if ($i > 0) {
                 echo self::safeStr($child->nameseparator);
             }
-            // Output current value (wrapped for highlight, unified display style)
-            $emptyClass = ($fval_data === '') ? ' sccp-value-empty' : '';
-            echo '<span class="sccp-value-display' . $emptyClass . '">';
-            if ($fval_data === '') {
-                echo self::h($res_n) . " has not been set";
-            } else {
-                echo self::h(self::formatValueDisplay($fval_data));
+            echo '<input type="' . self::h($value->type) . '" class="' . self::h($value->class) . '"';
+            if ($i === 0) {
+                echo ' id="' . self::h($res_id) . '"';
             }
-            echo '</span>';
+            echo ' name="' . self::h($res_name) . '" value="' . self::h($input_val) . '"';
+            if (isset($value->options)) {
+                foreach ($value->options->attributes() as $optkey => $optval) {
+                    echo ' ' . $optkey . '="' . self::h($optval) . '"';
+                }
+            }
+            if (!empty($value->min)) {
+                echo ' min="' . self::h($value->min) . '"';
+            }
+            if (!empty($value->max)) {
+                echo ' max="' . self::h($value->max) . '"';
+            }
+            echo '>';
             $i++;
         }
         ?>
@@ -152,59 +162,6 @@ class formcreate
                     <?php
                     }
                     ?>
-                </div>
-            </div>
-            <div class="row" id="edit_<?php echo $res_id; ?>" style="display: none">
-                <div class="form-group <?php echo $res_sec_class; ?>">
-                    <div class="col-md-3">
-                        <i><?php echo sprintf(_("Enter new %s value for %s"), $this->buttonHelpLabel, $shortId); ?></i>
-                    </div>
-                    <?php
-                    ?>
-
-                    <div class="col-md-9">
-                        <?php
-                        $i=0;
-                        // Can have multiple inputs for a field displayed with a separator
-                        foreach ($child->xpath('input') as $value) {
-                                $res_n =  (string)$value->name;
-                                $res_name = $npref . $res_n;
-                            if (empty($res_id)) {
-                                $res_id = $res_name;
-                            }
-                            if (!empty(($fvalues[$res_n] ?? [])['data'] ?? null)) {
-                                $value->value = ($fvalues[$res_n] ?? [])['data'] ?? '';
-                            }
-                            // Default to chan-sccp defaults, not xml defaults if reverting to defaults or empty
-                            if ((empty($value->value)) || ($usingSysDefaults)) {
-                                $value->value = $sccp_defaults[$res_n]['systemdefault'] ?? '';
-                            }
-                            if (empty($value->type)) {
-                                $value->type = 'text';
-                            }
-                            if (empty($value->class)) {
-                                $value->class = 'form-control';
-                            }
-                            if ($i > 0) {
-                                echo $child->nameseparator;
-                            }
-                            echo '<input type="' . self::h($value->type) . '" class="' . self::h($value->class) . '" id="' . self::h($res_id) . '" name="' . self::h($res_name) . '" value="' . self::h($value->value) . '"';
-                            if (isset($value->options)) {
-                                foreach ($value->options ->attributes() as $optkey => $optval) {
-                                    echo  ' '.$optkey.'="'.$optval.'"';
-                                }
-                            }
-                            if (!empty($value->min)) {
-                                echo  ' min="'.$value->min.'"';
-                            }
-                            if (!empty($value->max)) {
-                                echo  ' max="'.$value->max.'"';
-                            }
-                            echo  '>';
-                            $i ++;
-                        }
-                        ?>
-                    </div>
                 </div>
             </div>
             <div class="row">

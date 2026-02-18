@@ -1256,16 +1256,15 @@ function sleep(milliseconds)
 $(".sccp-restore").click(function() {
     //input is sent by data-for where for is an attribute
   	var id = $(this).data("for"), input = $("#" + id);
-    var edit_style = document.getElementById("edit_" + id).style;
+    var edit_el = document.getElementById("edit_" + id);
     input = document.getElementsByName(id);
   	if (input.length === 0) {
   		 return;
   	}
   	if ($(this).is(":checked")) {
         console.log('restore/checked');
-        // Restoring defaults
-        // show the edit block and populate with default values.
-        edit_style.display = 'block';
+        // Restoring defaults; show edit block if present (IE fields now use inline input)
+        if (edit_el) edit_el.style.display = 'block';
         var defaultVal = $(this).data("default");
         if ($(this).data("type") === 'radio') {
             // simulate read only for checkboxes except default
@@ -1292,7 +1291,7 @@ $(".sccp-restore").click(function() {
         }
       } else {
           console.log('restore/unchecked');
-          edit_style.display = 'none';
+          if (edit_el) edit_el.style.display = 'none';
           if ($(this).data("type") === 'radio') {
               input.forEach(
                  function(radioElement) {
@@ -1311,16 +1310,16 @@ $(".sccp-restore").click(function() {
 $(".sccp-edit").click(function() {
     //input is sent by data-xxx where xxx is an attribute
     var id = $(this).data("for"), input = $("#" + id);
-    var edit_style = document.getElementById("edit_" + id).style;
+    var edit_el = document.getElementById("edit_" + id);
     input = document.getElementsByName(id);
 
   	if (input.length === 0) {
   		  return;
   	}
   	if ($(this).is(":checked")) {
-        // editing away from the default value
+        // editing away from the default value; show edit block if present (IE uses inline input)
         console.log('edit/checked');
-        edit_style.display = 'block';
+        if (edit_el) edit_el.style.display = 'block';
         if ($(this).data("type") === 'radio') {
            input.forEach(
               function(radioElement) {
@@ -1333,7 +1332,7 @@ $(".sccp-edit").click(function() {
       }
   	} else {
         console.log('edit/unchecked');
-        edit_style.display = 'none';
+        if (edit_el) edit_el.style.display = 'none';
         if ($(this).data("type") === 'radio') {
             input.forEach(
                function(radioElement) {
