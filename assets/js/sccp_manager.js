@@ -925,9 +925,25 @@ function load_oncliсk(e, data)
 
 // call from here not document.ready as have dynamic content
 $(document).on('click', ".input-js-remove" , function () {
-    // delete the current row
     var pname = $(this).data('id');
-    $('#' + pname).remove();
+    var $row = $('#' + pname);
+    var pcls = pname.replace(/\d+$/, '');
+    var $addBtn = $row.find('.input-js-add');
+    var savedJson = $addBtn.length ? $addBtn.data('json') : null;
+    var savedMax = $addBtn.length ? $addBtn.data('max') : null;
+    $row.remove();
+    if (savedJson != null && savedMax != null) {
+        var $last = $("." + pcls).last();
+        if ($last.length && !$last.find('.input-js-add').length) {
+            var nextid = $last.data('nextid') || 1;
+            var $btns = $last.find('.sccp-ied-btns');
+            if ($btns.length) {
+                $btns.append(
+                    "<button type='button' class='btn btn-primary btn-lg input-js-add' id='" + pcls + nextid + "-btn-add' data-id='" + pcls + "' data-row='" + nextid + "' data-for='" + pcls + "' data-max='" + savedMax + "' data-json='" + savedJson + "'><i class='fa fa-plus'></i></button>"
+                );
+            }
+        }
+    }
 });
 
 $(document).on('click', ".input-js-add" , function () {
