@@ -1795,8 +1795,8 @@ msgstr "Использовать путь из index.cnf Provision. Сначал
 msgid "Support the use of regular-expression-based filename remapping"
 msgstr "Поддержка переименования файлов по правилам (регулярные выражения)."
 
-msgid "Experimental Function Roaming Users"
-msgstr "Экспериментальная функция: роуминг пользователей между устройствами."
+msgid "Experimental Function Roaming Users: allow users to use their extension on different devices (roam between phones)."
+msgstr "Экспериментальная функция: роуминг пользователей между устройствами (использование своего extension с разных телефонов)."
 
 msgid "Timeout after which callforward noanswer (when active) will be triggered. default is 30 seconds"
 msgstr "Таймаут (сек), после которого срабатывает переадресация при отсутствии ответа. По умолчанию 30."

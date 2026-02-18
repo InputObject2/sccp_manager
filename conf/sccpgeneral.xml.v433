@@ -1244,7 +1244,7 @@ and open the template in the editor. Base Version before all crash :-)
             <default>no</default>
             <button value="yes">Yes</button>
             <button value="no">No</button>
-            <help>Experimental Function Roaming Users</help>
+            <help>Experimental Function Roaming Users: allow users to use their extension on different devices (roam between phones).</help>
         </item>
     </page_group>
 
