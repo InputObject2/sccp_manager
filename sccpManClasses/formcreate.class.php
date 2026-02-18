@@ -340,7 +340,7 @@ class formcreate
                                     }
 
                                     $defValue = (isset($addrArr[$field_id])) ? $addrArr[$field_id] : "";
-                                    echo '<input type="text" name="'. self::h($res_n) .'" class="'. self::h($opt_at[$field_id]['class']) .'" value="'. self::h($defValue) .'"';
+                                    echo '<input type="text" name="'. self::h($res_n) .'" class="'. self::h($opt_at[$field_id]['class']) .'" value="'. self::h($defValue) .'" data-default="' . self::h($defValue) . '"';
 
 
                                     if (isset($value->options)) {

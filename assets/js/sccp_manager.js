@@ -928,9 +928,30 @@ $(document).on('click', ".input-js-remove" , function () {
     var pname = $(this).data('id');
     var $row = $('#' + pname);
     var pcls = pname.replace(/\d+$/, '');
+    var groupCount = $("." + pcls).length;
     var $addBtn = $row.find('.input-js-add');
     var savedJson = $addBtn.length ? $addBtn.data('json') : null;
     var savedMax = $addBtn.length ? $addBtn.data('max') : null;
+    // Never delete the last remaining row: reset it to defaults and keep it editable.
+    if (groupCount <= 1) {
+        $row.find('input').each(function () {
+            var $inp = $(this);
+            var def = $inp.data('default');
+            $inp.val((def !== undefined) ? def : '');
+        });
+        // Ensure + exists on the only row
+        if (savedJson != null && savedMax != null && !$row.find('.input-js-add').length) {
+            var nextid = $row.data('nextid') || 1;
+            var $btns = $row.find('.sccp-ied-btns');
+            if ($btns.length) {
+                $btns.append(
+                    "<button type='button' class='btn btn-primary btn-lg input-js-add' id='" + pcls + nextid + "-btn-add' data-id='" + pcls + "' data-row='" + nextid + "' data-for='" + pcls + "' data-max='" + savedMax + "' data-json='" + savedJson + "'><i class='fa fa-plus'></i></button>"
+                );
+            }
+        }
+        return;
+    }
+
     $row.remove();
     if (savedJson != null && savedMax != null) {
         var $last = $("." + pcls).last();
@@ -969,7 +990,9 @@ $(document).on('click', ".input-js-add" , function () {
         for (var skey in jdata[key]['options']) {
             html_opt += ' ' + skey + '="' + jdata[key]['options'][skey] + '"';
         }
-        html += "<input type='text' name='" + pname + "[" + nextid + "][" + key + "]' class " + html_opt + "> " + jdata[key]['nameseparator'] + " ";
+        var cls = jdata[key]['class'] || 'form-control';
+        var sep = jdata[key]['nameseparator'] || '';
+        html += "<input type='text' name='" + pname + "[" + nextid + "][" + key + "]' class='" + cls + "' data-default='' " + html_opt + "> " + sep + " ";
     }
     // add remove and plus buttons in one column (- above +)
     html += "<span class='sccp-ied-btns'>";
