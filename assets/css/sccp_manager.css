@@ -224,10 +224,6 @@ textarea.form-control::placeholder {
 }
 .sccp-ied-row input.form-control {
     box-sizing: border-box;
-}
-.sccp-ied-row input.form-control:first-of-type {
+    width: 12em;
     min-width: 12em;
-}
-.sccp-ied-row input.form-control:nth-of-type(2) {
-    min-width: 5em;
 }
