@@ -87,8 +87,7 @@ class formcreate
             <div class="row">
                 <div class="form-group <?php echo $res_sec_class; ?>">
                     <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
-                        <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-3">
         <?php
@@ -262,8 +261,7 @@ class formcreate
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-3">
-                                <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
-                                <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                                <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                             </div>
 
                             <div class="col-md-9">
@@ -420,8 +418,7 @@ class formcreate
             <div class="row">
                 <div class="form-group <?php echo $res_sec_class;?>">
                     <div class="col-md-3 radioset">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label)?></label>
-                        <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
 
                     <?php
@@ -442,6 +439,10 @@ class formcreate
                     }
                     if (($sccp_defaults[$res_n]['systemdefault'] ?? '') != $res_v) {
                         $usingSysDefaults = false;
+                    }
+                    // When using system default, show it so the user sees the effective value (e.g. Yes/No)
+                    if ($res_v === '' && !empty($sccp_defaults[$res_n]['systemdefault'] ?? '')) {
+                        $res_v = (string)$sccp_defaults[$res_n]['systemdefault'];
                     }
                     if (!empty($sccp_defaults[$res_n]['systemdefault'] ?? '')) {
                     // There is a system default, so add button to customise or reset
@@ -469,7 +470,7 @@ class formcreate
                         >
                         <label
                             <?php
-                            echo "for=usedefault_{$res_id} >";
+                            echo ' for="usedefault_' . $res_id . '" title="' . self::h($usingSysDefaults ? _("Click to choose a value (e.g. Yes/No)") : _("Revert to chan-sccp default")) . '">';
                             echo ($usingSysDefaults) ? _("Customise") : sprintf(_("Use %s defaults"), $this->buttonDefLabel);
                             ?>
                         </label>
@@ -481,7 +482,7 @@ class formcreate
             <div class="row" id="edit_<?php echo $res_id; ?>" style="display: none">
                 <div class="form-group <?php echo $res_id; ?>">
                     <div class="col-md-3">
-                        <i><?php echo "Choose new {$this->buttonHelpLabel} value for {$res_n}"; ?></i>
+                        <i><?php echo _("Choose new value") . " — " . $res_n . ":"; ?></i>
                     </div>
                     <!-- Finish include of defaults button -->
                     <?php
@@ -653,8 +654,7 @@ class formcreate
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
-                        <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-9">
                         <div class = "lnet form-group form-inline" data-nextid=1>
@@ -753,8 +753,7 @@ class formcreate
                     ?>
 
                     <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
-                        <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-3">
                         <div class = "lnet form-group form-inline" data-nextid=1>
@@ -853,8 +852,7 @@ class formcreate
         <div class="element-container">
            <div class="row"> <div class="form-group">
                    <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
-                        <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-9"><div class = "lnet form-group form-inline" data-nextid=1> <?php
                             echo  '<select name="'.$res_id.'" class="'. $child->class . '" id="' . $res_id . '"';
@@ -1085,8 +1083,7 @@ class formcreate
            <div class="row">
               <div class="form-group">
                   <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?></label>
-                        <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                   </div>
                   <div class="col-md-9"> <?php
                       echo  $child->value;

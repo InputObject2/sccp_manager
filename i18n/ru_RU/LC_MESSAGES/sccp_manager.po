@@ -1906,5 +1906,14 @@ msgstr "Включить LLDP на порту SW (сеть)."
 msgid " Enable Link Layer Discovery Protocol on the PC (computer) port."
 msgstr "Включить LLDP на порту ПК (компьютер)."
 
+msgid "Click to choose a value (e.g. Yes/No)"
+msgstr "Нажмите, чтобы выбрать значение (Да/Нет)"
+
+msgid "Revert to chan-sccp default"
+msgstr "Вернуть значение по умолчанию chan-sccp"
+
+msgid "Choose new value"
+msgstr "Выберите новое значение"
+
 #~ msgid "Buttons "
 #~ msgstr "Кнопки "
