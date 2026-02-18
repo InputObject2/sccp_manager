@@ -42,7 +42,7 @@ if ($h_show==1) {
     ?>
 
  <div class="section-title" data-for="<?php echo $npref.$itm['name'];?>">
-    <h3><i class="fa fa-minus"></i><?php echo _($items ->label) ?></h3>
+    <h3><i class="fa fa-minus"></i><?php echo htmlspecialchars((string)($items->label ?? ''), ENT_QUOTES, 'UTF-8'); ?></h3>
  </div>
  <div class="section <?php echo $sec_class;?>" data-id="<?php echo $npref.$itm['name'];?>">
 

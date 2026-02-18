@@ -87,7 +87,7 @@ class formcreate
             <div class="row">
                 <div class="form-group <?php echo $res_sec_class; ?>">
                     <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-3">
         <?php
@@ -218,7 +218,7 @@ class formcreate
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-3">
-                                <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                                <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                             </div>
 
                             <div class="col-md-9">
@@ -377,7 +377,7 @@ class formcreate
             <div class="row">
                 <div class="form-group <?php echo $res_sec_class;?>">
                     <div class="col-md-3 radioset">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
 
                     <?php
@@ -613,7 +613,7 @@ class formcreate
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-9">
                         <div class = "lnet form-group form-inline" data-nextid=1>
@@ -712,7 +712,7 @@ class formcreate
                     ?>
 
                     <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-3">
                         <div class = "lnet form-group form-inline" data-nextid=1>
@@ -811,7 +811,7 @@ class formcreate
         <div class="element-container">
            <div class="row"> <div class="form-group">
                    <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                     </div>
                     <div class="col-md-9"><div class = "lnet form-group form-inline" data-nextid=1> <?php
                             echo  '<select name="'.$res_id.'" class="'. $child->class . '" id="' . $res_id . '"';
@@ -981,7 +981,7 @@ class formcreate
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-info-circle"></i> <nbsp> <?php echo _($child->label);?>
+                <h3 class="panel-title"><i class="fa fa-info-circle"></i> <nbsp> <?php echo self::h(self::safeStr($child->label ?? ''));?>
                 <a data-toggle="collapse" href="<?php echo '#'.$res_id;?>"><i class="fa fa-plus pull-right"></i></a></h3>
             </div>
             <div class="panel-body collapse" id="<?php echo $res_id;?>">
@@ -1042,7 +1042,7 @@ class formcreate
            <div class="row">
               <div class="form-group">
                   <div class="col-md-3">
-                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo _($child->label);?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
+                        <label class="control-label" for="<?php echo $res_id; ?>"><?php echo self::h(self::safeStr($child->label ?? ''));?> <i class="fa fa-question-circle fpbx-help-icon" data-for="<?php echo $res_id; ?>"></i></label>
                   </div>
                   <div class="col-md-9"> <?php
                       echo  $child->value;
