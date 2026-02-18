@@ -86,6 +86,12 @@ and open the template in the editor.
     max-width: none;
 }
 
+/* All field labels same darkness and weight (avoid theme/radioset differences) */
+.element-container label.control-label {
+    color: #333 !important;
+    font-weight: 600;
+}
+
 /* Highlight current/selected values in config forms */
 .sccp-value-display {
     display: inline-block;
@@ -211,7 +217,7 @@ textarea.form-control::placeholder {
     margin: 0;
 }
 
-/* IED rows: one line, buttons to the right of data */
+/* IED rows: one line, +/- buttons a bit to the right of inputs (not flush, not far right) */
 .sccp-ied-row {
     display: flex;
     flex-wrap: nowrap;
@@ -219,7 +225,7 @@ textarea.form-control::placeholder {
     gap: 6px 8px;
 }
 .sccp-ied-row .sccp-ied-btns {
-    margin-left: auto;
+    margin-left: 1rem;
     flex-shrink: 0;
 }
 .sccp-ied-row input.form-control {
