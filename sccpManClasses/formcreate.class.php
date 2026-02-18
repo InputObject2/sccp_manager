@@ -482,6 +482,47 @@ class formcreate
                 </div>
             </div>
                     <?php
+                    } else {
+                    // No system default: still show value and radio options in same row (no checkbox)
+                    echo "<div class='col-md-3'>";
+                    echo '<span class="sccp-value-display">' . self::h(self::formatValueDisplay($res_v)) . '</span>';
+                    echo "</div>";
+                    $i = 0;
+                    $opt_hide = '';
+                    if (!empty($child->option_hide)) {
+                        $opt_hide = ' class="sccp_button_hide" data-vhide="'.$child->option_hide.'" data-clhide="'.$child->option_hide['class'].'" ';
+                    }
+                    if (!empty($child->option_show)) {
+                        if (empty($opt_hide)) {
+                            $opt_hide = ' class="sccp_button_hide" ';
+                        }
+                        $opt_hide .= ' data-vshow="'.$child->option_show.'" data-clshow="'.(string)($child->option_show['class'] ?? '').'" ';
+                    }
+                    ?>
+                    <div class="col-md-9 radioset" data-hide="on">
+                      <?php
+                        foreach ($child->xpath('button') as $value) {
+                            $opt_disabled = in_array($value, $disabledButtons) ? 'disabled' : '';
+                            $val_check = strtolower((string)(isset($value['value']) ? $value['value'] : $value));
+                            if ($val_check == strtolower($res_v)) {
+                                $val_check = "checked";
+                            } else {
+                                if ($val_check == '' || $val_check == 'none') {
+                                    $val_check = (strtolower($res_v) == 'none' || $res_v == '') ? "checked" : "";
+                                } else {
+                                    $val_check = "";
+                                }
+                            }
+                            $optVal = (string)(isset($value['value']) ? $value['value'] : $value);
+                            echo "<input type=\"radio\" name=\"" . self::h($res_id) . "\" id=\"" . self::h($res_id . '_' . $i) . "\" value=\"" . self::h($optVal) . "\" {$val_check} {$opt_hide} {$opt_disabled}>";
+                            echo "<label for=\"" . self::h($res_id . '_' . $i) . "\">" . self::h(self::formatValueDisplay((string)$value)) . "</label>";
+                            $i++;
+                        }
+                      ?>
+                    </div>
+                </div>
+            </div>
+                    <?php
                     }
                     ?>
             <div class="row"><div class="col-md-12">
