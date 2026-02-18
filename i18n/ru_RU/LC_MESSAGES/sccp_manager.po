@@ -1764,5 +1764,147 @@ msgstr "Идентификатор load information для прошивки (ф�
 msgid "XML template name for this model."
 msgstr "Имя XML-шаблона для данной модели."
 
+# --- Пропущенные подсказки из conf/sccpgeneral.xml.v433 (русская локаль) ---
+msgid "Servername: This is the name of the server; normally it will be Asterisk."
+msgstr "Имя сервера SCCP; обычно Asterisk."
+
+msgid "Bind Address: The address to bind to for SCCP. In general, it should be set to '0.0.0.0'. If you find problems with one-way audio, you can set this to a specific address in the server. Note that '127.0.0.1' is always wrong here.  Also note that placing in your external IP address will cause the chan_sccp module to not load.  A manual edit of the /etc/asterisk/sccp.conf file will be needed to fix and reload the module."
+msgstr "Адрес для привязки SCCP. Обычно 0.0.0.0. При проблемах с односторонним аудио укажите конкретный IP. 127.0.0.1 использовать нельзя. Внешний IP здесь приведёт к отказу загрузки chan_sccp — потребуется правка /etc/asterisk/sccp.conf и перезагрузка модуля."
+
+msgid "Global NAT support (default Auto)"
+msgstr "Глобальная поддержка NAT (по умолчанию Auto)."
+
+msgid "Allow network settings. Blank fields will be ignored used Network 0.0.0.0/0.0.0.0 to resolve any existing connections. You can use the 'internal' connections only from the networks connected to the server. "
+msgstr "Допустимые подсети для регистрации. Пустые поля игнорируются. 0.0.0.0/0.0.0.0 — разрешить все. Подключения 'internal' только с сетей, связанных с сервером."
+
+msgid "This function is useful when the server has many interfaces, but devices must connect only to some interfaces."
+msgstr "Полезно при нескольких интерфейсах на сервере, когда устройства должны подключаться только к части из них."
+
+msgid "The user locale allows the phone to display text (menu items, soft keys etc.) native to the phone's language. If No language packs found is shown, you need to add locales in the tftp server"
+msgstr "Локаль пользователя: язык меню и софтключей на телефоне. При сообщении «No language packs found» добавьте языковые пакеты в каталог TFTP."
+
+msgid "The Network locales allows the phone to play tones (ringing, busy etc.) native to the phone's country. If No language packs found is shown, you need to add locales in the tftp server"
+msgstr "Сетевая локаль: тоны набора, занято и т.д. по стране. При «No language packs found» добавьте локали в TFTP."
+
+msgid "Path to tftp home directory. This was determined by the Sccp_manager installer and should only be changed if the tftp root has been modified since installation"
+msgstr "Корневой каталог TFTP. Задаётся при установке Sccp_manager; меняйте только если изменили корень TFTP после установки."
+
+msgid "Use path from provision index.cnf file. You must first make sure that you have properly configured the \"Provision\""
+msgstr "Использовать путь из index.cnf Provision. Сначала настройте раздел Provision."
+
+msgid "Support the use of regular-expression-based filename remapping"
+msgstr "Поддержка переименования файлов по правилам (регулярные выражения)."
+
+msgid "Experimental Function Roaming Users"
+msgstr "Экспериментальная функция: роуминг пользователей между устройствами."
+
+msgid "Timeout after which callforward noanswer (when active) will be triggered. default is 30 seconds"
+msgstr "Таймаут (сек), после которого срабатывает переадресация при отсутствии ответа. По умолчанию 30."
+
+msgid "Set the MWI on call."
+msgstr "Включить индикатор сообщений (MWI) во время вызова."
+
+msgid "Context where direct pickup search for extensions. if not set current context will be use."
+msgstr "Контекст поиска extension для direct pickup. Если не задан — используется текущий контекст."
+
+msgid "Enable/disable Pickup button to do directed pickup from a specific extension."
+msgstr "Включить или отключить кнопку Pickup для перехвата вызова с указанного extension."
+
+msgid "Complete transfer on hangup, without pressing transfer a second time. Will complete transfer, when the transferer puts the receiver on hook, after the destination has been reached. To cancel the transfer, either press resume on the transferred channel, press the 'endcall' softkey, or have the receiving party hangup first."
+msgstr "Завершить перевод при положении трубки, без повторного нажатия Transfer. Для отмены: Resume на переведённом канале, softkey endcall или положить трубку у принявшего вызов."
+
+msgid "Enables and Disables auto line selection."
+msgstr "Включает и отключает автоматический выбор линии при снятии трубки."
+
+msgid "I'm guessing on this one, but on some devices, the background image on the display can be modified at the device. I think this is the thing that allows that to happen."
+msgstr "На части устройств фоновое изображение на дисплее можно менять с самого телефона; эта опция разрешает такое изменение."
+
+msgid "Show numbers you can redial, but also include their current device state, so you know when they are currently busy. Note that the other phonebook entries will now also monitor the remove device state and show the current device state"
+msgstr "Показывать номера для повторного набора и их текущее состояние (занято и т.д.). Остальные записи телефонной книги также отображают состояние устройства."
+
+msgid "The audio stream will be open in the progress and connected state. Valid options: Yes/ No"
+msgstr "Аудиопоток (RTP) открывается в состоянии progress и connected. Варианты: Yes / No."
+
+msgid "Use simulated enbloc dialing to speedup connection when dialing while onhook (older phones)"
+msgstr "Имитация набора enbloc для ускорения установления соединения при наборе с положенной трубкой (старые телефоны)."
+
+msgid "This needs to be enabled to allow the server to push background or ringtones to the phone in the SEPXXXXXXXXXX.cnf.xml of each phone:"
+msgstr "Включите, чтобы сервер мог передавать фоновое изображение и рингтоны в SEPXXXXXXXXXX.cnf.xml каждого телефона."
+
+msgid "Activate the callforward NOANSWER stuff and softkeys. Default is On"
+msgstr "Включить переадресацию при отсутствии ответа и соответствующие софтключи. По умолчанию On."
+
+msgid "Allow the use of the transfer feature"
+msgstr "Разрешить использование функции перевода вызова."
+
+msgid "Hotline Label: The label on the device"
+msgstr "Подпись горячей линии на экране устройства."
+
+msgid "SCCP Signalling Type Of Service / Class Of Service - this is modifiable, but it is not recommended to change"
+msgstr "Тип/класс обслуживания для сигнализации SCCP. Менять не рекомендуется."
+
+msgid "Audio Type Of Service / Class Of Service - this is modifiable, but it is not recommended to change"
+msgstr "Тип/класс обслуживания для аудио. Менять не рекомендуется."
+
+msgid "Video Type Of Service / Class Of Service - this is modifiable, but it is not recommended to change"
+msgstr "Тип/класс обслуживания для видео. Менять не рекомендуется."
+
+msgid "NTP Server name or IP address"
+msgstr "Имя или IP-адрес NTP-сервера."
+
+msgid "You enabled/configured a Survivable Remote Site Telephony (SRST) reference as the last device in the CallManager(CM) list."
+msgstr "Вы включили или настроили SRST (Survivable Remote Site Telephony) как последний узел в списке CallManager (CM)."
+
+msgid "The user can change the personal SRST configuration on the device"
+msgstr "Пользователь может менять персональную конфигурацию SRST на устройстве."
+
+msgid "You enabled configure a Survivable Remote Site Telephony (SRST) reference as the last device in the CallManager(CM) list."
+msgstr "Вы включили настройку SRST как последнего узла в списке CallManager (CM)."
+
+msgid "Log server Address: x.x.x.x:9001 "
+msgstr "Адрес сервера логов в формате x.x.x.x:9001."
+
+msgid "Comma separated list of days that the phone's display is not active and will be automatically turned off after the time specified by \"displayIdleTimeout\" has elapsed (1 - Sunday, 7 - Saturday)"
+msgstr "Дни недели через запятую (1 — воскресенье, 7 — суббота), когда дисплей неактивен и выключается по истечении displayIdleTimeout."
+
+msgid "Time in HH:MM format to automatically turn on the phone display."
+msgstr "Время в формате ЧЧ:ММ для автоматического включения дисплея."
+
+msgid "Time duration in HH:MM format to automatically turn off the phone display after it was turned on."
+msgstr "Длительность в формате ЧЧ:ММ до автоматического выключения дисплея после включения."
+
+msgid "Timeout in HH:MM format to automatically turn off phone display if outside the time specified by \"daysDisplayNotActive\", \"displayOnTime\" and \"displayOnTimeout\"."
+msgstr "Таймаут ЧЧ:ММ для выключения дисплея, если текущее время вне периодов daysDisplayNotActive, displayOnTime и displayOnTimeout."
+
+msgid "Whether a user can access the phone settings."
+msgstr "Разрешить ли пользователю доступ к настройкам телефона."
+
+msgid "Enable the phone's HTTP server."
+msgstr "Включить встроенный HTTP-сервер телефона."
+
+msgid "Enable remote administration using the phone's HTTP server. 8821 model only."
+msgstr "Включить удалённое администрирование через HTTP-сервер телефона. Только модель 8821."
+
+msgid "Disable the PC (computer) port"
+msgstr "Отключить порт ПК (компьютера)."
+
+msgid "Forward packets sent and received on the SW (network) port to the PC (computer) port."
+msgstr "Передавать пакеты с порта SW (сеть) на порт ПК (компьютер)."
+
+msgid "Allow devices connected to the PC (computer) port to access the voice VLAN."
+msgstr "Разрешить устройствам на порту ПК доступ к голосовой VLAN."
+
+msgid "Enable Cisco Discovery Protocol on the SW (network) port."
+msgstr "Включить CDP (Cisco Discovery Protocol) на порту SW (сеть)."
+
+msgid "Enable Cisco Discovery Protocol on the PC (computer) port."
+msgstr "Включить CDP на порту ПК (компьютер)."
+
+msgid "Enable Link Layer Discovery Protocol on the SW (network) port."
+msgstr "Включить LLDP на порту SW (сеть)."
+
+msgid " Enable Link Layer Discovery Protocol on the PC (computer) port."
+msgstr "Включить LLDP на порту ПК (компьютер)."
+
 #~ msgid "Buttons "
 #~ msgstr "Кнопки "
