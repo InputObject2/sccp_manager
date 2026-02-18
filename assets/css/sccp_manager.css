@@ -81,8 +81,9 @@ and open the template in the editor.
     flex: 0 0 auto;
 }
 .element-container .form-group > .col-md-3:nth-child(2) {
-    flex: 1 1 0%;
-    min-width: 0;
+    /* Don’t allow the value column to collapse (e.g. empty IS values) */
+    flex: 1 1 12em;
+    min-width: 12em;
     max-width: none;
 }
 

@@ -420,7 +420,7 @@ and open the template in the editor. Base Version before all crash :-)
         <item type="IS" id="11" seq="98">
             <name>phonepersonalization</name>
             <label>Allow push background from server </label>
-            <default></default>
+            <default>0</default>
             <button value="1">Enabled</button>
             <button value="0">Disabled</button>
             <help>This needs to be enabled to allow the server to push background or ringtones to the phone in the SEPXXXXXXXXXX.cnf.xml of each phone:</help>
@@ -1362,7 +1362,7 @@ and open the template in the editor. Base Version before all crash :-)
         <item type="IS" id="11" seq="98">
             <name>phonepersonalization</name>
             <label>Allow push background from server </label>
-            <default></default>
+            <default>0</default>
             <button value="1">Enabled</button>
             <button value="0">Disabled</button>
             <help>This needs to be enabled to allow the server to push background or ringtones to the phone in the SEPXXXXXXXXXX.cnf.xml of each phone:</help>
