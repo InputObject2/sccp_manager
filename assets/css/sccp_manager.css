@@ -86,6 +86,12 @@ and open the template in the editor.
     max-width: none;
 }
 
+/* Right-aligned column for 'Use chan-sccp defaults' / 'Customise' buttons */
+.element-container .form-group > .sccp-default-col {
+    margin-left: auto;
+    flex: 0 0 auto;
+}
+
 /* All field labels same darkness and weight (avoid theme/radioset differences) */
 .element-container label.control-label {
     color: #333 !important;

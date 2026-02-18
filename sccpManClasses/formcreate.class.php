@@ -136,7 +136,7 @@ class formcreate
         <?php
                     if (!empty($sccp_defaults[$shortId]['systemdefault'] ?? '')) {
         ?>
-                    <div class="col-md-4">
+                    <div class="col-md-4 sccp-default-col">
                       <span class="radioset">
                         <input type="checkbox"
                             <?php
@@ -464,7 +464,7 @@ class formcreate
                         }
                         ?>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 sccp-default-col">
                       <span class="radioset">
                         <input type="checkbox"
                             <?php
