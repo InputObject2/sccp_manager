@@ -535,8 +535,10 @@ trait helperFunctions {
         $cnf_wr = \FreePBX::WriteConfig();
         //clear old general settings, and initiate with allow/disallow and permit/deny keys in correct order
         $conf_init['general'] = array();
+        // Default codec policy: explicitly disallow all and allow alaw
+        // to avoid generating empty 'allow=' or 'disallow=' lines in sccp.conf.
         $conf_init['general']['disallow'] = 'all';
-        $conf_init['general']['allow'] = '';
+        $conf_init['general']['allow'] = 'alaw';
         $conf_init['general']['deny'] = '0.0.0.0/0.0.0.0';
         $conf_init['general']['permit'] = '0.0.0.0/0.0.0.0';
         // permitted chan-sccp settings array
@@ -564,6 +566,12 @@ trait helperFunctions {
                     case "deny":
                     case "localnet":
                     case "permit":
+                        // Do not override defaults with an empty value – that would
+                        // create blank lines like 'allow=' or 'disallow=' which
+                        // Asterisk 22+ treats badly.
+                        if ($vData === '' || $vData === null) {
+                            break;
+                        }
                         $conf_init['general'][$key] = explode(';', $vData);
                         break;
                     case "devlang":
