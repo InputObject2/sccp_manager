@@ -1397,6 +1397,8 @@ function cleanUpSccpSettings() {
 
     // Ensure that disallow is set to all if unset (and not NULL)
     $db->query("UPDATE sccpline SET disallow = 'all' WHERE disallow like ''");
+    // Ensure empty/NULL allow gets default alaw (only alaw in settings)
+    $db->query("UPDATE sccpline SET allow = 'alaw' WHERE (allow IS NULL OR allow = '')");
 
 }
 ?>

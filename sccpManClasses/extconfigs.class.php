@@ -106,7 +106,7 @@ class extconfigs
         'deny' => '0.0.0.0/0.0.0.0',
         'permit' => '0.0.0.0/0.0.0.0', # !TODO!: please change this to 'internal' which would mean:
         'dateformat' => 'D.M.Y',
-        'disallow' => 'all', "allow" => 'alaw;ulaw',
+        'disallow' => 'all', 'allow' => 'alaw',
         'hotline_enabled' => 'off',
         'hotline_context' => 'default', # !TODO!: Should this not be from-internal on FreePBX ?
         'hotline_extension' => '*60', # !TODO!: Is this a good default extension to dial for hotline ?
