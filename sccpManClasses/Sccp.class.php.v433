@@ -133,16 +133,29 @@ class Sccp extends \FreePBX\modules\Core\Driver {
                 }
             }
         }
+        // Collect codecs from form: keys may be codec_* or devinfo_codec_* (gui_checkset)
         $allow_codec = array();
-        foreach($settings as $key => $val) {
-            if (strncmp($key,'codec_',6) === 0 ) {
-                 $allow_codec[] = str_replace('codec_','',$key);
+        foreach ($settings as $key => $val) {
+            $raw = is_array($val) && isset($val['value']) ? $val['value'] : $val;
+            if (strncmp($key, 'codec_', 6) === 0) {
+                $allow_codec[] = str_replace('codec_', '', $key);
+            } elseif (strncmp($key, 'devinfo_codec_', 14) === 0) {
+                $allow_codec[] = str_replace('devinfo_codec_', '', $key);
+            } elseif ($key === 'devinfo_sccp_codec' || $key === 'devinfo_sccp_vcodec') {
+                foreach ((array) $raw as $v) {
+                    if (strncmp($v, 'devinfo_codec_', 14) === 0) {
+                        $allow_codec[] = str_replace('devinfo_codec_', '', $v);
+                    } elseif (strncmp($v, 'codec_', 6) === 0) {
+                        $allow_codec[] = str_replace('codec_', '', $v);
+                    }
+                }
             }
         }
+        $allow_codec = array_unique(array_filter($allow_codec));
         $settings['allow']['value'] = implode(";", $allow_codec);
         // Reset to line defaults if no value selected
         if (empty($settings['allow']['value'])) {
-              $settings['allow']['value'] = $this->line_defaults['allow'] ?? '';
+            $settings['allow']['value'] = $this->line_defaults['allow'] ?? '';
         }
 
 	      // If set, parse outboundcid content into cid_num and cid_name sccpline fields
@@ -166,14 +179,24 @@ class Sccp extends \FreePBX\modules\Core\Driver {
             }
         }
 
-        // only store values that have been set; if need to display a default, must show in page.
-        $sqlSet = "name='{$id}'";
-        foreach($this->data_fld as $key => $val) {
-            if (!empty($settings[$val]['value'])) {
-                $sqlSet .= ", {$key}='{$settings[$val]['value']}'";
-            }
+        // Ensure required fields so line is valid for chan_sccp
+        if (empty($settings['label']['value'] ?? null)) {
+            $settings['label']['value'] = $id;
+        }
+        if (empty($settings['disallow']['value'] ?? null)) {
+            $settings['disallow']['value'] = $this->line_defaults['disallow'] ?? 'all';
         }
 
+        // Build SET clause with quoted values to avoid SQL injection and broken queries (e.g. quotes in display name).
+        $idEsc = $this->database->quote($id, \PDO::PARAM_STR);
+        $setParts = array("name={$idEsc}");
+        foreach ($this->data_fld as $key => $val) {
+            $v = isset($settings[$val]['value']) ? $settings[$val]['value'] : (isset($settings[$val]) ? $settings[$val] : '');
+            if ($v !== '' && $v !== null) {
+                $setParts[] = $key . '=' . $this->database->quote((string) $v, \PDO::PARAM_STR);
+            }
+        }
+        $sqlSet = implode(', ', $setParts);
         $stmt = "INSERT INTO sccpline SET {$sqlSet} ON DUPLICATE KEY UPDATE {$sqlSet}";
         $sth = $this->database->prepare($stmt);
         $sth->execute();
@@ -213,7 +236,7 @@ class Sccp extends \FreePBX\modules\Core\Driver {
         foreach($this->data_fld as $key => $val) {
                         $sql .= ", {$key} AS {$val}";
         }
-        $sql .= " FROM sccpline WHERE name = '{$id}'";
+        $sql .= " FROM sccpline WHERE name = ?";
         $sth = $this->database->prepare($sql);
         $tech = array();
         try {
