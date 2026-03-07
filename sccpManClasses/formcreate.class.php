@@ -4,6 +4,24 @@ namespace FreePBX\modules\Sccp_manager;
 
 class formcreate
 {
+    private static function normalizeQosHex($field, $value) {
+        $qosFields = array('sccp_tos', 'sccp_cos', 'audio_tos', 'audio_cos', 'video_tos', 'video_cos');
+        if (!in_array((string)$field, $qosFields, true)) {
+            return self::safeStr($value);
+        }
+        $v = trim(self::safeStr($value));
+        if ($v === '') {
+            return '';
+        }
+        if (stripos($v, '0x') === 0) {
+            return '0x' . strtoupper(substr($v, 2));
+        }
+        if (ctype_digit($v)) {
+            return '0x' . strtoupper(dechex((int)$v));
+        }
+        return $v;
+    }
+
     use \FreePBX\modules\Sccp_manager\sccpManTraits\helperFunctions;
 
     /** Escape for HTML attribute/text (XSS prevention). */
@@ -100,22 +118,45 @@ class formcreate
         <?php
         // Can have multiple inputs for a field which are displayed with a separator
         $i = 0;
+        $inputNamesIE = array();
+        $defaultMapIE = array();
+        $hasSystemDefaultIE = false;
+        $firstResNameIE = '';
+        $firstDefaultIE = '';
         foreach ($child->xpath('input') as $value) {
             $res_n = self::safeStr($value->name ?? '');
             $res_name = $npref . $res_n;
+            if ($firstResNameIE === '') {
+                $firstResNameIE = $res_name;
+            }
             $fval = $fvalues[$res_n] ?? array();
             $raw = $fval['data'] ?? '';
             $fval_data = self::safeStr($raw);
             $value->value = $fval_data;
-            if ($fval_data !== '') {
-                if (self::safeStr($sccp_defaults[$res_n]['systemdefault'] ?? '') !== $fval_data) {
-                    $usingSysDefaults = false;
+            $sysDefaultForInput = self::normalizeQosHex($res_n, $sccp_defaults[$res_n]['systemdefault'] ?? '');
+            $xmlDefaultForInput = self::normalizeQosHex($res_n, $value->default ?? '');
+            // Guard against bad chan-sccp/runtime defaults on QoS ToS fields (seen as 4/6/5 instead of 0x68/0xB8/0x88).
+            // If ToS default is not hex, prefer the XML-defined canonical default.
+            if (in_array($res_n, array('sccp_tos', 'audio_tos', 'video_tos'), true)) {
+                if ($sysDefaultForInput !== '' && stripos($sysDefaultForInput, '0x') !== 0 && stripos($xmlDefaultForInput, '0x') === 0) {
+                    $sysDefaultForInput = $xmlDefaultForInput;
                 }
+            }
+            if ($fval_data !== '' && $sysDefaultForInput !== $fval_data) {
+                $usingSysDefaults = false;
+            }
+            if ($sysDefaultForInput !== '') {
+                $hasSystemDefaultIE = true;
             }
             $value->type = self::safeStr($value->type ?? '') ?: 'text';
             $value->class = self::safeStr($value->class ?? '') ?: 'form-control';
             // Display value for input: saved value or system default when empty
-            $input_val = $fval_data !== '' ? $fval_data : (self::safeStr($sccp_defaults[$res_n]['systemdefault'] ?? '') ?: self::safeStr($value->default ?? ''));
+            $input_val = $fval_data !== '' ? self::normalizeQosHex($res_n, $fval_data) : ($sysDefaultForInput ?: $xmlDefaultForInput);
+            $inputNamesIE[] = $res_name;
+            $defaultMapIE[$res_name] = ($sysDefaultForInput !== '') ? $sysDefaultForInput : $input_val;
+            if ($firstDefaultIE === '') {
+                $firstDefaultIE = (string)$defaultMapIE[$res_name];
+            }
             if ($i > 0) {
                 echo self::safeStr($child->nameseparator);
             }
@@ -151,23 +192,26 @@ class formcreate
                         'directed_pickup_context',// Directed pickup context
                         'pickupgroup',            // Default pickup group
                     );
-                    $hasSystemDefaultIE = !empty($sccp_defaults[$shortId]['systemdefault'] ?? '');
                     $needDefaultCheckboxIE = $hasSystemDefaultIE || in_array($shortId, $forceDefaultCheckboxIE, true);
                     if ($needDefaultCheckboxIE) {
-                        // Default to the chan-sccp systemdefault when available, otherwise fall back to current input value
-                        $checkboxDefaultIE = $sccp_defaults[$res_n]['systemdefault'] ?? ($input_val ?? '');
+                        // Keep defaults per target input. First default remains as a backward-compatible fallback.
+                        $targetsIE = implode(',', $inputNamesIE);
+                        $defaultMapJsonIE = json_encode($defaultMapIE);
         ?>
                     <div class="col-md-4 sccp-default-col">
                       <span class="radioset">
                         <input type="checkbox"
                             <?php
-                            echo " data-for={$res_id} data-type=text id=usedefault_{$res_id} ";
+                            echo ' data-for="' . self::h($firstResNameIE) . '"';
+                            echo ' data-targets="' . self::h($targetsIE) . '"';
+                            echo ' data-defaults="' . self::h((string)$defaultMapJsonIE) . '"';
+                            echo ' data-default="' . self::h($firstDefaultIE) . '"';
+                            echo " data-type=text id=usedefault_{$res_id} ";
+                            // "Use chan-sccp defaults" must always use restore semantics:
+                            // checked => apply chan-sccp defaults and lock linked inputs.
+                            echo "class=sccp-restore ";
                             if ($usingSysDefaults) {
-                                // Setting a site specific value
-                                echo "class=sccp-edit :checked ";
-                            } else {
-                                // reverting to chan-sccp default values (or the current value when no explicit systemdefault exists)
-                                echo "class=sccp-restore data-default=" . self::h($checkboxDefaultIE) . " ";
+                                echo "checked ";
                             }
                             ?>
                         >
@@ -528,7 +572,7 @@ class formcreate
                             $dataDefaultIS = ($sysDefaultIS !== '') ? $sysDefaultIS : $res_v;
                             echo " data-for={$res_id} data-type=radio id=usedefault_{$res_id} ";
                             if ($usingSysDefaults) {
-                                echo " class=sccp-edit :checked ";
+                                echo " class=sccp-edit checked ";
                             } else {
                                 echo " data-default=" . self::h($dataDefaultIS) . " class=sccp-restore ";
                             }

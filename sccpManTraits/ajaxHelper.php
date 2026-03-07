@@ -3,6 +3,23 @@
 namespace FreePBX\modules\Sccp_manager\sccpManTraits;
 
 trait ajaxHelper {
+    private function normalizeQosHexValue($field, $value) {
+        $qosFields = array('sccp_tos', 'sccp_cos', 'audio_tos', 'audio_cos', 'video_tos', 'video_cos');
+        if (!in_array((string)$field, $qosFields, true)) {
+            return $value;
+        }
+        $v = trim((string)$value);
+        if ($v === '') {
+            return $v;
+        }
+        if (stripos($v, '0x') === 0) {
+            return '0x' . strtoupper(substr($v, 2));
+        }
+        if (ctype_digit($v)) {
+            return '0x' . strtoupper(dechex((int)$v));
+        }
+        return $v;
+    }
 
     public function ajaxRequest($req, &$setting) {
         // Called first by BMO. Must return true or request will be aborted.
@@ -550,7 +567,7 @@ trait ajaxHelper {
                 $key = (str_replace($hdr_prefix, '', $key, $count_mods));
                 if (($count_mods) && (!empty($this->sccpvalues[$key])) && ($this->sccpvalues[$key]['data'] != $value)) {
                         $save_settings[$key] = $this->sccpvalues[$key];
-                        $save_settings[$key]['data'] = $value;
+                        $save_settings[$key]['data'] = $this->normalizeQosHexValue($key, $value);
                 }
                 continue;
             }
@@ -562,10 +579,16 @@ trait ajaxHelper {
                 if ($count_mods) {
                     // Have default to be saved to db table default
                     $tableName_def = "{$tableName}_def";
-                    if ((array_key_exists($key, ${$tableName_def})) && (${$tableName_def}[$key]['data'] == $value)) {
+                    $normalizedValue = $this->normalizeQosHexValue($key, $value);
+                    $currentDefault = ${$tableName_def}[$key]['data'] ?? null;
+                    if ((array_key_exists($key, ${$tableName_def})) && ($this->normalizeQosHexValue($key, (string)$currentDefault) == $normalizedValue)) {
                         // Value unchanged so ignore
                     } else {
-                        $dbSaveArray[$key] = array('table' => $tableName, 'field' => $key, 'Default' => $value);
+                        $dbSaveArray[$key] = array(
+                            'table' => $tableName,
+                            'field' => $key,
+                            'Default' => $normalizedValue
+                        );
                     }
                     // If have matched on device, cannot match on line
                     continue 2;
