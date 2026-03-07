@@ -21,18 +21,25 @@ $zipPath = Join-Path $distDir $zipName
 if (Test-Path $stageDir) { Remove-Item $stageDir -Recurse -Force }
 New-Item -ItemType Directory -Path $stageDir -Force | Out-Null
 
-# Copy all files except .git and build artifacts
-$exclude = @(".git", ".gitignore", "dist", "build-module.ps1", "*.zip")
-Get-ChildItem -Path $PSScriptRoot -Force | Where-Object {
-    $name = $_.Name
-    $skip = $false
-    foreach ($e in $exclude) {
-        if ($e -like "*.*") { if ($name -like $e) { $skip = $true; break } }
-        elseif ($name -eq $e) { $skip = $true; break }
+# Copy tracked repository files only (prevents accidental packaging of local temp files)
+Push-Location $PSScriptRoot
+try {
+    $trackedFiles = git ls-files
+    if (-not $trackedFiles) { throw "git ls-files returned no files" }
+    foreach ($relPath in $trackedFiles) {
+        if ($relPath -eq "build-module.ps1") { continue }
+        if ($relPath -like "dist/*") { continue }
+        if ($relPath -like "*.zip") { continue }
+        $src = Join-Path $PSScriptRoot $relPath
+        if (-not (Test-Path $src)) { continue }
+        $dst = Join-Path $stageDir $relPath
+        $dstParent = Split-Path $dst -Parent
+        if (-not (Test-Path $dstParent)) { New-Item -ItemType Directory -Path $dstParent -Force | Out-Null }
+        Copy-Item -Path $src -Destination $dst -Force
     }
-    -not $skip
-} | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination $stageDir -Recurse -Force
+}
+finally {
+    Pop-Location
 }
 
 # Remove .git if copied by mistake

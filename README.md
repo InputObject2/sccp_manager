@@ -1,8 +1,8 @@
-# SCCP Manager
+﻿# SCCP Manager
 
 > FreePBX module for managing Cisco IP phones and SCCP extensions with Asterisk and [chan-sccp](https://github.com/chan-sccp/chan-sccp). Provisioning, buttons, BLF, multiple lines.
 
-[![English](https://img.shields.io/badge/README-English-blue)](README.md) [![Русский](https://img.shields.io/badge/README-Русский-green)](README.ru.md)
+[![English](https://img.shields.io/badge/README-English-blue)](README.md) [![Russian](https://img.shields.io/badge/README-Russian-green)](README.ru.md)
 
 **Repo:** [chan-sccp/sccp_manager](https://github.com/chan-sccp/sccp_manager)
 
@@ -18,26 +18,26 @@
 | chan-sccp | 4.3.5+ |
 | PHP extension | zip |
 
-A **patched or fixed chan-sccp build** may be required for full compatibility with this module and your Asterisk/FreePBX setup; the stock distro package is not always sufficient. See [chan-sccp](https://github.com/chan-sccp/chan-sccp) releases or community builds.
+A patched or fixed chan-sccp build may be required for full compatibility with this module and your Asterisk/FreePBX setup; the stock distro package is not always sufficient. See [chan-sccp](https://github.com/chan-sccp/chan-sccp) releases or community builds.
 
 ```bash
 apt-get install php-zip   # or php8.2-zip / php8.3-zip to match your PHP version
 ```
 
-**TFTP** (e.g. `/tftpboot`) and **DHCP** required. See [chan-sccp Wiki](https://github.com/chan-sccp/chan-sccp/wiki).
+TFTP (for example `/tftpboot`) and DHCP are required. See [chan-sccp Wiki](https://github.com/chan-sccp/chan-sccp/wiki).
 
 ---
 
 ## Installation
 
-1. FreePBX → **Admin** → **Module Admin** → **Upload Modules**.
+1. FreePBX -> **Admin** -> **Module Admin** -> **Upload Modules**.
 2. In **Download From Web** paste:
 
 ```
 https://github.com/chan-sccp/sccp_manager/archive/refs/heads/develop.zip
 ```
 
-3. **Download From Web** → **Manage Local Modules** → **SCCP Manager** → **Install** → **Process**.
+3. **Download From Web** -> **Manage Local Modules** -> **SCCP Manager** -> **Install** -> **Process**.
 4. **Apply Config**.
 
 From shell (for development):
@@ -48,7 +48,7 @@ git clone https://github.com/chan-sccp/sccp_manager.git
 fwconsole ma install sccp_manager
 ```
 
-**Detailed installation guides (RU):** [contrib/INSTALL-chan-sccp.md](contrib/INSTALL-chan-sccp.md) (chan_sccp driver), [contrib/INSTALL-sccp_manager.md](contrib/INSTALL-sccp_manager.md) (this module).
+Detailed installation guides (RU): [contrib/INSTALL-chan-sccp.md](contrib/INSTALL-chan-sccp.md) (chan_sccp driver), [contrib/INSTALL-sccp_manager.md](contrib/INSTALL-sccp_manager.md) (this module).
 
 ## Update
 
@@ -58,17 +58,27 @@ fwconsole ma upgrade sccp_manager
 
 ---
 
+## Prebuilt Package (GitHub)
+
+Direct module ZIP for upload in FreePBX:
+
+`https://github.com/timspb/sccp_manager/raw/develop/dist/sccp_manager-17.0.1.1.zip`
+
+Use in FreePBX: **Admin -> Module Admin -> Upload Modules** (or download and upload file).
+
+---
+
 ## Deployment (what install does)
 
 When you run **Install** in Module Admin, the module:
 
-1. **Checks chan-sccp** — Must be installed and running (Asterisk loads it). If not, install stops.
-2. **Backup** — Zips `extensions.conf`, `extconfig`, `res_*`, `sccp*.conf` and a DB dump under `ASTETCDIR`.
-3. **DB schema** — Creates/updates tables: `sccpdevice`, `sccpline`, `sccpdevmodel`, `sccpuser`, `sccpbuttonconfig`, `sccpsettings`. Drops old **tables** `sccpdeviceconfig` / `sccplineconfig` if present, then creates them as **VIEWs** (realtime for chan-sccp).
-4. **Realtime** — Writes `extconfig` so chan-sccp uses `sccpdeviceconfig` and `sccplineconfig`; ensures `res_config_mysql.conf` (or `res_mysql.conf`) has the DB section.
-5. **Driver** — Copies `sccp_manager/sccpManClasses/Sccp.class.php.v*` into FreePBX core drivers so Devices see SCCP.
-6. **TFTP** — Detects TFTP root (e.g. `/tftpboot`), writes rewrite rules, saves paths to `sccpsettings`. If TFTP is down or root not found, install stops.
-7. **masterFilesStructure.xml** — Fetched from provisioner into TFTP root; on failure, installs a local copy from `contrib/`.
+1. Checks chan-sccp - Must be installed and running (Asterisk loads it). If not, install stops.
+2. Backup - Zips `extensions.conf`, `extconfig`, `res_*`, `sccp*.conf` and a DB dump under `ASTETCDIR`.
+3. DB schema - Creates/updates tables: `sccpdevice`, `sccpline`, `sccpdevmodel`, `sccpuser`, `sccpbuttonconfig`, `sccpsettings`. Drops old tables `sccpdeviceconfig` / `sccplineconfig` if present, then creates them as VIEWs (realtime for chan-sccp).
+4. Realtime - Writes `extconfig` so chan-sccp uses `sccpdeviceconfig` and `sccplineconfig`; ensures `res_config_mysql.conf` (or `res_mysql.conf`) has the DB section.
+5. Driver - Copies `sccp_manager/sccpManClasses/Sccp.class.php.v*` into FreePBX core drivers so Devices see SCCP.
+6. TFTP - Detects TFTP root (for example `/tftpboot`), writes rewrite rules, saves paths to `sccpsettings`. If TFTP is down or root not found, install stops.
+7. `masterFilesStructure.xml` - Fetched from provisioner into TFTP root; on failure, installs a local copy from `contrib/`.
 
 After install: **Apply Config** in FreePBX, then configure phones and lines in **SCCP Connectivity**.
 
@@ -76,27 +86,38 @@ After install: **Apply Config** in FreePBX, then configure phones and lines in *
 
 ## Firmware / provisioner
 
-The module fetches firmware and locale files from [dkgroot/provision_sccp](https://github.com/dkgroot/provision_sccp). Files live under `tftpboot/firmware/<model>/`, e.g. [7975](https://github.com/dkgroot/provision_sccp/tree/master/tftpboot/firmware/7975) has `SCCP75.9-4-2SR3-1S.loads`. If downloads give **0 KB files** (redirect/connectivity), the code now uses `raw.githubusercontent.com` and rejects 0-byte firmware. If downloads still fail:
+The module fetches firmware and locale files from [dkgroot/provision_sccp](https://github.com/dkgroot/provision_sccp). Files live under `tftpboot/firmware/<model>/`, for example [7975](https://github.com/dkgroot/provision_sccp/tree/master/tftpboot/firmware/7975) has `SCCP75.9-4-2SR3-1S.loads`.
 
-- **Permissions:** `/tftpboot` and `admin/modules/sccp_manager/firmware` writable by the web server user (e.g. `asterisk`):  
+If downloads give 0 KB files (redirect/connectivity), the code uses `raw.githubusercontent.com` and rejects 0-byte firmware. If downloads still fail:
+
+- Permissions: `/tftpboot` and `admin/modules/sccp_manager/firmware` writable by the web server user (for example `asterisk`):
   `sudo chown -R asterisk:asterisk /tftpboot`
-- **Connectivity:** Server can reach `https://github.com` (`curl -I https://github.com`).
-- **Check script:**  
+- Connectivity: Server can reach `https://github.com` (`curl -I https://github.com`).
+- Check script:
   `bash .../sccp_manager/contrib/check_provisioner_env.sh /tftpboot`
-- **Manual download** (example for 7975):  
+- Manual download (example for 7975):
   `wget -O /tftpboot/firmware/7975/SCCP75.9-4-2SR3-1S.loads "https://raw.githubusercontent.com/dkgroot/provision_sccp/master/tftpboot/firmware/7975/SCCP75.9-4-2SR3-1S.loads"`
 
 ---
 
 ## Database (chan_sccp realtime)
 
-chan_sccp reads devices from MySQL via **extconfig** (`sccpdevice=mysql,asterisk,sccpdeviceconfig`). The module provides a **VIEW** `sccpdeviceconfig` (data from `sccpdevice` + `sccpbuttonconfig`), not a table. If `sccpdeviceconfig` was ever created as a **table** (e.g. by an old script), chan_sccp would see 0 rows and reject with "device unknown". On install/upgrade the module now runs `DROP TABLE IF EXISTS sccpdeviceconfig` before creating the view, so the view is always correct. If you see "registration reject device unknown" but the device exists in `sccpdevice`, check that `sccpdeviceconfig` is a view: `SHOW FULL TABLES WHERE Table_type = 'VIEW';` and that `SELECT name FROM sccpdeviceconfig;` returns your devices.
+chan_sccp reads devices from MySQL via extconfig (`sccpdevice=mysql,asterisk,sccpdeviceconfig`). The module provides a VIEW `sccpdeviceconfig` (data from `sccpdevice` + `sccpbuttonconfig`), not a table.
+
+If `sccpdeviceconfig` was ever created as a table (for example by an old script), chan_sccp would see 0 rows and reject with "device unknown". On install/upgrade the module runs `DROP TABLE IF EXISTS sccpdeviceconfig` before creating the view, so the view is always correct.
+
+If you see "registration reject device unknown" but the device exists in `sccpdevice`, check that `sccpdeviceconfig` is a view:
+
+```sql
+SHOW FULL TABLES WHERE Table_type = 'VIEW';
+SELECT name FROM sccpdeviceconfig;
+```
 
 ---
 
 ## Links
 
-- [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp) — driver
-- [Wiki](https://github.com/chan-sccp/chan-sccp/wiki) · [Realtime](https://github.com/chan-sccp/chan-sccp/wiki/Realtime-Configuration) · [Gitter](https://gitter.im/sccp_manager/community)
+- [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp) - driver
+- [Wiki](https://github.com/chan-sccp/chan-sccp/wiki) | [Realtime](https://github.com/chan-sccp/chan-sccp/wiki/Realtime-Configuration) | [Gitter](https://gitter.im/sccp_manager/community)
 
 **License:** GPL. See [COPYING](COPYING).
