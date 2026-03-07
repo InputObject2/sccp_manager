@@ -902,7 +902,7 @@ trait ajaxHelper {
                     $value = $get_settings["{$hdr_prefix}{$key}"];
                 }
             }
-            if (!empty($value)) {
+            if ($value !== '' && $value !== null) {
                 $save_settings[$key] = $value;
             }
         }
