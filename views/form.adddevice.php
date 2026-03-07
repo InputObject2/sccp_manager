@@ -113,7 +113,13 @@ if (!empty($def_val['type'])) {
         echo '<input type="hidden" name="sccp_deviceid" value="new">';
     } else {
         $val = str_replace(array('SEP','ATA','VG'), '', $dev_id);
-        $val = implode(':', sscanf($val, '%2s%2s%2s%2s%2s%2s')); // Convert to Cisco display Format
+        $macParts = sscanf((string) $val, '%2s%2s%2s%2s%2s%2s');
+        if (is_array($macParts) && count($macParts) === 6 && !in_array(null, $macParts, true)) {
+            $val = implode(':', $macParts); // Convert to Cisco display format
+        } else {
+            // Keep raw value if it does not match expected MAC structure.
+            $val = (string) $val;
+        }
         $def_val['mac'] = array("keyword" => 'mac', "data" => $val, "seq" => "99");
         echo '<input type="hidden" name="sccp_device_id" value="' . $this->escapeHtml($dev_id) . '">';
     }

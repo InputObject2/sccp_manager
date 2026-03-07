@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 ?>    
-<form autocomplete="off" name="frm_advanced" id="frm_adddevice" class="fpbx-submit" action="" method="post" data-id="hw_edit">
+<form autocomplete="off" name="frm_advanced" id="frm_devadvanced" class="fpbx-submit" action="" method="post" data-id="hw_edit">
     <input type="hidden" name="category" value="deviceadvanced_form">
     <input type="hidden" name="Submit" value="Submit">
     

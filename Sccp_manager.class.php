@@ -1005,7 +1005,7 @@ class Sccp_manager extends \FreePBX_Helpers implements \BMO {
             $xml_name = $this->sccppath["tftp_store_path"] . '/VG*.cnf.xml';
             array_map("unlink", glob($xml_name));
         } else {
-            if (!strpos($dev_id, 'SEP')) {
+            if (strpos((string) $dev_id, 'SEP') !== 0) {
                 return false;
             }
             $xml_name = $this->sccppath["tftp_store_path"] . '/' . $dev_id . '.cnf.xml';

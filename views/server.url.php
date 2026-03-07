@@ -6,7 +6,7 @@
  */
 ?>
 <form autocomplete="off" name="frm_url" id="frm_url" class="fpbx-submit" action="" method="post">
-    <input type="hidden" name="category" value=" deviceurlform">
+    <input type="hidden" name="category" value="deviceurlform">
     <input type="hidden" name="Submit" value="Submit">
 <?php
         echo $this->showGroup('sccp_dev_url', 1,);

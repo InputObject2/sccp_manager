@@ -295,7 +295,7 @@ class extconfigs
         } else {
             // Have a setting in sccpsettings. It should start with $tftp_path
             // If not we will replace it with $tftp_path. Avoids issues with legacy values
-            if (!strpos($settingsFromDb['tftp_rewrite_path']["data"] ?? '', $settingsFromDb['tftp_path']['data'] ?? '')) {
+            if (strpos($settingsFromDb['tftp_rewrite_path']["data"] ?? '', $settingsFromDb['tftp_path']['data'] ?? '') !== 0) {
                 $settingsFromDb['tftp_rewrite_path']['data'] = $settingsFromDb['tftp_path']['data'] ?? '/tftpboot';
             }
         }

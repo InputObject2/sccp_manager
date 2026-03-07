@@ -12,6 +12,19 @@ namespace FreePBX\modules\Sccp_manager;
 class dbinterface
 {
     private $val_null = 'NONE'; /// REPLACE to null Field
+    /** @var bool|null */
+    private $hasSccpDeviceConfigView = null;
+    /** @var array<string, array<string, bool>> */
+    private $knownTableColumns = array();
+    /** @var array<int, string> */
+    private static $allowedDefaultTables = array(
+        'sccpdevice',
+        'sccpline',
+        'sccpuser',
+        'sccpdevmodel',
+        'sccpsettings',
+        'sccpbuttonconfig',
+    );
 
     /** Integer columns per table for MariaDB strict mode (empty string -> 0 or NULL) */
     private static $integerColumns = array(
@@ -29,6 +42,65 @@ class dbinterface
     {
         $this->paren_class = $parent_class;
         $this->db = \FreePBX::Database();
+    }
+
+    private function canUseSccpDeviceConfigView()
+    {
+        if ($this->hasSccpDeviceConfigView !== null) {
+            return $this->hasSccpDeviceConfigView;
+        }
+        try {
+            $checkStmt = $this->db->prepare("SELECT 1 FROM sccpdeviceconfig LIMIT 1");
+            $checkStmt->execute();
+            $this->hasSccpDeviceConfigView = true;
+        } catch (\PDOException $e) {
+            $this->hasSccpDeviceConfigView = false;
+        }
+        return $this->hasSccpDeviceConfigView;
+    }
+
+    private function isSafeIdentifier($name)
+    {
+        return (bool) (is_string($name) && preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/', $name));
+    }
+
+    private function tableHasColumn($table, $field)
+    {
+        if (!$this->isSafeIdentifier($table) || !$this->isSafeIdentifier($field)) {
+            return false;
+        }
+        if (!isset($this->knownTableColumns[$table])) {
+            try {
+                $stmt = $this->db->prepare("DESCRIBE `{$table}`");
+                $stmt->execute();
+                $columns = array();
+                foreach ((array) $stmt->fetchAll(\PDO::FETCH_ASSOC) as $row) {
+                    if (!empty($row['Field'])) {
+                        $columns[$row['Field']] = true;
+                    }
+                }
+                $this->knownTableColumns[$table] = $columns;
+            } catch (\PDOException $e) {
+                return false;
+            }
+        }
+        return !empty($this->knownTableColumns[$table][$field]);
+    }
+
+    private function getSccpDeviceFieldList($requestedFields)
+    {
+        if (empty($requestedFields)) {
+            return 'name, name as mac, type, button, addon, description';
+        }
+        switch ((string) $requestedFields) {
+            case 'all':
+                return '*';
+            case 'sip_ext':
+                return 'button as sip_lines, description as description, addon';
+            default:
+                // Disallow arbitrary SQL field fragments from caller input.
+                return 'name, name as mac, type, button, addon, description';
+        }
     }
 
     public function info()
@@ -81,13 +153,7 @@ class dbinterface
             case 'phoneGrid':
                 // Prefer sccpdeviceconfig view; fall back to sccpdevice if view fails (missing, broken, or SQL mode)
                 $phoneGridType = $data['type'] ?? 'sccp';
-                $tableToUse = 'sccpdeviceconfig';
-                try {
-                    $checkStmt = $this->db->prepare("SELECT 1 FROM sccpdeviceconfig LIMIT 1");
-                    $checkStmt->execute();
-                } catch (\PDOException $e) {
-                    $tableToUse = 'sccpdevice';
-                }
+                $tableToUse = $this->canUseSccpDeviceConfigView() ? 'sccpdeviceconfig' : 'sccpdevice';
                 $phoneGridTable = $tableToUse;
                 if ($phoneGridType === 'cisco-sip') {
                     $stmts = $this->db->prepare("SELECT name, type, '' as button, addon, description, 'not connected' AS status, '- -' AS address, 'N' AS new_hw FROM {$tableToUse} WHERE type LIKE '%-sip' ORDER BY name");
@@ -96,44 +162,22 @@ class dbinterface
                 }
                 break;
             case 'SccpDevice':
-                if (empty($data['fields'])) {
-                    $fld = 'name, name as mac, type, button, addon, description';
-                } else {
-                    switch ($data['fields']) {
-                        case "all":
-                            $fld ='*';
-                            break;
-                        case "sip_ext":
-                            $fld ='button as sip_lines, description as description, addon';
-                            break;
-                        default:
-                            $fld = $data['fields'];
-                            break;
-                    }
-                }
+                $fld = $this->getSccpDeviceFieldList($data['fields'] ?? '');
                 if (!empty($data['name'])) {      //either filter by name or by type
                     // Check if sccpdeviceconfig view exists
-                    $tableToUse = 'sccpdeviceconfig';
-                    try {
-                        $checkStmt = $this->db->prepare("SELECT 1 FROM sccpdeviceconfig LIMIT 1");
-                        $checkStmt->execute();
-                    } catch (\PDOException $e) {
-                        $tableToUse = 'sccpdevice';
+                    $tableToUse = $this->canUseSccpDeviceConfigView() ? 'sccpdeviceconfig' : 'sccpdevice';
+                    if ($tableToUse === 'sccpdevice') {
                         $fld = str_replace('button', "'' as button", $fld);
-                    }
+                    } 
                     $stmt = $this->db->prepare('SELECT ' . $fld . ' FROM ' . $tableToUse . ' WHERE name = :name  ORDER BY name');
                     $stmt->bindValue(':name', $data['name'] ?? '', \PDO::PARAM_STR);
                 } elseif (!empty($data['type'] ?? '')) {
                     // Check if sccpdeviceconfig view exists
-                    $tableToUse = 'sccpdeviceconfig';
-                    try {
-                        $checkStmt = $this->db->prepare("SELECT 1 FROM sccpdeviceconfig LIMIT 1");
-                        $checkStmt->execute();
-                    } catch (\PDOException $e) {
-                        $tableToUse = 'sccpdevice';
+                    $tableToUse = $this->canUseSccpDeviceConfigView() ? 'sccpdeviceconfig' : 'sccpdevice';
+                    if ($tableToUse === 'sccpdevice') {
                         // Adjust field list for base table
                         $fld = str_replace('button', "'' as button", $fld);
-                    }
+                    } 
                     
                     switch ($data['type'] ?? '') {
                         case "cisco-sip":
@@ -146,14 +190,10 @@ class dbinterface
                     }
                 } else {      //no filter and no name provided - return all
                     // Check if sccpdeviceconfig view exists
-                    $tableToUse = 'sccpdeviceconfig';
-                    try {
-                        $checkStmt = $this->db->prepare("SELECT 1 FROM sccpdeviceconfig LIMIT 1");
-                        $checkStmt->execute();
-                    } catch (\PDOException $e) {
-                        $tableToUse = 'sccpdevice';
+                    $tableToUse = $this->canUseSccpDeviceConfigView() ? 'sccpdeviceconfig' : 'sccpdevice';
+                    if ($tableToUse === 'sccpdevice') {
                         $fld = str_replace('button', "'' as button", $fld);
-                    }
+                    } 
                     $stmts = $this->db->prepare("SELECT  {$fld}  FROM {$tableToUse} ORDER BY name");
                 }
                 break;
@@ -290,6 +330,7 @@ class dbinterface
 
     function getDb_model_info($get = 'all', $format_list = 'all', $filter = array())
     {
+        $stmt = null;
         $sel_inf = '*, 0 as validate';
         if ($format_list === 'model') {
             $sel_inf = "model, vendor, dns, buttons, '-;-' as validate";
@@ -341,6 +382,9 @@ class dbinterface
             default:
                 $stmt = $this->db->prepare("SELECT {$sel_inf} FROM sccpdevmodel ORDER BY model");
                 break;
+        }
+        if (!$stmt instanceof \PDOStatement) {
+            return array();
         }
         
         try {
@@ -497,8 +541,8 @@ class dbinterface
         try {
             switch ($dataid) {
                 case "DeviceById":
-                    // TODO: This needs to be rewritten
-                    $stmt = $this->db->prepare("SELECT keyword,data FROM sip WHERE id = '{$line}'");
+                    $stmt = $this->db->prepare("SELECT keyword,data FROM sip WHERE id = :id");
+                    $stmt->bindValue(':id', $line, \PDO::PARAM_STR);
                     $stmt->execute();
                     $tech = $stmt->fetchAll(\PDO::FETCH_COLUMN | \PDO::FETCH_GROUP);
                     
@@ -539,12 +583,28 @@ class dbinterface
     public function dump_sccp_tables($data_path, $database, $user, $pass)
     {
         $filename = $data_path.'/sccp_backup_'.date('G_a_m_d_y').'.sql';
-        $result = exec('mysqldump '.$database.' --password='.$pass.' --user='.$user.' --single-transaction >'.$filename, $output);
+        $cmd = 'mysqldump ' . escapeshellarg((string) $database)
+             . ' --password=' . escapeshellarg((string) $pass)
+             . ' --user=' . escapeshellarg((string) $user)
+             . ' --single-transaction >' . escapeshellarg((string) $filename);
+        $result = exec($cmd, $output);
         return $filename;
     }
 
     public function updateTableDefaults($table, $field, $value) {
-        $stmt = $this->db->prepare("ALTER TABLE {$table} ALTER COLUMN {$field} SET DEFAULT '{$value}'");
+        $table = (string) $table;
+        $field = (string) $field;
+        if (!in_array($table, self::$allowedDefaultTables, true)) {
+            throw new \InvalidArgumentException('Unsupported table for default update');
+        }
+        if (!$this->isSafeIdentifier($table) || !$this->isSafeIdentifier($field)) {
+            throw new \InvalidArgumentException('Unsafe SQL identifier');
+        }
+        if (!$this->tableHasColumn($table, $field)) {
+            throw new \InvalidArgumentException('Unknown table column');
+        }
+        $defaultValue = $this->db->quote((string) $value);
+        $stmt = $this->db->prepare("ALTER TABLE `{$table}` ALTER COLUMN `{$field}` SET DEFAULT {$defaultValue}");
         $stmt->execute();
     }
 
@@ -580,6 +640,10 @@ class dbinterface
     }
 
     public function getNamedGroup($callGroup) {
+        $callGroup = (string) $callGroup;
+        if (!$this->isSafeIdentifier($callGroup) || !$this->tableHasColumn('sccpline', $callGroup)) {
+            return array();
+        }
         $sql = "SELECT {$callGroup} FROM sccpline GROUP BY {$callGroup}";
         $sth = $this->db->prepare($sql);
         $result = array();

@@ -103,7 +103,7 @@ if (!empty($_REQUEST['ru_id'])) {
         $def_silent = '';
         $defaul_advline = '';
         $defaul_ftr = '';
-        if (strpos($defaul_btn, '@') >0) {
+        if (strpos($defaul_btn, '@') !== false) {
             $defaul_tv = 'adv.line';
             $show_form_mode = 'adv.line';
             $defaul_btn = strtok($defaul_btn, '@');
@@ -112,7 +112,7 @@ if (!empty($_REQUEST['ru_id'])) {
         if ($line_id == 0) {
             $show_form_mode = 'line';
         }
-        if (stripos($defaul_btn, '!') >0) {
+        if (stripos($defaul_btn, '!') !== false) {
             $defaul_btn = strtok($defaul_btn, '!');
             $defaul_tv = 'silent';
             $def_silent = 'checked';
@@ -125,7 +125,7 @@ if (!empty($_REQUEST['ru_id'])) {
         }
 
         foreach ($defaul_opt as $data_i) {
-            if (strpos($data_i, '@')>0) {
+            if (strpos($data_i, '@') !== false) {
                 $test_btn = strtok($data_i, '@');
                 $def_hint = 'checked';
                 $defaul_btn = $data_i;

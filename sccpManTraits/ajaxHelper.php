@@ -487,8 +487,8 @@ trait ajaxHelper {
             $save_settings['allow'] = $this->sccpvalues['allow'];
             $save_settings['allow']['data'] = $this->sccpvalues['allow']['systemdefault'];
         } else {
-            foreach ($request['audiocodecs'] as $keycodeс => $dumVal) {
-                $save_codec[] = $keycodeс;
+            foreach ($request['audiocodecs'] as $keyCodec => $dumVal) {
+                $save_codec[] = $keyCodec;
             }
             $save_settings['allow'] = $this->sccpvalues['allow'];
             $save_settings['allow']['data'] = implode(";", $save_codec);
@@ -515,14 +515,19 @@ trait ajaxHelper {
         // before handling arrays, need to see if deny and permit are set in the request
         // if they have been cleared by the users, will not be present
 
-        foreach (['deny','permit'] as $keyVal) {
-            if (!isset($request[$hdr_arprefix.$keyVal])) {
-                $tmpArr = $this->convertCsvToArray($this->sccpvalues[$keyVal]['systemdefault']);
-                if (isset($tmpArr[0]['internal'])) {
-                    $request[$hdr_arprefix.$keyVal][0] = $tmpArr[0];
-                } else {
-                    $request[$hdr_arprefix.$keyVal][1]['net'] = $tmpArr[0]['net'];
-                    $request[$hdr_arprefix.$keyVal][1]['mask'] = $tmpArr[0]['mask'];
+        // Only apply default fallback for network ACL fields when saving the general form
+        // (the form that actually owns permit/deny inputs). This prevents unrelated tabs
+        // from implicitly overwriting ACLs during partial section saves.
+        if (($request['category'] ?? '') === 'generalform') {
+            foreach (['deny','permit'] as $keyVal) {
+                if (!isset($request[$hdr_arprefix.$keyVal])) {
+                    $tmpArr = $this->convertCsvToArray($this->sccpvalues[$keyVal]['systemdefault']);
+                    if (isset($tmpArr[0]['internal'])) {
+                        $request[$hdr_arprefix.$keyVal][0] = $tmpArr[0];
+                    } elseif (!empty($tmpArr[0]['net']) || !empty($tmpArr[0]['mask'])) {
+                        $request[$hdr_arprefix.$keyVal][1]['net'] = $tmpArr[0]['net'] ?? '';
+                        $request[$hdr_arprefix.$keyVal][1]['mask'] = $tmpArr[0]['mask'] ?? '255.255.255.0';
+                    }
                 }
             }
         }
@@ -985,3 +990,4 @@ trait ajaxHelper {
     }
 }
 ?>
+

@@ -36,7 +36,7 @@ if ($dev_id != '*new*') {
 ?>
 
 
-<form autocomplete="off" name="frm_editdialtemplate" id="frm_editbuttons" class="fpbx-submit" action="" method="post" data-id="dial_template">
+<form autocomplete="off" name="frm_editdialtemplate" id="frm_editdialtemplate" class="fpbx-submit" action="" method="post" data-id="dial_template">
     
     <input type="hidden" name="idtemplate" value="<?php echo str_replace('dial', '', $dev_id);?>">
     <input type="hidden" name="Submit" value="Submit">

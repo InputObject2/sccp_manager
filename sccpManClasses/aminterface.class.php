@@ -251,7 +251,7 @@ class aminterface
     {
         $msgs = array();
         // Extract any complete messages and leave remainder for next read
-        while (($marker = strpos($this->_ProcessingMessage, aminterface\Message::EOM))) {
+        while (($marker = strpos($this->_ProcessingMessage, aminterface\Message::EOM)) !== false) {
             $msg = substr($this->_ProcessingMessage, 0, $marker);
             $this->_ProcessingMessage = substr(
                 $this->_ProcessingMessage,
@@ -304,6 +304,19 @@ class aminterface
         print_r('<br>');
     }
 
+    /**
+     * Keep AMI error handling internal and non-fatal.
+     * This prevents runtime fatals when transport/auth fails under PHP 8.2.
+     *
+     * @param string $message
+     */
+    private function _errorException($message)
+    {
+        $msg = (string) $message;
+        $this->_error[] = $msg;
+        error_log('sccp_manager aminterface: ' . $msg);
+    }
+
     private function _responseObjFromMsg($message)
     {
         $_className = false;
@@ -315,7 +328,7 @@ class aminterface
         if ($_className) {
             if (class_exists($_className, true)) {
                 $responseClass = $_className;
-            } elseif ($responseHandler != false) {
+            } elseif ($this->_lastRequestedResponseHandler != false) {
                 $this->_errorException('Response Class ' . $_className . '  requested via responseHandler, could not be found');
             }
         }
@@ -329,7 +342,8 @@ class aminterface
     public function _eventObjFromMsg($message)
     {
         $eventType = explode(aminterface\Message::EOL, $message, 2);
-        $name = trim(explode(':', $eventType[0], 2)[1]);
+        $eventHead = explode(':', $eventType[0] ?? '', 2);
+        $name = trim($eventHead[1] ?? '');
         // chan_sccp driver sends SCCPShowSoftkeySetsComplete (lowercase k); PHP class uses SoftKey (capital K)
         if ($name === 'SCCPShowSoftkeySetsComplete') {
             $name = 'SCCPShowSoftKeySetsComplete';

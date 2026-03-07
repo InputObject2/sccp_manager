@@ -717,7 +717,8 @@ function InstallDB_updateSchema($db_config)
 
     $test = $db->prepare("SELECT count(*) AS modelCount from sccpdevmodel");
     $test->execute();
-    if ($test->fetchAll()[0]['modelCount'] == count($devModelArr)) {
+    $modelCount = (int) ($test->fetchColumn() ?: 0);
+    if ($modelCount === count($devModelArr)) {
         // Appear to have a correctly populated sccpdevmodel table. Do not overwrite
         // as may contain user modifications;
         outn("<li>" . _("sccpdevmodel appears to be populated; not overwriting") . "</li>");
