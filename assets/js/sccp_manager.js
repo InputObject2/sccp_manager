@@ -1405,5 +1405,11 @@ $(".sccp-edit").click(function() {
             //Revert to original value as have unchecked customise.
             input[0].value = input[0].defaultValue;
         }
-  	}
+	}
+});
+
+// Apply "Use defaults" state on initial page render.
+// Without this, pre-checked restore checkboxes do not lock/apply values until user clicks.
+$(".sccp-restore:checked").each(function() {
+    $(this).triggerHandler("click");
 });
