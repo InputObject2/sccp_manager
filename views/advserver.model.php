@@ -165,7 +165,7 @@ $tftpBootXml = @simplexml_load_file($masterXmlPath);
 $firmwareDir = ($tftpBootXml !== false) ? $tftpBootXml->xpath("//Directory[@name='firmware']") : array();
 
 if (empty($firmwareDir)) {
-    // TFTP XML missing or invalid — use bundled list so the menu is never empty
+    // TFTP XML missing or invalid; use bundled list so the menu is never empty
     $tftpBootXml = @simplexml_load_file($bundledXmlPath);
     $firmwareDir = ($tftpBootXml !== false) ? $tftpBootXml->xpath("//Directory[@name='firmware']") : array();
 }
@@ -189,6 +189,50 @@ if (!empty($firmwareDir)) {
         }
         if (!empty($loads)) {
             $firmwareOptionsByModel[$modelName] = array_values($loads);
+        }
+    }
+}
+
+// Also include locally available firmware files (custom/manual uploads).
+// This keeps "Load Image" options usable even when master XML is stale.
+$firmwareRoot = rtrim((string)($this->sccppath['tftp_firmware_path'] ?? ''), '/');
+if ($firmwareRoot === '' && !empty($this->sccppath['tftp_path'])) {
+    $firmwareRoot = rtrim((string)$this->sccppath['tftp_path'], '/') . '/firmware';
+}
+if ($firmwareRoot !== '' && is_dir($firmwareRoot)) {
+    $modelDirs = @scandir($firmwareRoot);
+    if (is_array($modelDirs)) {
+        foreach ($modelDirs as $modelName) {
+            if ($modelName === '.' || $modelName === '..') {
+                continue;
+            }
+            $modelPath = $firmwareRoot . '/' . $modelName;
+            if (!is_dir($modelPath)) {
+                continue;
+            }
+            $files = @scandir($modelPath);
+            if (!is_array($files)) {
+                continue;
+            }
+            $localLoads = array();
+            foreach ($files as $fn) {
+                if (preg_match('/\.(loads|LOADS)$/', (string)$fn)) {
+                    $base = pathinfo((string)$fn, PATHINFO_FILENAME);
+                    $localLoads[$base] = $base;
+                }
+            }
+            if (empty($localLoads)) {
+                continue;
+            }
+            $selectArray[$modelName] = $modelName;
+            if (!isset($firmwareOptionsByModel[$modelName])) {
+                $firmwareOptionsByModel[$modelName] = array();
+            }
+            $firmwareOptionsByModel[$modelName] = array_values(array_unique(array_merge(
+                $firmwareOptionsByModel[$modelName],
+                array_values($localLoads)
+            )));
+            sort($firmwareOptionsByModel[$modelName], SORT_NATURAL | SORT_FLAG_CASE);
         }
     }
 }
@@ -253,7 +297,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
                         <label class="control-label" for="editd_loadimage"><?php echo _('Load Image');?></label>
                         <i class="fa fa-question-circle fpbx-help-icon" data-for="editd_loadimage"></i>
                     </div><div class="col-md-9">
-                        <select class="form-control" id="editd_loadimage" name="editd_loadimage"><option value="">—</option></select>
+                        <select class="form-control" id="editd_loadimage" name="editd_loadimage"><option value="">--</option></select>
                     </div> </div></div>
                     <div class="row"><div class="col-md-12">
                         <span id="editd_loadimage-help" class="help-block fpbx-help-block"><?php echo _("Firmware load image filename."); ?></span>
@@ -345,7 +389,7 @@ include($amp_conf['AMPWEBROOT'] . '/admin/modules/sccp_manager/views/getFileModa
         } else {
             document.getElementById("editd_model").value = clr;
             var loadSel = document.getElementById("editd_loadimage");
-            loadSel.innerHTML = '<option value="">—</option>';
+            loadSel.innerHTML = '<option value="">--</option>';
             var opts = firmwareByModel[clr];
             var cur = (drow['loadimage'] || '').toString();
             if (opts && opts.length) {

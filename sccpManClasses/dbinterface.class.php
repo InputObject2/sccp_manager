@@ -207,7 +207,7 @@ class dbinterface
                 $stmtU = $this->db->prepare('DESCRIBE sccpline');
                 break;
             case 'get_sccpdevice_byid':
-                $stmt = $this->db->prepare('SELECT t1.*, types.dns,  types.buttons, types.loadimage, types.nametemplate as nametemplate,
+                $stmt = $this->db->prepare('SELECT t1.*, types.dns,  types.buttons, types.loadimage, types.loadinformationid, types.nametemplate as nametemplate,
                         addon.buttons as addon_buttons FROM sccpdevice AS t1
                         LEFT JOIN sccpdevmodel as types ON t1.type=types.model
                         LEFT JOIN sccpdevmodel as addon ON t1.addon=addon.model WHERE name = :name');

@@ -394,6 +394,19 @@ class xmlinterface
             }
         }
 
+        // Ensure model-specific firmware tag is present even if template does not define it
+        // (e.g. loadInformation437 for Cisco 7975).
+        if (!empty($dev_config['loadinformationid']) && isset($dev_config['loadimage'])) {
+            $loadNode = trim((string)$dev_config['loadinformationid']);
+            if (preg_match('/^[A-Za-z_][A-Za-z0-9_.-]*$/', $loadNode)) {
+                if (isset($xml_work->$loadNode)) {
+                    $xml_work->$loadNode = (string)$dev_config['loadimage'];
+                } else {
+                    $xml_work->addChild($loadNode, (string)$dev_config['loadimage']);
+                }
+            }
+        }
+
         $this->saveXml($xml_work, $xml_name);  // Save
 
         return time();
