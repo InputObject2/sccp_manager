@@ -1,0 +1,29 @@
+<Sipis xmlns="http://acrobits.net/SipisSettings.xsd">
+  <Server Name="SipisOn${SIPIS_PUBLIC_NAME}" Address="0.0.0.0" Port="${SIPIS_SERVER_PORT}" />
+  <HttpServer Address="0.0.0.0" Port="${SIPIS_HTTP_PORT}" />
+  <Administrator UserName="${SIPIS_ADMIN_USERNAME}" Password="${SIPIS_ADMIN_PASSWORD}" />
+  <Database OpenString="host=dbsipis port=5432 dbname=sipis user=sipis password=${SIPIS_DB_PASSWORD}" />
+  <Lock FileName="/var/run/Sipis.lock"/>
+  <Log FileName="/dev/stdout" InstanceFileName="/dev/stdout" ProblematicInstancesAutomatically="Yes" Level="Debug" Stdio="Stdout">
+    <Http RequestBody="Yes"></Http>
+  </Log>
+  <NotificationServers>
+    <NotificationServer Name="*" Host="pnm.cloudsoftphone.com" Port="6552" Premium="No" RequiresTls="Yes" />
+  </NotificationServers>
+  <Instance UserAgent="Acrobits SIPIS on ${SIPIS_PUBLIC_NAME}">
+    <MaxAge Days="3" Hours="0" Minutes="0" Seconds="0" />
+    <PremiumMaxAge Days="7" Hours="0" Minutes="0" Seconds="0" />
+    <NotRegisteredMaxAge Hours="12" />
+    <AboutToExpireIn><Silent Hours="24" /><Intrusive Hours="12" /></AboutToExpireIn>
+    <AboutToExpirePeriod><Silent Hours="1" /><Intrusive Hours="11" /></AboutToExpirePeriod>
+    <KeepAlivePackets Enabled="Yes"><Period Days="0" Hours="0" Minutes="0" Seconds="30" /></KeepAlivePackets>
+  </Instance>
+  <IncomingCall><NotAnsweredMaxAge Days="0" Hours="0" Minutes="2" Seconds="0" /></IncomingCall>
+  <IncomingTextMessage>
+    <Filter>
+      <Entry Action="AcceptAndDrop" Enabled="Yes"><Header Name="Content-Type" Equal="application/im-iscomposing+xml" /></Entry>
+      <Entry Action="Reject" Enabled="Yes"><Header Name="Content-Length" UintGt="4194304" /><RejectWith Code="413" Phrase="Request Entity Too Large" /></Entry>
+    </Filter>
+  </IncomingTextMessage>
+  <PushTest><MinAge Days="7" Hours="0" Minutes="0" Seconds="0" /></PushTest>
+</Sipis>

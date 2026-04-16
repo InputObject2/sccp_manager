@@ -1,0 +1,53 @@
+services:
+  lb2:
+    image: docker.acrobits.net/releases/lb2:latest
+    container_name: lb2
+    volumes:
+      - ./certs:/certs:ro
+    ports:
+      - "24998:24998/tcp"
+      - "4998:4998/tcp"
+      - "4998:4998/udp"
+    restart: unless-stopped
+
+  dbsipis:
+    image: docker.acrobits.net/releases/dbsipis:latest
+    container_name: dbsipis
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_PASSWORD=${SIPIS_DB_PASSWORD}
+      - POSTGRES_USER=sipis
+      - POSTGRES_DB=sipis
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  sipis:
+    image: docker.acrobits.net/releases/sipis:latest
+    container_name: sipis
+    depends_on:
+      - dbsipis
+    env_file:
+      - ./.env
+    volumes:
+      - ./config:/etc/sipis
+      - /etc/ssl/certs:/etc/ssl/certs:ro
+    ports:
+      - "127.0.0.1:5000:5000"
+    restart: unless-stopped
+
+  stunnelsipis:
+    image: docker.acrobits.net/releases/stunnelsipis:latest
+    container_name: stunnelsipis
+    depends_on:
+      - sipis
+    volumes:
+      - ./certs:/certs:ro
+    ports:
+      - "443:443/tcp"
+    restart: unless-stopped
+
+networks:
+  default:
+    name: sipis_net

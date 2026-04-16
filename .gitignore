@@ -7,3 +7,8 @@ dist/
 .idea/
 .phpunit.result.cache
 SIPIS_repo/
+tmp_*
+fix_config_*.sh
+decode_supout.py
+supout_decoded/
+SCCP_Manager_Audit_PHP82.xlsx
