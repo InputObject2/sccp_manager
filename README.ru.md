@@ -12,7 +12,7 @@
 
 [![Sccp Manager](https://img.shields.io/badge/SccpGUI-build-ff69b4.svg)](https://github.com/timspb/sccp_manager)
 [![Рабочий драйвер chan-sccp](https://img.shields.io/badge/chan--sccp-driver-green.svg)](https://github.com/timspb/chan-sccp)
-[![Chan-SCCP Documentation](https://img.shields.io/badge/docs-wiki-blue.svg)](https://github.com/chan-sccp/chan-sccp/wiki)
+[![Chan-SCCP Documentation](https://img.shields.io/badge/docs-wiki-blue.svg)](https://github.com/timspb/chan-sccp/wiki)
 
 ### История
 .... давнем давно в далеком прошлом ....
@@ -58,14 +58,14 @@
 ```
 apt-get install php8.3-zip
 ```
-- Стандартные POSIX-утилиты (sed, awk, tr) и рабочая [chan-sccp](https://github.com/chan-sccp/chan-sccp)
+- Стандартные POSIX-утилиты (sed, awk, tr) и рабочая [chan-sccp](https://github.com/timspb/chan-sccp)
 ### Installation Очень короткая инструкция
 - открой полную инструкцию [Полная версия инструкции] (https://github.com/PhantomVl/sccp_manager/wiki/step-by-step-instlation)
 
 ### Installation Другие инструкции по установке :-)
 - [Setting up a FreePBX system](http://wiki.freepbx.org/display/FOP/Install+FreePBX)
-- [Setting up Chan-Sccp](https://github.com/chan-sccp/chan-sccp/wiki/How-to-setup-the-chan_sccp-Module)
-- [See chan-sccp wiki](https://github.com/chan-sccp/chan-sccp/wiki/Realtime-Configuration).
+- [Setting up Chan-Sccp](https://github.com/timspb/chan-sccp/wiki/How-to-setup-the-chan_sccp-Module)
+- [See chan-sccp wiki](https://github.com/timspb/chan-sccp/wiki/Realtime-Configuration).
 
 
 ## Установка в Веб морде 
@@ -96,15 +96,15 @@ https://github.com/timspb/sccp_manager/archive/refs/heads/develop.zip
 8. "Confirm installation".
 9. "Close" Status window.
 10. Красная кнопка "Apply" в правом верхнем углу.
-11. Далее вопрос ни одного научного труда [Using-SCCP_Manager-to-Manage-chan-sccp](https://github.com/chan-sccp/chan-sccp/wiki/Using-SCCP_Manager-to-Manage-chan-sccp)
+11. Далее вопрос ни одного научного труда [Using-SCCP_Manager-to-Manage-chan-sccp](https://github.com/timspb/chan-sccp/wiki/Using-SCCP_Manager-to-Manage-chan-sccp)
 
 ### Важно:   
    - !!! Если это это проект не заработал на твоей системе - переключись на ветку мастер [master](https://github.com/PhantomVl/sccp_manager) 
      !!! Но есть ограничение - ветка master не поддерживает изменения в chan-sccp сделаные после октября 2018 г.
-   - И чуть не забыл настраиваем Realtime-Configuration ([See](https://github.com/chan-sccp/chan-sccp/wiki/Realtime-Configuration)).
+- И чуть не забыл настраиваем Realtime-Configuration ([See](https://github.com/timspb/chan-sccp/wiki/Realtime-Configuration)).
    - Желательно иметь Firmware телефонов Cisco, языковые пакеты ну всякое разное.
    - Возможно, ты найдешь, то, что ищешь, в проекте (https://github.com/dkgroot/provision_sccp)
-   - Если что-то не так [Wiki GUI] (https://github.com/PhantomVl/sccp_manager), [Wiki chan-sccp] (https://github.com/chan-sccp/chan-sccp/wiki),
+- Если что-то не так [Wiki GUI] (https://github.com/PhantomVl/sccp_manager), [Wiki chan-sccp] (https://github.com/timspb/chan-sccp/wiki),
 
 ### Chat
 [![Gitter](https://badges.gitter.im/chan-sccp/chan-sccp.svg)](https://gitter.im/sccp_manager/community)

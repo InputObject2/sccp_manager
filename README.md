@@ -1,6 +1,6 @@
 ﻿# SCCP Manager
 
-> FreePBX module for managing Cisco IP phones and SCCP extensions with Asterisk and [chan-sccp](https://github.com/chan-sccp/chan-sccp). Provisioning, buttons, BLF, multiple lines.
+> FreePBX module for managing Cisco IP phones and SCCP extensions with Asterisk and [chan-sccp](https://github.com/timspb/chan-sccp). Provisioning, buttons, BLF, multiple lines.
 
 [![English](https://img.shields.io/badge/README-English-blue)](README.md) [![Russian](https://img.shields.io/badge/README-Russian-green)](README.ru.md)
 
@@ -18,13 +18,13 @@
 | chan-sccp | 4.3.5+ |
 | PHP extension | zip |
 
-A patched or fixed chan-sccp build may be required for full compatibility with this module and your Asterisk/FreePBX setup; the stock distro package is not always sufficient. See [chan-sccp](https://github.com/chan-sccp/chan-sccp) releases or community builds.
+A patched or fixed chan-sccp build may be required for full compatibility with this module and your Asterisk/FreePBX setup; the stock distro package is not always sufficient. See [chan-sccp](https://github.com/timspb/chan-sccp) releases or community builds.
 
 ```bash
 apt-get install php-zip   # or php8.2-zip / php8.3-zip to match your PHP version
 ```
 
-TFTP (for example `/tftpboot`) and DHCP are required. See [chan-sccp Wiki](https://github.com/chan-sccp/chan-sccp/wiki).
+TFTP (for example `/tftpboot`) and DHCP are required. See [chan-sccp Wiki](https://github.com/timspb/chan-sccp/wiki).
 
 ---
 
@@ -117,7 +117,7 @@ SELECT name FROM sccpdeviceconfig;
 
 ## Links
 
-- [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp) - driver
-- [Wiki](https://github.com/chan-sccp/chan-sccp/wiki) | [Realtime](https://github.com/chan-sccp/chan-sccp/wiki/Realtime-Configuration) | [Gitter](https://gitter.im/sccp_manager/community)
+- [timspb/chan-sccp](https://github.com/timspb/chan-sccp) - driver
+- [Wiki](https://github.com/timspb/chan-sccp/wiki) | [Realtime](https://github.com/timspb/chan-sccp/wiki/Realtime-Configuration) | [Gitter](https://gitter.im/sccp_manager/community)
 
 **License:** GPL. See [COPYING](COPYING).
