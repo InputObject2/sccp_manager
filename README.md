@@ -17,9 +17,9 @@ The stock distro build of `chan-sccp` may be too old or incomplete. Use a patche
 
 ## Working driver
 
-- Driver: [timspb/chan-sccp](https://github.com/timspb/chan-sccp)
-- Driver wiki: [timspb/chan-sccp/wiki](https://github.com/timspb/chan-sccp/wiki)
-- Upstream: [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp)
+- Driver: working chan-sccp build
+- Driver wiki: not included here
+- Upstream: original chan-sccp project
 
 ## Install the module
 
@@ -83,5 +83,5 @@ https://github.com/timspb/sccp_manager/raw/develop/dist/sccp_manager-17.0.1.1.zi
 ## Notes
 
 - This repository is the working fork used for development.
-- The original upstream project is still available at [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp).
+- The original upstream project is still available in the chan-sccp project history.
 - For this fork, keep using the links above so users do not paste an upstream URL by mistake.

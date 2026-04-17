@@ -17,9 +17,9 @@
 
 ## Рабочий драйвер
 
-- Драйвер: [timspb/chan-sccp](https://github.com/timspb/chan-sccp)
-- Wiki драйвера: [timspb/chan-sccp/wiki](https://github.com/timspb/chan-sccp/wiki)
-- Upstream: [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp)
+- Драйвер: рабочая сборка chan-sccp
+- Wiki драйвера: здесь не дублируется
+- Upstream: оригинальный проект chan-sccp
 
 ## Установка модуля
 
@@ -83,5 +83,5 @@ https://github.com/timspb/sccp_manager/raw/develop/dist/sccp_manager-17.0.1.1.zi
 ## Примечания
 
 - Этот репозиторий - рабочий форк для разработки.
-- Оригинальный upstream находится здесь: [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp).
+- Оригинальный upstream находится в истории проекта chan-sccp.
 - Для этого форка используй ссылки выше, чтобы пользователи не копировали upstream-URL по ошибке.
