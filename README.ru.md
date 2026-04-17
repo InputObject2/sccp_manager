@@ -1,111 +1,87 @@
-## Добро пожаловать странник на SCCP страницу веб интерфейса для FreePBX (SCCP Manager)
-| [English :gb:/:us:](README.md) | [Russian :ru:](README.ru.md) | [Старая страница проекта](https://github.com/timspb/sccp_manager)
+# SCCP Manager
 
-![Gif](./.dok/image/Demo_1s5.gif)
+Модуль FreePBX для телефонов Cisco по протоколу SCCP.
 
-  * [Installation](README.ru.md#installation)
-  * [Prerequisites](README.ru.md#prerequisites)
-  * [Links](README.ru.md#link)
-  * [Wiki](https://github.com/timspb/sccp_manager/wiki)
+Он управляет SCCP-extensions, кнопками телефонов, BLF, несколькими линиями, provisioning и интеграцией со страницей устройства FreePBX.
 
-## Link
+## Что нужно
 
-[![Sccp Manager](https://img.shields.io/badge/SccpGUI-build-ff69b4.svg)](https://github.com/timspb/sccp_manager)
-[![Рабочий драйвер chan-sccp](https://img.shields.io/badge/chan--sccp-driver-green.svg)](https://github.com/timspb/chan-sccp)
-[![Chan-SCCP Documentation](https://img.shields.io/badge/docs-wiki-blue.svg)](https://github.com/timspb/chan-sccp/wiki)
+- FreePBX 16 или 17
+- PHP 8.2+
+- Asterisk 21 / 22 / 23
+- `chan-sccp` 4.3.5+ из рабочей сборки
+- расширение PHP `zip`
+- TFTP и DHCP для provisioning телефонов
 
-### История
-.... давнем давно в далеком прошлом ....
-Группа программистов пыталось быстро бороться с несовершенством продуктов CISCO, но повседневные дела угробили проект.
-Но на помощь им пришел молодой программист и возродил идею уже заброшенного проекта.
-Для желающих попробовать себя в этой борьбе на просторах программирования ссылка на проект (https://github.com/Cynjut/SCCP_Manager).
+Штатная сборка `chan-sccp` из дистрибутива может быть слишком старой или неполной. Используйте рабочую сборку из ссылки ниже.
 
-### Кому это надо...
-Ну в первую очередь для Себя любимого ну и для тех, у кого есть куча телефонного хлама от компании Cisco. 
-Если вы планируете использовать Aserisk + FreePBX, то я надеюсь, что данный модуль существенно упростит управление и настройки телефонами от Cisco.
-В интернете существует замечательный проект (IMHO), который интегрирует проприетарный протокол Cisco в Asterisk, конечно, он пока далек от идеала, 
-но все же это замечательная замена серверам CCME, СCM, СUСM !
-Ну я совершенно не представляю себе, сколько времени данный проект будет поддерживаться.
+## Рабочий драйвер
 
-### Ну если ты еще с нами ...
+- Драйвер: [timspb/chan-sccp](https://github.com/timspb/chan-sccp)
+- Wiki драйвера: [timspb/chan-sccp/wiki](https://github.com/timspb/chan-sccp/wiki)
+- Upstream: [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp)
 
-Как я говорил выше, это дополнение к (Aserisk + FreePBX), но нам еще потребуется:
- 1. У меня не получилось поставить добиться работы с дисками Aserisk и FreePBX - собираем из исходников 
- 1.1. Замечательная копания freepbx. Теперь с SNG7-PBX-64bit-... все работает!
- 2. Mysql (Maria)
- 3. Драйвер протокола SCCP: **рабочая сборка** — [timspb/chan-sccp](https://github.com/timspb/chan-sccp), upstream — [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp/)
- 4. Этот модуль.
- 5. Руки
- 6. Возможно еще несколько проектов
+## Установка модуля
 
-### Вжно! В этой ветке лежат самые последне нововведения и обновления, и самые последние БАГИ! 
-    Пользуйся и наслождайся. Так же не забывай писать нам об ошибках, которые ты нашел! 
-    Это очень нам поможет, Я с радостью исправлю то, что ты нашел и добалю новых.
+### Через веб-интерфейс FreePBX
 
-### Wiki - Основные Инструкции по настройке 
-Вся документация по проекту пока лежит на старой Вики [![SCCP Manager Wiki](https://img.shields.io/badge/Wiki-new-blue.svg)](https://github.com/PhantomVl/sccp_manager/wiki)
-Вся документация по драйверу Chan-SCCP  [![SCCP Manager Wiki](https://img.shields.io/badge/Wiki-new-blue.svg)](https://github.com/chan-sccp/wiki)
+1. Открой **Admin** -> **Module Admin**.
+2. Нажми **Upload Modules**.
+3. В поле **Download From Web** вставь:
 
-Ну и как водится у на SCCP Manager это бесплатное дополнение. И помни "(C)" означает "Копия верна". Please see the file COPYING for details.
-
-
-### Prerequisites — требования к системе
-- **GUI:** FreePBX 16 или 17
-- **PHP:** 8.3 или новее
-- **Asterisk:** 12.2+ (рекомендуется 21, 22, 23)
-- **chan-sccp:** 4.3.4+ (рекомендуется 4.3.5+)
-- Расширение PHP zip (например, в Debian с PHP 8.3):
-```
-apt-get install php8.3-zip
-```
-- Стандартные POSIX-утилиты (sed, awk, tr) и рабочая [chan-sccp](https://github.com/timspb/chan-sccp)
-### Installation Очень короткая инструкция
-- открой полную инструкцию [Полная версия инструкции] (https://github.com/PhantomVl/sccp_manager/wiki/step-by-step-instlation)
-
-### Installation Другие инструкции по установке :-)
-- [Setting up a FreePBX system](http://wiki.freepbx.org/display/FOP/Install+FreePBX)
-- [Setting up Chan-Sccp](https://github.com/timspb/chan-sccp/wiki/How-to-setup-the-chan_sccp-Module)
-- [See chan-sccp wiki](https://github.com/timspb/chan-sccp/wiki/Realtime-Configuration).
-
-
-## Установка в Веб морде 
-
------
-
-1. Log in to FreePBX
-2. Go to Admin -> Module Admin
-3. Click Upload Modules.
-4. Enter one of the following urls:
-
-Мы решили, что это стабильная версия:
-
-```
-https://github.com/timspb/sccp_manager/archive/refs/heads/Legacy.zip
-```
-
-Для тех, кто ищет нового и интересного:
-
-_This is development software and so may have issues_
-```
+```text
 https://github.com/timspb/sccp_manager/archive/refs/heads/develop.zip
 ```
 
-5. Жми Download From Web.
-6. Открывай Manage Local Modules.
-7. Практически в конце списка "SCCP Manager". Тут и так понятно, выбрать "Install",  и нажать "Process".
-8. "Confirm installation".
-9. "Close" Status window.
-10. Красная кнопка "Apply" в правом верхнем углу.
-11. Далее вопрос ни одного научного труда [Using-SCCP_Manager-to-Manage-chan-sccp](https://github.com/timspb/chan-sccp/wiki/Using-SCCP_Manager-to-Manage-chan-sccp)
+4. Нажми **Download From Web**.
+5. Открой **Manage Local Modules**.
+6. Найди **SCCP Manager**.
+7. Нажми **Install**.
+8. Нажми **Process**.
+9. Дождись завершения установки.
+10. Нажми **Apply Config** в правом верхнем углу FreePBX.
 
-### Важно:   
-   - !!! Если это это проект не заработал на твоей системе - переключись на ветку мастер [master](https://github.com/PhantomVl/sccp_manager) 
-     !!! Но есть ограничение - ветка master не поддерживает изменения в chan-sccp сделаные после октября 2018 г.
-- И чуть не забыл настраиваем Realtime-Configuration ([See](https://github.com/timspb/chan-sccp/wiki/Realtime-Configuration)).
-   - Желательно иметь Firmware телефонов Cisco, языковые пакеты ну всякое разное.
-   - Возможно, ты найдешь, то, что ищешь, в проекте (https://github.com/dkgroot/provision_sccp)
-- Если что-то не так [Wiki GUI] (https://github.com/PhantomVl/sccp_manager), [Wiki chan-sccp] (https://github.com/timspb/chan-sccp/wiki),
+### Через shell
 
-### Chat
-[![Gitter](https://badges.gitter.im/chan-sccp/chan-sccp.svg)](https://gitter.im/sccp_manager/community)
+```bash
+cd /var/www/html/admin/modules
+git clone https://github.com/timspb/sccp_manager.git
+fwconsole ma install sccp_manager
+fwconsole reload
+```
 
+## Обновление
+
+```bash
+fwconsole ma upgrade sccp_manager
+fwconsole reload
+```
+
+## Готовый ZIP
+
+Если удобнее загрузить готовый пакет в FreePBX:
+
+```text
+https://github.com/timspb/sccp_manager/raw/develop/dist/sccp_manager-17.0.1.1.zip
+```
+
+## После установки
+
+1. Открой **Applications** -> **SCCP Connectivity**.
+2. Создай или отредактируй телефоны и линии.
+3. Открой страницу extension/phone и задай SCCP-параметры.
+4. После сохранения нажми **Apply Config**.
+5. При необходимости перезагрузи или перепризови телефон.
+
+## Если что-то не работает
+
+- Если FreePBX не скачивает ZIP, проверь, что ссылка ведёт на `timspb/sccp_manager`.
+- Если телефоны не provisionятся, проверь TFTP и DHCP.
+- Если регистрация не проходит, проверь, что `chan-sccp` установлен, запущен и подходит к твоей версии Asterisk.
+- Если SCCP-настройки не сохраняются, проверь актуальность версии модуля и значения во вкладке SCCP на странице устройства.
+
+## Примечания
+
+- Этот репозиторий - рабочий форк для разработки.
+- Оригинальный upstream находится здесь: [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp).
+- Для этого форка используй ссылки выше, чтобы пользователи не копировали upstream-URL по ошибке.

@@ -1,123 +1,87 @@
-﻿# SCCP Manager
+# SCCP Manager
 
-> FreePBX module for managing Cisco IP phones and SCCP extensions with Asterisk and [chan-sccp](https://github.com/timspb/chan-sccp). Provisioning, buttons, BLF, multiple lines.
+FreePBX module for Cisco SCCP phones.
 
-[![English](https://img.shields.io/badge/README-English-blue)](README.md) [![Russian](https://img.shields.io/badge/README-Russian-green)](README.ru.md)
+It manages SCCP extensions, device buttons, BLF, multiple lines, provisioning, and the FreePBX device page integration.
 
-**Repo:** [timspb/sccp_manager](https://github.com/timspb/sccp_manager) | Upstream: [chan-sccp/sccp_manager](https://github.com/chan-sccp/sccp_manager)
+## What you need
 
----
+- FreePBX 16 or 17
+- PHP 8.2+
+- Asterisk 21 / 22 / 23
+- `chan-sccp` 4.3.5+ from the working fork
+- PHP `zip` extension
+- TFTP and DHCP for phone provisioning
 
-## Requirements
+The stock distro build of `chan-sccp` may be too old or incomplete. Use a patched or working build from the fork linked below.
 
-| Component | Version |
-|-----------|---------|
-| FreePBX | 16 or 17 |
-| PHP | 8.2+ |
-| Asterisk | 21 / 22 / 23 |
-| chan-sccp | 4.3.5+ |
-| PHP extension | zip |
+## Working driver
 
-A patched or fixed chan-sccp build may be required for full compatibility with this module and your Asterisk/FreePBX setup; the stock distro package is not always sufficient. See [chan-sccp](https://github.com/timspb/chan-sccp) releases or community builds.
+- Driver: [timspb/chan-sccp](https://github.com/timspb/chan-sccp)
+- Driver wiki: [timspb/chan-sccp/wiki](https://github.com/timspb/chan-sccp/wiki)
+- Upstream: [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp)
 
-```bash
-apt-get install php-zip   # or php8.2-zip / php8.3-zip to match your PHP version
-```
+## Install the module
 
-TFTP (for example `/tftpboot`) and DHCP are required. See [chan-sccp Wiki](https://github.com/timspb/chan-sccp/wiki).
+### From FreePBX web UI
 
----
+1. Open **Admin** -> **Module Admin**.
+2. Click **Upload Modules**.
+3. In **Download From Web**, paste:
 
-## Installation
-
-1. FreePBX -> **Admin** -> **Module Admin** -> **Upload Modules**.
-2. In **Download From Web** paste:
-
-```
+```text
 https://github.com/timspb/sccp_manager/archive/refs/heads/develop.zip
 ```
 
-3. **Download From Web** -> **Manage Local Modules** -> **SCCP Manager** -> **Install** -> **Process**.
-4. **Apply Config**.
+4. Click **Download From Web**.
+5. Open **Manage Local Modules**.
+6. Find **SCCP Manager**.
+7. Click **Install**.
+8. Click **Process**.
+9. Wait for the install to finish.
+10. Click **Apply Config** in the top right corner of FreePBX.
 
-From shell (for development):
+### From shell
 
 ```bash
 cd /var/www/html/admin/modules
 git clone https://github.com/timspb/sccp_manager.git
 fwconsole ma install sccp_manager
+fwconsole reload
 ```
-
-Detailed installation guides (RU): [contrib/INSTALL-chan-sccp.md](contrib/INSTALL-chan-sccp.md) (chan_sccp driver), [contrib/INSTALL-sccp_manager.md](contrib/INSTALL-sccp_manager.md) (this module).
 
 ## Update
 
 ```bash
 fwconsole ma upgrade sccp_manager
+fwconsole reload
 ```
 
----
+## Download a ready ZIP
 
-## Prebuilt Package (GitHub)
+Use this if you want to upload a ready-made package into FreePBX:
 
-Direct module ZIP for upload in FreePBX:
-
-`https://github.com/timspb/sccp_manager/raw/develop/dist/sccp_manager-17.0.1.1.zip`
-
-Use in FreePBX: **Admin -> Module Admin -> Upload Modules** (or download and upload file).
-
----
-
-## Deployment (what install does)
-
-When you run **Install** in Module Admin, the module:
-
-1. Checks chan-sccp - Must be installed and running (Asterisk loads it). If not, install stops.
-2. Backup - Zips `extensions.conf`, `extconfig`, `res_*`, `sccp*.conf` and a DB dump under `ASTETCDIR`.
-3. DB schema - Creates/updates tables: `sccpdevice`, `sccpline`, `sccpdevmodel`, `sccpuser`, `sccpbuttonconfig`, `sccpsettings`. Drops old tables `sccpdeviceconfig` / `sccplineconfig` if present, then creates them as VIEWs (realtime for chan-sccp).
-4. Realtime - Writes `extconfig` so chan-sccp uses `sccpdeviceconfig` and `sccplineconfig`; ensures `res_config_mysql.conf` (or `res_mysql.conf`) has the DB section.
-5. Driver - Copies `sccp_manager/sccpManClasses/Sccp.class.php.v*` into FreePBX core drivers so Devices see SCCP.
-6. TFTP - Detects TFTP root (for example `/tftpboot`), writes rewrite rules, saves paths to `sccpsettings`. If TFTP is down or root not found, install stops.
-7. `masterFilesStructure.xml` - Fetched from provisioner into TFTP root; on failure, installs a local copy from `contrib/`.
-
-After install: **Apply Config** in FreePBX, then configure phones and lines in **SCCP Connectivity**.
-
----
-
-## Firmware / provisioner
-
-The module fetches firmware and locale files from [dkgroot/provision_sccp](https://github.com/dkgroot/provision_sccp). Files live under `tftpboot/firmware/<model>/`, for example [7975](https://github.com/dkgroot/provision_sccp/tree/master/tftpboot/firmware/7975) has `SCCP75.9-4-2SR3-1S.loads`.
-
-If downloads give 0 KB files (redirect/connectivity), the code uses `raw.githubusercontent.com` and rejects 0-byte firmware. If downloads still fail:
-
-- Permissions: `/tftpboot` and `admin/modules/sccp_manager/firmware` writable by the web server user (for example `asterisk`):
-  `sudo chown -R asterisk:asterisk /tftpboot`
-- Connectivity: Server can reach `https://github.com` (`curl -I https://github.com`).
-- Check script:
-  `bash .../sccp_manager/contrib/check_provisioner_env.sh /tftpboot`
-- Manual download (example for 7975):
-  `wget -O /tftpboot/firmware/7975/SCCP75.9-4-2SR3-1S.loads "https://raw.githubusercontent.com/dkgroot/provision_sccp/master/tftpboot/firmware/7975/SCCP75.9-4-2SR3-1S.loads"`
-
----
-
-## Database (chan_sccp realtime)
-
-chan_sccp reads devices from MySQL via extconfig (`sccpdevice=mysql,asterisk,sccpdeviceconfig`). The module provides a VIEW `sccpdeviceconfig` (data from `sccpdevice` + `sccpbuttonconfig`), not a table.
-
-If `sccpdeviceconfig` was ever created as a table (for example by an old script), chan_sccp would see 0 rows and reject with "device unknown". On install/upgrade the module runs `DROP TABLE IF EXISTS sccpdeviceconfig` before creating the view, so the view is always correct.
-
-If you see "registration reject device unknown" but the device exists in `sccpdevice`, check that `sccpdeviceconfig` is a view:
-
-```sql
-SHOW FULL TABLES WHERE Table_type = 'VIEW';
-SELECT name FROM sccpdeviceconfig;
+```text
+https://github.com/timspb/sccp_manager/raw/develop/dist/sccp_manager-17.0.1.1.zip
 ```
 
----
+## After install
 
-## Links
+1. Open **Applications** -> **SCCP Connectivity**.
+2. Create or edit phones and lines.
+3. Open the extension or phone page and set SCCP values.
+4. Click **Apply Config** after saving changes.
+5. Restart or reload the phone if needed.
 
-- [timspb/chan-sccp](https://github.com/timspb/chan-sccp) - driver
-- [Wiki](https://github.com/timspb/chan-sccp/wiki) | [Realtime](https://github.com/timspb/chan-sccp/wiki/Realtime-Configuration) | [Gitter](https://gitter.im/sccp_manager/community)
+## Troubleshooting
 
-**License:** GPL. See [COPYING](COPYING).
+- If FreePBX cannot install the ZIP, check that the URL points to `timspb/sccp_manager`.
+- If phones do not provision, verify TFTP and DHCP.
+- If registration fails, make sure `chan-sccp` is installed, running, and matches your Asterisk version.
+- If SCCP settings do not save, check that the module version is current and that the device page shows the SCCP tab values.
+
+## Notes
+
+- This repository is the working fork used for development.
+- The original upstream project is still available at [chan-sccp/chan-sccp](https://github.com/chan-sccp/chan-sccp).
+- For this fork, keep using the links above so users do not paste an upstream URL by mistake.
