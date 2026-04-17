@@ -171,6 +171,7 @@ if (empty($firmwareDir)) {
 }
 
 $firmwareOptionsByModel = array();
+$firmwareFilePattern = '/\.(loads|sbn|bin|zup|sbin)$/i';
 if (!empty($firmwareDir)) {
     foreach ($firmwareDir[0] as $child) {
         if ($child->getName() !== 'Directory' || empty((string)$child['name']) || (string)$child['name'] === 'firmware') {
@@ -178,11 +179,11 @@ if (!empty($firmwareDir)) {
         }
         $modelName = (string)$child['name'];
         $selectArray[$modelName] = $modelName;
-        // Build list of Load Image options (e.g. .loads base names) for this model
+        // Build list of Load Image options from the firmware files known for this model
         $loads = array();
         foreach ($child->FileName as $fn) {
             $name = (string)$fn;
-            if (preg_match('/\.(loads|LOADS)$/', $name)) {
+            if (preg_match($firmwareFilePattern, $name)) {
                 $base = pathinfo($name, PATHINFO_FILENAME);
                 $loads[$base] = $base;
             }
@@ -216,7 +217,7 @@ if ($firmwareRoot !== '' && is_dir($firmwareRoot)) {
             }
             $localLoads = array();
             foreach ($files as $fn) {
-                if (preg_match('/\.(loads|LOADS)$/', (string)$fn)) {
+                if (preg_match($firmwareFilePattern, (string)$fn)) {
                     $base = pathinfo((string)$fn, PATHINFO_FILENAME);
                     $localLoads[$base] = $base;
                 }
