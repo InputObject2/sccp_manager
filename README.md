@@ -4,7 +4,7 @@
 
 [![English](https://img.shields.io/badge/README-English-blue)](README.md) [![Russian](https://img.shields.io/badge/README-Russian-green)](README.ru.md)
 
-**Repo:** [chan-sccp/sccp_manager](https://github.com/chan-sccp/sccp_manager)
+**Repo:** [timspb/sccp_manager](https://github.com/timspb/sccp_manager) | Upstream: [chan-sccp/sccp_manager](https://github.com/chan-sccp/sccp_manager)
 
 ---
 
@@ -34,7 +34,7 @@ TFTP (for example `/tftpboot`) and DHCP are required. See [chan-sccp Wiki](https
 2. In **Download From Web** paste:
 
 ```
-https://github.com/chan-sccp/sccp_manager/archive/refs/heads/develop.zip
+https://github.com/timspb/sccp_manager/archive/refs/heads/develop.zip
 ```
 
 3. **Download From Web** -> **Manage Local Modules** -> **SCCP Manager** -> **Install** -> **Process**.
@@ -44,7 +44,7 @@ From shell (for development):
 
 ```bash
 cd /var/www/html/admin/modules
-git clone https://github.com/chan-sccp/sccp_manager.git
+git clone https://github.com/timspb/sccp_manager.git
 fwconsole ma install sccp_manager
 ```
 

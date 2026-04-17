@@ -1,12 +1,12 @@
 ## Добро пожаловать странник на SCCP страницу веб интерфейса для FreePBX (SCCP Manager)
-| [English :gb:/:us:](README.md) | [Russian :ru:](README.ru.md) | [Старая страница проекта](https://github.com/PhantomVl/sccp_manager/tree/master)
+| [English :gb:/:us:](README.md) | [Russian :ru:](README.ru.md) | [Старая страница проекта](https://github.com/timspb/sccp_manager)
 
-![Gif](https://github.com/chan-sccp/sccp_manager/raw/develop/.dok/image/Demo_1s5.gif)
+![Gif](./.dok/image/Demo_1s5.gif)
 
-  * [Installation](https://github.com/chan-sccp/sccp_manager#installation)
-  * [Prerequisites](https://github.com/chan-sccp/sccp_manager#prerequisites)
-  * [Links](https://github.com/chan-sccp/sccp_manager#link)
-  * [Wiki](https://github.com/chan-sccp/sccp_manager/wiki)
+  * [Installation](README.ru.md#installation)
+  * [Prerequisites](README.ru.md#prerequisites)
+  * [Links](README.ru.md#link)
+  * [Wiki](https://github.com/timspb/sccp_manager/wiki)
 
 ## Link
 
@@ -80,14 +80,14 @@ apt-get install php8.3-zip
 Мы решили, что это стабильная версия:
 
 ```
-https://github.com/chan-sccp/sccp_manager/archive/refs/heads/Legacy.zip
+https://github.com/timspb/sccp_manager/archive/refs/heads/Legacy.zip
 ```
 
 Для тех, кто ищет нового и интересного:
 
 _This is development software and so may have issues_
 ```
-https://github.com/chan-sccp/sccp_manager/archive/refs/heads/develop.zip
+https://github.com/timspb/sccp_manager/archive/refs/heads/develop.zip
 ```
 
 5. Жми Download From Web.
