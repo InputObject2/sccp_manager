@@ -4,6 +4,8 @@
 
 Он управляет SCCP-extensions, кнопками телефонов, BLF, несколькими линиями, provisioning и интеграцией со страницей устройства FreePBX.
 
+English version: [README.md](README.md)
+
 ## Что нужно
 
 - FreePBX 16 или 17

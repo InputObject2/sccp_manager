@@ -4,6 +4,8 @@ FreePBX module for Cisco SCCP phones.
 
 It manages SCCP extensions, device buttons, BLF, multiple lines, provisioning, and the FreePBX device page integration.
 
+Русская версия: [README.ru.md](README.ru.md)
+
 ## What you need
 
 - FreePBX 16 or 17
