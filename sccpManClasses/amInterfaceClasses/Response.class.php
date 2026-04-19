@@ -209,7 +209,7 @@ class SCCPGeneric_Response extends Response
         }
         // Unknown events will cause an exception.
         // All event classes must be defined within Event.class.
-        if (get_class($event) === 'FreePBX\modules\Sccp_manager\aminterface\UnknownEvent') {
+        if ($event instanceof UnknownEvent) {
             $this->_events[] = $event;
             return;
         }
