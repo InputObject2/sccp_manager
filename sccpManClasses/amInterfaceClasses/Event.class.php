@@ -35,6 +35,8 @@ class UnknownEvent extends Event
 {
     public function __construct($rawContent = '')
     {
+        // Keep the parsed payload consistent with the rest of the AMI event model.
+        parent::__construct($rawContent);
     }
 }
 
