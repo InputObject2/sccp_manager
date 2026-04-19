@@ -335,8 +335,9 @@ class xmlinterface
                         $ti = 1;
                         $hw_addon = explode(';', $dev_config['addon']);
                         foreach ($hw_addon as $add_key) {
-                            if (!empty($dev_config['addon_info'][$dev_config['addon']])) {
-                                $add_val = $dev_config['addon_info'][$dev_config['addon']];
+                            $addonKey = (string)($add_key ?? '');
+                            $add_val = $dev_config['addon_info'][$addonKey] ?? '';
+                            if ($add_val !== '') {
                                 $xnode_obj = $xnode->addChild('addOnModule');
                                 $xnode_obj->addAttribute('idx', $ti);
                                 $xnode_obj->addChild('loadInformation', $add_val);
@@ -665,8 +666,9 @@ class xmlinterface
                             $ti = 1;
                             $hw_addon = explode(';', $dev_config['addon']);
                             foreach ($hw_addon as $add_key) {
-                                if (!empty($dev_config['addon_info'][$dev_config['addon']])) {
-                                    $add_val = $dev_config['addon_info'][$dev_config['addon']];
+                                $addonKey = (string)($add_key ?? '');
+                                $add_val = $dev_config['addon_info'][$addonKey] ?? '';
+                                if ($add_val !== '') {
                                     $xnode_obj = $xnode->addChild('addOnModule');
                                     $xnode_obj->addAttribute('idx', $ti);
                                     $xnode_obj->addChild('loadInformation', $add_val);
