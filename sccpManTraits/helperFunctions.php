@@ -130,19 +130,20 @@ trait helperFunctions {
     }
 
     private function strpos_array($haystack, $needles) {
+        $haystack = (string)($haystack ?? '');
         if (is_array($needles)) {
             foreach ($needles as $str) {
                 if (is_array($str)) {
                     $pos = $this->strpos_array($haystack, $str);
                 } else {
-                    $pos = strpos($haystack, $str);
+                    $pos = strpos($haystack, (string)($str ?? ''));
                 }
                 if ($pos !== FALSE) {
                     return $pos;
                 }
             }
         } else {
-            return strpos($haystack, $needles);
+            return strpos($haystack, (string)($needles ?? ''));
         }
         return FALSE;
     }
@@ -178,7 +179,7 @@ trait helperFunctions {
                 // These are only used to hide fields from chan-sccp for compatibility
                 $key = trim($key,'_');
             }
-            $typeArray = explode('(', $data['Type']);
+            $typeArray = explode('(', (string)($data['Type'] ?? ''));
             if ($typeArray[0] == 'enum') {
                 $enumOptions = explode(',', trim($typeArray[1],')'));
                 $enumFields[$key] = $enumOptions;

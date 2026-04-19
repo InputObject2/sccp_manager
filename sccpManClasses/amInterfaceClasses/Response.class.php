@@ -200,8 +200,9 @@ class SCCPGeneric_Response extends Response
             // This is empty as soon as we have received a TableStart.
             // The next message is the first of the data sets
             // We use this variable in the switch to add set entries
-            if (strpos($event->getName(), 'Entry')) {
-                $thisSetEventEntryType = $event->getName();
+            $eventName = (string)($event->getName() ?? '');
+            if (strpos($eventName, 'Entry') !== false) {
+                $thisSetEventEntryType = $eventName;
             } else {
                 $thisSetEventEntryType = 'undefinedAsThisIsNotASet';
             }

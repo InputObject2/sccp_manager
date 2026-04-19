@@ -20,7 +20,7 @@ abstract class Event extends IncomingMessage
 
     public function getName()
     {
-        return $this->getKey('Event');
+        return (string)($this->getKey('Event') ?? '');
     }
 
     public function __construct($rawContent)
@@ -113,7 +113,8 @@ class SCCPShowDevice_Event extends Event
     {
         // TODO unused method - to be deleted?
         $ret = array();
-        $codecs = explode(';', substr($this->getKey('Capabilities'), 1, -1));
+        $capabilities = (string)($this->getKey('Capabilities') ?? '');
+        $codecs = explode(';', substr($capabilities, 1, -1));
         $codecs = array_filter(array_map('trim', $codecs)); // Remove empty lines and whitespace
         foreach ($codecs as $codec) {
             $codec_parts = explode(" ", trim($codec));
@@ -128,7 +129,8 @@ class SCCPShowDevice_Event extends Event
     {
         // TODO unused method - to be deleted?
         $ret = array();
-        $codecs = explode(';', substr($this->getKey('CodecsPreference'), 1, -1));
+        $codecsPref = (string)($this->getKey('CodecsPreference') ?? '');
+        $codecs = explode(';', substr($codecsPref, 1, -1));
         $codecs = array_filter(array_map('trim', $codecs)); // Remove empty lines and whitespace
         foreach ($codecs as $codec) {
             $codec_parts = explode(" ", trim($codec));
