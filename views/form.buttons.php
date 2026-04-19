@@ -94,7 +94,8 @@ if (!empty($_REQUEST['ru_id'])) {
         $show_form_mode = '';
         $defaul_tv = (empty($db_buttons[$line_id])) ?  "empty": $db_buttons[$line_id]['buttontype'];
         $defaul_btn = (empty($db_buttons[$line_id])) ?  "": $db_buttons[$line_id]['name'];
-        $defaul_opt = (empty($db_buttons[$line_id])) ?  array(''): explode(',', $db_buttons[$line_id]['options']);
+        $button_options = (string)($db_buttons[$line_id]['options'] ?? '');
+        $defaul_opt = ($button_options === '') ? array('') : explode(',', $button_options);
 
         $show_form_mode = $defaul_tv;
         $def_hint = '';       // Hint check Box
