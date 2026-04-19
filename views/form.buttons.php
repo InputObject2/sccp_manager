@@ -93,7 +93,7 @@ if (!empty($_REQUEST['ru_id'])) {
     for ($line_id = 0; $line_id <$max_buttons; $line_id ++) {
         $show_form_mode = '';
         $defaul_tv = (empty($db_buttons[$line_id])) ?  "empty": $db_buttons[$line_id]['buttontype'];
-        $defaul_btn = (empty($db_buttons[$line_id])) ?  "": $db_buttons[$line_id]['name'];
+        $defaul_btn = (empty($db_buttons[$line_id])) ?  "": (string)($db_buttons[$line_id]['name'] ?? '');
         $button_options = (string)($db_buttons[$line_id]['options'] ?? '');
         $defaul_opt = ($button_options === '') ? array('') : explode(',', $button_options);
 
