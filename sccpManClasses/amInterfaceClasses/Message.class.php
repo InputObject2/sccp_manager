@@ -41,7 +41,7 @@ abstract class Message
 
     public function getResponseHandler()
     {
-        if (strlen($this->_responseHandler) > 0) {
+        if (strlen((string)($this->_responseHandler ?? '')) > 0) {
 //            throw new AMIException('Hier:' . $this->_responseHandler);
             return (string) $this->_responseHandler;
         } else {
@@ -51,7 +51,7 @@ abstract class Message
 
     public function setResponseHandler($responseHandler)
     {
-        if (0 == strlen($responseHandler)) {
+        if (0 == strlen((string)($responseHandler ?? ''))) {
             return;
         }
         $className = '\\FreePBX\\modules\\Sccp_manager\\aminterface\\' . $responseHandler . '_Response';

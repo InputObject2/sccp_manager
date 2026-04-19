@@ -48,14 +48,19 @@ class extconfigs
                 $usesDaylight = false;
                 $haveDstNow = date('I');
                 $futureDateArray = array(2,4,6,8);
-                foreach ($futureDateArray as $numMonths) {
-                    $futureDate = (new \DateTime('now',new \DateTimeZone($index)))->modify("+{$numMonths} months");
-                    if ($futureDate->format('I') != $haveDstNow) {
-                        $usesDaylight = true;
-                        break;
-                    };
+                try {
+                    $tz = new \DateTimeZone($index);
+                    foreach ($futureDateArray as $numMonths) {
+                        $futureDate = (new \DateTime('now', $tz))->modify("+{$numMonths} months");
+                        if ($futureDate->format('I') != $haveDstNow) {
+                            $usesDaylight = true;
+                            break;
+                        }
+                    }
+                    $thisTzOffset = (new \DateTime('now', $tz))->getOffset();
+                } catch (\Throwable $e) {
+                    return array('offset' => '00', 'daylight' => '', 'cisco_code' => 'Greenwich Standard Time');
                 }
-                $thisTzOffset = (new \DateTime('now', new \DateTimeZone($index)))->getOffset();
 
                 // Now look for a match in cisco_tz_array based on offset and DST
                 // First correct offset if we have DST now as cisco offsets are
