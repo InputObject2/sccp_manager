@@ -124,8 +124,14 @@ if (!empty($_REQUEST['ru_id'])) {
 //                print_r($defaul_opt);
         }
 
+        $is_hint_button = in_array($defaul_tv, array('speeddial', 'monitor'), true);
         foreach ($defaul_opt as $data_i) {
             if (strpos($data_i, '@') !== false) {
+                if ($is_hint_button) {
+                    $def_hint = 'checked';
+                    $def_hint_btn = $data_i;
+                    continue;
+                }
                 $test_btn = strtok($data_i, '@');
                 $def_hint = 'checked';
                 $defaul_btn = $data_i;
@@ -207,6 +213,7 @@ if (!empty($_REQUEST['ru_id'])) {
                             echo '</div><div class="col-xs-5">';
 
                             echo '<select  class="form-control" name="'.$forminfo[1]['name'].$line_id.'_hline" >';
+                            echo '<option value="">--</option>';
 
                             foreach ($hint_list as $data) {
                                 $select = (($data['key']==$def_hint_btn)?"selected":"");
