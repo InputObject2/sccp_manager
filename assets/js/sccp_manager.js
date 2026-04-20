@@ -454,33 +454,38 @@ $(document).ready(function () {
     });
 
 
-    $('.button-checkbox').on('click', '', function (e) {
-        settings = {
-            true: {
-                icon: 'glyphicon glyphicon-unchecked'
-            },
-            false: {
-                icon: 'glyphicon glyphicon-check'
-            }
-        };
-        var button_1 = $('button', this);
-        var isChecked = $('input', this).is(':checked');
+    $('.button-checkbox').each(function () {
+        var container = $(this);
+        var button = container.find('button').first();
+        var checkbox = container.find('input[type="checkbox"]').first();
 
-        if (button_1.find('.state-icon').length == 0) {
-            button_1.prepend('<i class="state-icon ' + settings[isChecked].icon + '"></i> ');
-        } else {
-            button_1.find('.state-icon')
-                    .removeClass()
-                    .addClass('state-icon ' + settings[isChecked].icon);
+        if (!button.length || !checkbox.length) {
+            return;
         }
-        if (isChecked) {
-            $('input', this).removeAttr('checked');
-            button_1.removeClass('active');
-        } else {
-            $('input', this).attr('checked');
-            $('input', this).prop('checked', 'true');
-            button_1.addClass('active');
-        }
+
+        var renderState = function () {
+            var isChecked = checkbox.is(':checked');
+            button.toggleClass('active', isChecked);
+            checkbox.prop('checked', isChecked);
+            button.find('.state-icon').remove();
+            button.prepend(
+                '<i class="state-icon glyphicon ' +
+                (isChecked ? 'glyphicon-check' : 'glyphicon-unchecked') +
+                '"></i> '
+            );
+        };
+
+        button.off('click.buttonCheckbox').on('click.buttonCheckbox', function (e) {
+            e.preventDefault();
+            checkbox.prop('checked', !checkbox.is(':checked'));
+            renderState();
+        });
+
+        checkbox.off('change.buttonCheckbox').on('change.buttonCheckbox', function () {
+            renderState();
+        });
+
+        renderState();
     });
 
 

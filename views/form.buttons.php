@@ -208,9 +208,9 @@ if (!empty($_REQUEST['ru_id'])) {
                             <?php
                             echo '<div class="col-xs-5">';
                             echo '<input class="form-control" type="text" id="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_phone').'"  name="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_phone').'" placeholder="'._("Phone").'" value="'.$this->escapeHtml($defaul_opt[0] ?? '').'">';
-                            echo '</div><div class="col-xs-2 radioset" data-toggle="buttons">';
-                            echo '<input class="form-control" type="checkbox" name="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_hint').'" id="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_hint').'" '.$def_hint.' value="hint">';
-                            echo '<label for="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_hint').'">'._("hints").'</label>';
+                            echo '</div><div class="col-xs-2 radioset button-checkbox" data-toggle="buttons">';
+                            echo '<button type="button" class="btn btn-default" data-color="primary">'._("Hints").'</button>';
+                            echo '<input class="form-control" type="checkbox" name="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_hint').'" id="'.$this->escapeHtml($forminfo[1]['name'].$line_id.'_hint').'" '.$def_hint.' value="hints">';
                             echo '</div><div class="col-xs-5">';
 
                             echo '<select  class="form-control" name="'.$forminfo[1]['name'].$line_id.'_hline" >';
