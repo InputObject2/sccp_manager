@@ -493,14 +493,19 @@ class Sccp_manager extends \FreePBX_Helpers implements \BMO {
                         }
 
                         if (!empty($get_settings["button{$it}_hint"] ?? '')) {
-                            if (($get_settings["button{$it}_hint"] ?? '') == "hint") {
+                            $hintFlag = (string)($get_settings["button{$it}_hint"] ?? '');
+                            if (in_array($hintFlag, array('hint', 'hints'), true)) {
+                                $hintTarget = (string)($get_settings["button{$it}_hline"] ?? '');
+                                if ($hintTarget === '') {
+                                    $hintTarget = (string)($this->hint_context['default'] ?? '@ext-local');
+                                }
                                 if (empty($btn_n)) {
                                     $btn_t = 'line';
                                     $btn_n = ($get_settings["button{$it}_hline"] ?? '') . '!silent';
                                     $btn_opt = '';
                                 } else {
-                                    // $btn_opt .= ',' . $get_settings['button' . $it . '_hline'] . $this->hint_context['default'];
-                                    $btn_opt .= ',' . ($get_settings["button{$it}_hline"] ?? '');
+                                    // Preserve the hint context so BLF can subscribe to the target.
+                                    $btn_opt .= ',' . $hintTarget;
                                 }
                             }
                         }
@@ -957,7 +962,11 @@ class Sccp_manager extends \FreePBX_Helpers implements \BMO {
                             }
                             break;
                         case 'speeddial':
-                            $data_value['speeddial'][] = array("name" => $tmp_line[1], "dial" => $tmp_line[2]);
+                            $data_value['speeddial'][] = array(
+                                "name" => $tmp_line[1],
+                                "dial" => $tmp_line[2],
+                                "contact" => $tmp_line[3] ?? ''
+                            );
                             break;
                         default:
                             $data_value['sipfunctions'][] = $tmp_line;

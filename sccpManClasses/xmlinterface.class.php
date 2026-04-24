@@ -619,10 +619,14 @@ class xmlinterface
                                     }
                                     if (!empty($data_values['speeddial'])) {
                                         foreach ($data_values['speeddial'] as $spkey => $spvalue) {
+                                            $contact = (string)($spvalue["contact"] ?? $spvalue["dial"] ?? '');
+                                            if ($contact === '') {
+                                                $contact = (string)($spvalue["dial"] ?? '');
+                                            }
                                             $xmlstr = '<line button="' . ($ifc + 1) . '"> <featureID>22</featureID>'
                                                     . '<featureLabel>' . $spvalue["name"] . '</featureLabel>'
                                                     . '<speedDialNumber>' . $spvalue["dial"] . '</speedDialNumber>'
-                                                    . '<contact>' . $spvalue["dial"] . '</contact> <retrievalPrefix /></line>';
+                                                    . '<contact>' . $contact . '</contact> <retrievalPrefix /></line>';
                                             $xnode_obj = simplexml_load_string($xmlstr);
                                             $this->appendSimpleXmlNode($xnode->line, $xnode_obj);
                                             $ifc++;
