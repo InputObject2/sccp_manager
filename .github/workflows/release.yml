@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version from module.xml
+        id: version
+        run: |
+          VERSION=$(grep -oP '(?<=<version>)[^<]+' module.xml | head -1)
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify tag matches module.xml version
+        run: |
+          TAG="${{ steps.version.outputs.tag }}"
+          VERSION="${{ steps.version.outputs.version }}"
+          if [[ "${TAG}" != "v${VERSION}" ]]; then
+            echo "ERROR: tag ${TAG} does not match module.xml version ${VERSION}" >&2
+            exit 1
+          fi
+
+      - name: Build module archive
+        run: |
+          chmod +x build-module.sh
+          ./build-module.sh
+
+      - name: Read changelog entry for this version
+        id: changelog
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          # Extract the changelog line for this version from sccpManagerUpdater.json
+          ENTRY=$(python3 -c "
+          import json, sys
+          data = json.load(open('sccpManagerUpdater.json'))
+          changelog = data.get('changelog', '')
+          # Each entry looks like '*17.0.1.1* ...'
+          for part in changelog.split('\n'):
+              if part.startswith('*${VERSION}*'):
+                  print(part.strip())
+                  sys.exit(0)
+          print('Release v${VERSION}')
+          ")
+          echo "entry=${ENTRY}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "sccp_manager v${{ steps.version.outputs.version }}"
+          body: |
+            ## sccp_manager ${{ steps.version.outputs.version }}
+
+            FreePBX module for managing chan_sccp (SCCP/Skinny) devices.
+
+            ### Changes
+            ${{ steps.changelog.outputs.entry }}
+
+            ### Installation
+            In FreePBX: **Admin → Module Admin → Upload Modules** → select the `.tar.gz` below,
+            then click **Process** and **Confirm**.
+
+            Alternatively via CLI:
+            ```bash
+            fwconsole ma install sccp_manager
+            fwconsole reload
+            ```
+          files: dist/sccp_manager-${{ steps.version.outputs.version }}.tar.gz
+          fail_on_unmatched_files: true
