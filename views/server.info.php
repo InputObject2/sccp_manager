@@ -57,17 +57,15 @@ if (!empty($this->sccpvalues['SccpDBmodel'])) {
 }
 
 exec('in.tftpd -V', $tftpInfo);
-$tftpParts = array();
+$tftpFeature = '';
 $info['TFTP Server'] = array('Version' => 'Not Found', 'about' => 'Mapping not available');
 
 if (isset($tftpInfo[0])) {
-    $tftpParts = explode(',', $tftpInfo[0]);
-    $info['TFTP Server'] = array('Version' => $tftpParts[0] ?? '', 'about' => 'Mapping not available');
-    if (isset($tftpParts[1])) {
-        $tftpParts[1] = trim($tftpParts[1]);
-        if ($tftpParts[1] === 'with remap') {
-            $info['TFTP Server'] = array('Version' => $tftpParts[0] ?? '', 'about' => $tftpParts[1]);
-        }
+    $tftpInfo = array_map('trim', explode(',', $tftpInfo[0], 2));
+    $info['TFTP Server'] = array('Version' => $tftpInfo[0], 'about' => 'Mapping not available');
+    $tftpFeature = $tftpInfo[1] ?? '';
+    if (strpos($tftpFeature, 'with remap') !== false) {
+        $info['TFTP Server'] = array('Version' => $tftpInfo[0], 'about' => $tftpFeature);
     }
 }
 
@@ -78,7 +76,7 @@ if (!empty($this->sccpvalues['tftp_rewrite']['data'])) {
           $info['Provision_SCCP'] = array('Version' => 'base', 'about' => 'Provision Sccp enabled');
           break;
       default:
-          if (isset($tftpParts[1]) && $tftpParts[1] === 'with remap') {
+          if (strpos($tftpFeature, 'with remap') !== false) {
               $info['TFTP_Mapping'] = array('Version' => 'off', 'about' => "TFTP mapping is available but the mapping file is not included in tftpd-hpa default settings.<br>
                                             To enable Provision mode, add option <br>
                                             -m /etc/asterisk/sccpManagerRewrite.rules <br>
