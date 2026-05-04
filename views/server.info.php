@@ -14,14 +14,12 @@ $core = $this->aminterface->getSCCPVersion();
 $ast_realtime = $this->aminterface->getRealTimeStatus();
 
 //$ast_realm = (empty($ast_realtime['sccp']) ? '' : 'sccp');
-
-// if there are multiple connections, this will only return the first.
 $ast_realm = '';
-if (is_array($ast_realtime)) {
-    foreach ($ast_realtime as $key => $value) {
-        if ($ast_realm === '' && isset($value['status']) && $value['status'] === 'OK') {
+// if there are multiple connections, this will only return the first.
+foreach ($ast_realtime as $key => $value) {
+    if (empty($ast_realm)) {
+        if ($value['status'] === 'OK') {
             $ast_realm = $key;
-            break;
         }
     }
 }
@@ -38,14 +36,23 @@ $info['extconfigs'] = $this->extconfigs->info();
 $info['dbinterface'] = $this->dbinterface->info();
 $info['aminterface'] = $this->aminterface->info();
 $info['XML'] = $this->xmlinterface->info();
-$info['sccp_class'] = $driver['sccp'] ?? '';
-$coreVersion = $core['Version'] ?? '';
+$sccpDriver = $driver['sccp'] ?? null;
+if ($sccpDriver !== null) {
+    $info['sccp_class'] = $sccpDriver;
+} else {
+    $info['sccp_class'] = array('Version' => 'Not loaded', 'about' => '<div class="alert signature alert-danger">The chan-sccp driver is not loaded in Asterisk. Ensure chan_sccp.so is installed and loaded (<code>asterisk -rx "module load chan_sccp.so"</code>).</div>');
+}
+$coreVersion = $core['Version'] ?? null;
 $coreVCode = $core['vCode'] ?? '';
-$coreRev = $core['RevisionNum'] ?? '';
-$coreHash = $core['RevisionHash'] ?? '';
-$coreBuildInfo = $core['buildInfo'] ?? array();
-$info['Core_sccp'] = array('Version' => $coreVersion,
-                            'about' => "Sccp ver: {$coreVersion}   r{$coreVCode}   Revision: {$coreRev}   Hash: {$coreHash}");
+$coreRevNum = $core['RevisionNum'] ?? '';
+$coreRevHash = $core['RevisionHash'] ?? '';
+$coreBuildInfo = isset($core['buildInfo']) && is_array($core['buildInfo']) ? $core['buildInfo'] : [];
+if ($coreVersion === null) {
+    $info['Core_sccp'] = array('Version' => 'Unavailable', 'about' => '<div class="alert signature alert-danger">Could not retrieve chan-sccp version. The module may not be running.</div>');
+} else {
+    $info['Core_sccp'] = array('Version' => $coreVersion,
+                                'about' => "Sccp ver: {$coreVersion}   r{$coreVCode}   Revision: {$coreRevNum}   Hash: {$coreRevHash}");
+}
 $capabilityArray = array( "park", "pickup", "realtime", "video", "conference", "dirtrfr", "feature_monitor", "functions", "manager_events",
                           "devicestate", "devstate_feature", "dynamic_speeddial", "dynamic_speeddial_cid", "experimental", "debug");
 
@@ -57,17 +64,15 @@ if (!empty($this->sccpvalues['SccpDBmodel'])) {
 }
 
 exec('in.tftpd -V', $tftpInfo);
-$tftpParts = array();
+$tftpFeature = '';
 $info['TFTP Server'] = array('Version' => 'Not Found', 'about' => 'Mapping not available');
 
 if (isset($tftpInfo[0])) {
-    $tftpParts = explode(',', $tftpInfo[0]);
-    $info['TFTP Server'] = array('Version' => $tftpParts[0] ?? '', 'about' => 'Mapping not available');
-    if (isset($tftpParts[1])) {
-        $tftpParts[1] = trim($tftpParts[1]);
-        if ($tftpParts[1] === 'with remap') {
-            $info['TFTP Server'] = array('Version' => $tftpParts[0] ?? '', 'about' => $tftpParts[1]);
-        }
+    $tftpInfo = array_map('trim', explode(',', $tftpInfo[0], 2));
+    $info['TFTP Server'] = array('Version' => $tftpInfo[0], 'about' => 'Mapping not available');
+    $tftpFeature = $tftpInfo[1] ?? '';
+    if (strpos($tftpFeature, 'with remap') !== false) {
+        $info['TFTP Server'] = array('Version' => $tftpInfo[0], 'about' => $tftpFeature);
     }
 }
 
@@ -78,7 +83,7 @@ if (!empty($this->sccpvalues['tftp_rewrite']['data'])) {
           $info['Provision_SCCP'] = array('Version' => 'base', 'about' => 'Provision Sccp enabled');
           break;
       default:
-          if (isset($tftpParts[1]) && $tftpParts[1] === 'with remap') {
+          if (strpos($tftpFeature, 'with remap') !== false) {
               $info['TFTP_Mapping'] = array('Version' => 'off', 'about' => "TFTP mapping is available but the mapping file is not included in tftpd-hpa default settings.<br>
                                             To enable Provision mode, add option <br>
                                             -m /etc/asterisk/sccpManagerRewrite.rules <br>
@@ -95,61 +100,58 @@ if (!empty($this->sccpvalues['tftp_rewrite']['data'])) {
 $info['Сompatible'] = array('Version' => $compatible, 'about' => 'Ok');
 if (!empty($this->sccpvalues['SccpDBmodel'])) {
     if ($compatible > $this->sccpvalues['SccpDBmodel']['data']) {
-        $info['Сompatible']['about'] = 'Reinstall SCCP manager required';
+        $info['Сompatible']['about'] = '<div class="alert signature alert-danger"> Reinstall SCCP manager required</div>';
     }
 }
 if ($db_Schema == 0) {
-    $info['DB_Schema'] = array('Version' => 'Error', 'about' => 'ERROR DB Version');
+    $info['DB_Schema'] = array('Version' => 'Error', 'about' => '<div class="alert signature alert-danger"> ERROR DB Version </div>');
 } else {
     $info['DB_Schema'] = array('Version' => $db_Schema, 'about' => (($compatible == $db_Schema ) ? 'Ok' : 'Incompatible Version'));
 }
 
 if (empty($ast_realtime)) {
-    $info['RealTime'] = array('Version' => 'Error', 'about' => 'No RealTime connections found');
+    $info['RealTime'] = array('Version' => 'Error', 'about' => '<div class="alert signature alert-danger"> No RealTime connections found</div>');
 } else {
     $rt_info = '';
     $rt_sccp = 'Failed';
     foreach ($ast_realtime as $key => $value) {
-        $vStatus = $value['status'] ?? '';
-        $vRealm = $value['realm'] ?? '';
-        $vMessage = $value['message'] ?? '';
         if ($key == $ast_realm) {
-            if ($vStatus == 'OK') {
+            if ($value['status'] == 'OK') {
                 $rt_sccp = 'TEST OK';
-                $rt_info .= ($rt_info !== '' ? "\n" : '') . 'Using SCCP connection found to database: ' . htmlspecialchars($vRealm) . ' with connector: [' . htmlspecialchars($key) . ']';
+                $rt_info .= '<div> Using SCCP connection found to database: '.$value['realm'] . ' with connector: ['. $key .']</div>';
             } else {
                 $rt_sccp = 'SCCP ERROR';
-                $rt_info .= ($rt_info !== '' ? "\n" : '') . 'Error: ' . htmlspecialchars($vMessage);
+                $rt_info .= '<div class="alert signature alert-danger"> Error : ' . $value['message'] . '</div>';
             }
-        } elseif ($vStatus == 'ERROR') {
-            $rt_info .= ($rt_info !== '' ? "\n" : '') . 'No connector found for [' . htmlspecialchars($key) . ']: ' . htmlspecialchars($vMessage);
-        } elseif ($vStatus == 'OK') {
-            $rt_info .= ($rt_info !== '' ? "\n" : '') . 'Alternative connector found to database ' . htmlspecialchars($vRealm) . ' with connector: [' . htmlspecialchars($key) . ']';
+        } elseif ($value['status'] == 'ERROR') {
+            $rt_info .= '<div> No connector found for [' . $key . '] : ' . $value['message'] . '</div>';
+        } elseif ($value['status'] == 'OK') {
+            $rt_info .= '<div> Alternative connector found to database '.$value['realm'] . ' with connector: ['. $key . '] </div>';
         }
     }
     $info['RealTime'] = array('Version' => $rt_sccp, 'about' => $rt_info);
 }
-$phpVer = phpversion();
-$info['PHP'] = array('Version' => $phpVer, 'about' => version_compare($phpVer, '8.2.0', '>=') ? 'OK' : 'PHP 8.2+ required for FreePBX 16/17');
-$mariaDbInfo = exec('mysql -V');
-$mariaParts = $mariaDbInfo ? explode(' ', $mariaDbInfo) : array();
-$info['MariaDb'] = array('Version' => isset($mariaParts[3]) ? $mariaParts[3] : 'n/a', 'about' => $mariaDbInfo ?: 'mysql not in PATH');
+// There are potential issues with string Type Declarations in PHP 5.
+$info['PHP'] = array('Version' => phpversion(), 'about' => version_compare(phpversion(), '7.0.0', '>' ) ? 'OK' : 'PHP 7 Preferred - Please upgrade if possible');
+$mariaDbInfo = exec('mysql -V') ?: '';
+$mariaDbParts = explode(' ', $mariaDbInfo);
+$info['MariaDb'] = array('Version' => $mariaDbParts[3] ?? 'unknown', 'about' => $mariaDbInfo);
 
 if (empty($conf_realtime)) {
-    $info['ConfigsRealTime'] = array('Version' => 'Error', 'about' => 'Realtime configuration was not found');
+    $info['ConfigsRealTime'] = array('Version' => 'Error', 'about' => '<div class="alert signature alert-danger"> Realtime configuration was not found</div>');
 } else {
     $rt_info = '';
     foreach ($conf_realtime as $key => $value) {
         if (($value != 'OK') && ($key != 'extconfigfile')) {
-            $rt_info .= ($rt_info !== '' ? "\n" : '') . 'Found error in section ' . $this->escapeHtml($key) . ': ' . $this->escapeHtml($value);
+            $rt_info .= '<div> Found error in section ' . $key . ' :' . $value . '</div>';
         }
     }
     if (!empty($rt_info)) {
         $info['ConfigsRealTime'] = array('Version' => 'Error', 'about' => $rt_info);
     }
 }
-// $mysql_info - SHOW VARIABLES returns Variable_name, Value (or similar)
-if (!empty($mysql_info) && isset($mysql_info['Value']) && $mysql_info['Value'] <= '2000') {
+// $mysql_info
+if (($mysql_info['Value'] ?? '0') <= '2000') {
     $this->info_warning['MySql'] = array('Increase Mysql Group Concat Max. Length', 'Step 1: Go to mysql path <br> nano /etc/my.cnf',
         'Step 2: And add the following line below [mysqld] as shown below <br> [mysqld] <br>group_concat_max_len = 4096 or more',
         'Step 3: Save and restart <br> systemctl restart mariadb.service<br> Or <br> service mysqld restart');
@@ -159,11 +161,11 @@ if (!empty($mysql_info) && isset($mysql_info['Value']) && $mysql_info['Value'] <
 // Check Time Zone compatibility
 $conf_tz = $this->sccpvalues['ntp_timezone']['data'] ?? '';
 $cisco_tz = $this->extconfigs->getExtConfig('sccp_timezone', $conf_tz);
-if (isset($cisco_tz['offset']) && $cisco_tz['offset'] == 0) {
+if (($cisco_tz['offset'] ?? 0) == 0) {
     if (!empty($conf_tz)) {
         $tmp_dt = new DateTime('now', new DateTimeZone($conf_tz));
         $tmp_ofset = $tmp_dt->getOffset();
-        if (isset($cisco_tz['offset']) && ($cisco_tz['offset'] != ($tmp_ofset / 60) )) {
+        if ((($cisco_tz['offset'] ?? 0) != ($tmp_ofset / 60) )) {
             $this->info_warning['NTP'] = array('The selected NTP time zone is not supported by cisco devices.', 'We will use the Greenwich Time zone');
         }
     }
@@ -174,22 +176,22 @@ if (!empty($this->info_warning)) {
     <div class="fpbx-container container-fluid">
         <div class="row">
             <div class="container">
-                <h2 style="border:2px solid Tomato;color:Tomato;" ><?php echo _("Sccp Manager Warning"); ?></h2>
+                <h2 style="border:2px solid Tomato;color:Tomato;" >Sccp Manager Warning</h2>
                 <div class="table-responsive">
-                    <br> <?php echo _("There are Warning in the SCCP Module:"); ?><br><pre>
+                    <br> There are Warning in the SCCP Module:<br><pre>
                         <?php
                         foreach ($this->info_warning as $key => $value) {
-                            echo '<h3>' . $this->escapeHtml($key) . '</h3>';
+                            echo '<h3>' . $key . '</h3>';
                             if (is_array($value)) {
-                                echo '<li>' . $this->escapeHtml(_(implode('</li><li>', $value))) . '</li>';
+                                echo '<li>' . _(implode('</li><li>', $value)) . '</li>';
                             } else {
-                                echo '<li>' . $this->escapeHtml(_($value)) . '</li>';
+                                echo '<li>' . _($value) . '</li>';
                             }
                             echo '<br>';
                         }
                         ?>
                     </pre>
-                    <br><h4 style="border:2px solid Tomato;color:Green;" > <?php echo _("Check these problems before continuing to work."); ?></h4> <br>
+                    <br><h4 style="border:2px solid Tomato;color:Green;" > Check these problems before continuing to work.</h4> <br>
                 </div>
             </div>
         </div>
@@ -203,13 +205,13 @@ if (!empty($this->class_error)) {
     <div class="fpbx-container container-fluid">
         <div class="row">
             <div class="container">
-                <h2 style="border:2px solid Tomato;color:Tomato;" ><?php echo _("Diagnostic information about SCCP Manager errors"); ?></h2>
+                <h2 style="border:2px solid Tomato;color:Tomato;" >Diagnostic information about SCCP Manager errors</h2>
                 <div class="table-responsive">
-                    <br> <?php echo _("There is an error in the module:"); ?><br><pre>
-    <?php echo $this->escapeHtml(print_r($this->class_error, true)); ?>
+                    <br> There is an error in the :<br><pre>
+    <?php print_r($this->class_error); ?>
                     </pre>
-                    <br> <?php echo _("Correct these problems before continuing to work."); ?> <br>
-                    <br><h3 style="border:2px solid Tomato;color:Green;" > <?php echo _("Open 'SCCP Connectivity' -> Server Config' to change global settings"); ?></h3> <br>
+                    <br> Correct these problems before continuing to work. <br>
+                    <br><h3 style="border:2px solid Tomato;color:Green;" > Open 'SCCP Connectivity' -> Server Config' to change global settings</h3> <br>
                 </div>
             </div>
         </div>
@@ -219,20 +221,20 @@ if (!empty($this->class_error)) {
 <div class="fpbx-container container-fluid">
     <div class="row">
         <div class="container">
-            <h2><?php echo _("Sccp Manager"); ?> v<?php echo $this->escapeHtml((string) $moduleXml->version); ?> <?php echo _("Info"); ?> </h2>
+            <h2>Sccp Manager v<?php print_r((string) $moduleXml->version); ?> Info </h2>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th><?php echo _("Module"); ?></th>
-                            <th><?php echo _("Version"); ?></th>
-                            <th><?php echo _("Info"); ?></th>
+                            <th>Module</th>
+                            <th>Version</th>
+                            <th>Info</th>
                         </tr>
                     </thead>
                     <tbody>
 <?php
 foreach ($info as $key => $value) {
-    echo '<tr><td>' . $this->escapeHtml($key) . '</td><td>' . $this->escapeHtml($value['Version'] ?? '') . '</td><td>' . $this->escapeHtml($value['about'] ?? '') . '</td></tr>';
+    echo '<tr><td>' . $key . '</td><td>' . $value['Version'] . '</td><td>' . $value['about'] . '</td></tr>';
 }
 ?>
                     </tbody>
